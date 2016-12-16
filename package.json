@@ -166,7 +166,7 @@
     }
   },
   "dllPlugin": {
-    "path": "node_modules/react-boilerplate-dlls",
+    "path": "node_modules/canlaw-dlls",
     "exclude": [
       "chalk",
       "compression",
