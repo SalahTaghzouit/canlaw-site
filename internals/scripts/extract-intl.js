@@ -1,7 +1,6 @@
-/* eslint-disable */
 /**
  * This script will extract the internationalization messages from all components
-   and package them in the translation json files in the translations file.
+ * and package them in the translation json files in the translations file.
  */
 const fs = require('fs');
 const nodeGlob = require('glob');
@@ -11,6 +10,9 @@ const animateProgress = require('./helpers/progress');
 const addCheckmark = require('./helpers/checkmark');
 
 const pkg = require('../../package.json');
+const presets = pkg.babel.presets;
+const plugins = pkg.babel.plugins || [];
+
 const i18n = require('../../app/i18n');
 import { DEFAULT_LOCALE } from '../../app/containers/App/constants';
 
@@ -35,7 +37,7 @@ const task = (message) => {
     clearTimeout(progress);
     return addCheckmark(() => newLine());
   }
-}
+};
 
 // Wrap async functions below into a promise
 const glob = (pattern) => new Promise((resolve, reject) => {
@@ -76,16 +78,28 @@ for (const locale of locales) {
   }
 }
 
+/**
+ * push `react-intl` plugin to the existing plugins that are already configured in `package.json`
+ *   Example:
+ *   ```
+ *  "babel": {
+ *    "plugins": [
+ *      ["transform-object-rest-spread", { "useBuiltIns": true }]
+ *    ],
+ *    "presets": [
+ *      "latest",
+ *      "react"
+ *    ]
+ *  }
+ *  ```
+ */
+plugins.push(['react-intl']);
+
 const extractFromFile = async (fileName) => {
   try {
     const code = await readFile(fileName);
     // Use babel plugin to extract instances where react-intl is used
-    const { metadata: result } = await transform(code, {
-      presets: pkg.babel.presets,
-      plugins: [
-        ['react-intl'],
-      ],
-    });
+    const { metadata: result } = await transform(code, { presets, plugins }); // object-shorthand
     for (const message of result['react-intl'].messages) {
       for (const locale of locales) {
         const oldLocaleMapping = oldLocaleMappings[locale][message.id];

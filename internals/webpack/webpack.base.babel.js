@@ -15,7 +15,7 @@ module.exports = (options) => ({
     loaders: [{
       test: /\.js$/, // Transform all .js files required somewhere with Babel
       loader: 'babel',
-      exclude: /node_modules/,
+      exclude: /node_modules(?!\/canlaw-components)/,
       query: options.babelQuery,
     }, {
       test: /\.scss$/,
@@ -80,6 +80,9 @@ module.exports = (options) => ({
       // react environment variables
       'window.env': {
         appUrl: JSON.stringify(`${process.env.APP_URL}`),
+        blogUrl: JSON.stringify(`${process.env.BLOG_URL}`),
+        loginUrl: JSON.stringify(`${process.env.LOGIN_URL}`),
+        registerUrl: JSON.stringify(`${process.env.REGISTER_URL}`),
       },
     }),
     new webpack.NamedModulesPlugin(),

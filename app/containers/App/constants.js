@@ -10,3 +10,5 @@
  */
 
 export const DEFAULT_LOCALE = 'en';
+export const SHOW_LOADING = 'canlaw/App/SHOW_LOADING';
+export const HIDE_LOADING = 'canlaw/App/HIDE_LOADING';
