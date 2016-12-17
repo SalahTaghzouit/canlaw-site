@@ -1,3 +1,9 @@
+## Code:
+Copyright (c) 2016 Aladin Bouzerd
+
+
+
+## React Boilerplate
 The MIT License (MIT)
 
 Copyright (c) 2016 Maximilian Stoiber

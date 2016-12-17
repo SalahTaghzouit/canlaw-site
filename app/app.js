@@ -26,20 +26,22 @@ import { makeSelectLocationState } from 'containers/App/selectors';
 // Import Language Provider
 import LanguageProvider from 'containers/LanguageProvider';
 
-// Load the favicon, the manifest.json file and the .htaccess file
+// Import Identity Provider
+import Identity from 'containers/Identity';
+
+// Load the favicon, the manifest.json
 /* eslint-disable import/no-unresolved, import/extensions */
 import '!file?name=[name].[ext]!./favicon.ico';
 import '!file?name=[name].[ext]!./manifest.json';
-import 'file?name=[name].[ext]!./.htaccess';
 /* eslint-enable import/no-unresolved, import/extensions */
+
+// Styles
+import 'canlaw-components/global-styles';
 
 import configureStore from './store';
 
 // Import i18n messages
 import { translationMessages } from './i18n';
-
-// Import CSS reset and Global Styles
-import './global-styles';
 
 // Import root routes
 import createRoutes from './routes';
@@ -68,15 +70,17 @@ const render = (messages) => {
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={messages}>
-        <Router
-          history={history}
-          routes={rootRoute}
-          render={
-            // Scroll to top when going to a new page, imitating default browser
-            // behaviour
-            applyRouterMiddleware(useScroll())
-          }
-        />
+        <Identity>
+          <Router
+            history={history}
+            routes={rootRoute}
+            render={
+              // Scroll to top when going to a new page, imitating default browser
+              // behaviour
+              applyRouterMiddleware(useScroll())
+            }
+          />
+        </Identity>
       </LanguageProvider>
     </Provider>,
     document.getElementById('app')
