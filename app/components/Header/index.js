@@ -4,14 +4,15 @@
  *
  */
 import React from 'react';
+import { FormattedMessage } from 'react-intl';
 import SectionContent from 'canlaw-components/components/SectionContent';
 import Wrapper from './Wrapper';
 import H2 from './H2';
 import H3 from './H3';
-import Black from './Black';
-import Yellow from './Yello';
-import Gray from './Gray';
 import Hr from './Hr';
+import Yellow from './Yellow';
+import messages from './messages';
+import CategorySearch from '../CategorySearch';
 
 function Header() {
   return (
@@ -20,14 +21,19 @@ function Header() {
 
 
         <H2>
-          We help you find a lawyer Fast, Easy and <Yellow>Cheap</Yellow>
+          <FormattedMessage
+            {...messages.headline}
+            values={{ cheap: <Yellow><FormattedMessage {...messages.cheap} /></Yellow> }}
+          />
         </H2>
 
         <Hr />
 
         <H3>
-          I am looking for a lawyer who can help me:
+          <FormattedMessage {...messages.looking_for_lawyer} />
         </H3>
+
+        <CategorySearch />
 
 
       </SectionContent>
