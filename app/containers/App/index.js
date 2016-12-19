@@ -12,7 +12,6 @@ import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
 import Theme from 'canlaw-components/components/Theme';
 import Footer from 'canlaw-components/components/Footer';
-import Container from 'canlaw-components/components/Container';
 import Loader from 'canlaw-components/components/Loader';
 import Navigation from 'canlaw-components/components/Navigation';
 import NavData from '../../components/NavData';
@@ -24,7 +23,6 @@ import {
   makeSelectLoginUrl,
   makeSelectRegisterUrl,
 } from './selectors';
-import CategorySearchHeader from '../CategorySearchHeader';
 
 export class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -49,11 +47,7 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
           />
         </Navigation>
 
-        <CategorySearchHeader />
-
-        <Container>
-          {React.Children.toArray(this.props.children)}
-        </Container>
+        {React.Children.toArray(this.props.children)}
 
         <Footer />
       </Theme>
