@@ -8,17 +8,36 @@
  * reloading is not a necessity for you then you can refactor it and remove
  * the linting exception.
  */
-
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import messages from './messages';
+import { connect } from 'react-redux';
+import Container from 'canlaw-components/components/Container';
+import CategorySearchHeader from '../../components/CategorySearchHeader';
+import { startQuoteRequest } from './actions';
 
-export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+
   render() {
     return (
-      <h1>
-        <FormattedMessage {...messages.header} />
-      </h1>
+      <div>
+        <CategorySearchHeader onClick={this.props.onClick} />
+
+        <Container>
+          {/* Content */}
+        </Container>
+      </div>
     );
   }
 }
+
+HomePage.propTypes = {
+  onClick: React.PropTypes.func,
+};
+
+function mapDispatchToProps(dispatch) {
+  return {
+    onClick: (evt) => dispatch(startQuoteRequest(evt.target.value)),
+  };
+}
+
+export default connect(() => ({}), mapDispatchToProps)(HomePage);
+
