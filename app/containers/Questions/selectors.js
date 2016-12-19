@@ -16,7 +16,7 @@ const selectQuestionsDomain = () => (state) => state.get('questions');
 
 const makeSelectQuestions = () => createSelector(
   selectQuestionsDomain(),
-  (substate) => substate.toJS()
+  (questions) => questions.get('list').toJS()
 );
 
 export default makeSelectQuestions;
