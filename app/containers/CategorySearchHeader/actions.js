@@ -5,4 +5,4 @@ export function chooseCategory(category) {
     type: CHOOSE_CATEGORY,
     category,
   };
-};
+}
