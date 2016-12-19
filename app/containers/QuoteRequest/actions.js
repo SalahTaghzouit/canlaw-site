@@ -111,6 +111,6 @@ export function clearAnswers() {
 export function quoteRequestNotSaved(reason) {
   return {
     type: QUOTE_REQUEST_NOT_SAVED,
-    reason
+    reason,
   };
 }
