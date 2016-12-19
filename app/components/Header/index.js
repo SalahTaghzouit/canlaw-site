@@ -12,9 +12,8 @@ import H3 from './H3';
 import Hr from './Hr';
 import Yellow from './Yellow';
 import messages from './messages';
-import CategorySearch from '../CategorySearch';
 
-function Header() {
+function Header({ children }) {
   return (
     <Wrapper>
       <SectionContent>
@@ -33,7 +32,7 @@ function Header() {
           <FormattedMessage {...messages.looking_for_lawyer} />
         </H3>
 
-        <CategorySearch />
+        {children}
 
 
       </SectionContent>
@@ -42,6 +41,8 @@ function Header() {
   );
 }
 
-Header.propTypes = {};
+Header.propTypes = {
+  children: React.PropTypes.array,
+};
 
 export default Header;
