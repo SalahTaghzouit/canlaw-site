@@ -6,8 +6,16 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'app.components.Header.header',
-    defaultMessage: 'This is the Header component !',
+  headline: {
+    id: 'canlaw.components.Header.headline',
+    defaultMessage: 'We help you find a lawyer Fast, Easy and {cheap}',
+  },
+  cheap: {
+    id: 'canlaw.components.Header.cheap',
+    defaultMessage: 'cheap',
+  },
+  looking_for_lawyer: {
+    id: 'canlaw.components.Header.looking_for_lawyer',
+    defaultMessage: 'I am looking for a lawyer who can help me:',
   },
 });
