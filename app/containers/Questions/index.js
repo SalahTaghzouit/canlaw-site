@@ -1,7 +1,5 @@
 /*
- *
  * Questions
- *
  */
 
 import React, { PropTypes } from 'react';
@@ -26,7 +24,7 @@ Questions.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  Questions: makeSelectQuestions(),
+  questions: makeSelectQuestions(),
 });
 
 function mapDispatchToProps(dispatch) {
