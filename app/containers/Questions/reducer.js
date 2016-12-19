@@ -9,7 +9,9 @@ import {
   DEFAULT_ACTION,
 } from './constants';
 
-const initialState = fromJS({});
+const initialState = fromJS({
+  list: [],
+});
 
 function questionsReducer(state = initialState, action) {
   switch (action.type) {
