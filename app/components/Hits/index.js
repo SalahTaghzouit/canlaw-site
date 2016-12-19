@@ -4,22 +4,33 @@
  *
  */
 import React from 'react';
-import { connect } from 'react-algoliasearch-helper';
+import { connect as connectAlgolia } from 'react-algoliasearch-helper';
 
 
-const Hits = ({ results }) => {
+const Hits = ({ results, onClick }) => {
   if (!results) return <div />;
   return (
-    <div>
+    <ul>
       {results.hits.map(
-        (hit) => (<div key={hit.objectID}>{hit.term}</div>)
+        (hit) => (
+          <li key={hit.objectID}>
+            <button onClick={onClick}>{hit.term}</button>
+          </li>
+        )
       )}
-    </div>
+    </ul>
   );
 };
 
 Hits.propTypes = {
   results: React.PropTypes.object,
+  onClick: React.PropTypes.func,
 };
 
-export default connect((state) => ({ results: state.searchResults }))(Hits);
+const mapStateToProps = (state, ownProps) => ({
+  results: state.searchResults,
+  onClick: ownProps.onClick,
+});
+
+export default connectAlgolia(mapStateToProps)(Hits);
+
