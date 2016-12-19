@@ -16,7 +16,6 @@ import Container from 'canlaw-components/components/Container';
 import Loader from 'canlaw-components/components/Loader';
 import Navigation from 'canlaw-components/components/Navigation';
 import NavData from '../../components/NavData';
-import Header from '../../components/Header';
 import { makeSelectIsAuthenticated } from '../Identity/selectors';
 import {
   makeSelectLoading,
@@ -25,6 +24,7 @@ import {
   makeSelectLoginUrl,
   makeSelectRegisterUrl,
 } from './selectors';
+import CategorySearchHeader from '../CategorySearchHeader';
 
 export class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -49,7 +49,7 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
           />
         </Navigation>
 
-        <Header />
+        <CategorySearchHeader />
 
         <Container>
           {React.Children.toArray(this.props.children)}

@@ -6,8 +6,8 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
-    id: 'app.components.CategorySearch.header',
-    defaultMessage: 'This is the CategorySearch component !',
+  pleaceholder: {
+    id: 'canlaw.components.CategorySearch.pleaceholder',
+    defaultMessage: 'Start typing',
   },
 });
