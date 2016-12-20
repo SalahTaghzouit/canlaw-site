@@ -21,8 +21,9 @@ export function redirectToAuth() {
  * Request request/response handler
  */
 export function* sendQuoteRequest() {
+  console.log('Sending quote request');
   const quoteRequest = yield select(makeSelectSavableQuoteRequest());
-
+  console.log(quoteRequest);
   // Call our request helper (see 'utils/request')
   const requestURL = `${env.apiUrl}/quote-request`;
   try {
@@ -46,12 +47,14 @@ export function* sendQuoteRequest() {
  * By using `takeLatest` only the result of the latest API call is applied.
  */
 export function* getSendWatcher() {
+  console.log('Registring watcher');
   yield fork(takeLatest, SEND_QUOTE_REQUEST, sendQuoteRequest);
 }
 
 export function* quoteRequestSave() {
-  const watcher = getSendWatcher();
-
+  console.log('Starting');
+  const watcher = yield fork(getSendWatcher);
+  console.log('Watcher registered');
   // Suspend execution until location changes
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
