@@ -47,9 +47,9 @@ export default function createRoutes(store) {
           System.import('containers/QuoteRequest/sagas'),
           System.import('containers/QuoteRequest'),
 
-          System.import('containers/Question/reducer'),
-          System.import('containers/Question/sagas'),
-          System.import('containers/Question'),
+          System.import('containers/Questions/reducer'),
+          System.import('containers/Questions/sagas'),
+          System.import('containers/Questions'),
         ]);
 
         const renderRoute = loadModule(cb);
