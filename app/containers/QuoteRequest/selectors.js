@@ -1,5 +1,4 @@
 import { createSelector } from 'reselect';
-import isObject from 'lodash/isObject';
 
 /**
  * Direct selector to the quoteRequest state domain
@@ -11,28 +10,28 @@ const selectQuoteRequestDomain = () => (state) => state.get('quoteRequest');
  */
 const makeSelectCategory = () => createSelector(
   selectQuoteRequestDomain(),
-  (quoteRequestDomain) => quoteRequestDomain.get('category').toJS()
+  (quoteRequestDomain) => quoteRequestDomain.category
 );
 
-const selectCategoryFromCache = (slug) => createSelector(
+const selectCategoryFromCache = (id) => createSelector(
   selectQuoteRequestDomain(),
-  (quoteRequestDomain) => quoteRequestDomain.getIn(['categoryCache', slug]).toJS()
+  (quoteRequestDomain) => quoteRequestDomain.categoryCache[id]
 );
 
 const makeSelectAnswers = () => createSelector(
   selectQuoteRequestDomain(),
-  (quoteRequestDomain) => quoteRequestDomain.get('answers').toJS()
+  (quoteRequestDomain) => quoteRequestDomain.answers
 );
 
-const makeSelectCategorySlug = () => createSelector(
+const makeSelectCategoryId = () => createSelector(
   selectQuoteRequestDomain(),
-  (quoteRequestDomain) => quoteRequestDomain.get('toFetch').toJS()
+  (quoteRequestDomain) => quoteRequestDomain.toFetch
 );
 
 const makeSelectSavableQuoteRequest = () => createSelector(
   selectQuoteRequestDomain(),
   (quoteRequest) => ({
-    category: isObject(quoteRequest.category) ? quoteRequest.category.id : '',
+    category: quoteRequest.category.id,
     place: quoteRequest.place,
     answers: quoteRequest.answers,
   })
@@ -44,7 +43,7 @@ const makeSelectSavableQuoteRequest = () => createSelector(
 
 const makeSelectQuoteRequest = () => createSelector(
   selectQuoteRequestDomain(),
-  (quoteRequest) => quoteRequest.toJS()
+  (quoteRequest) => quoteRequest
 );
 
 export default makeSelectQuoteRequest;
@@ -52,7 +51,7 @@ export {
   selectQuoteRequestDomain,
   makeSelectCategory,
   makeSelectAnswers,
-  makeSelectCategorySlug,
+  makeSelectCategoryId,
   selectCategoryFromCache,
   makeSelectSavableQuoteRequest,
 };
