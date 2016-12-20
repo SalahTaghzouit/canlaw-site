@@ -5,7 +5,6 @@ import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 import { createStructuredSelector } from 'reselect';
-import makeSelectQuestions from './selectors';
 import Wrapper from './Wrapper';
 import QuestionControl from '../../components/QuestionControl';
 import messages from './messages';
@@ -74,7 +73,6 @@ Questions.propTypes = {
 };
 
 const mapStateToProps = createStructuredSelector({
-  questions: makeSelectQuestions(),
   onAnswered: (state, ownState) => ownState.onAnswered,
   answers: (state, ownState) => ownState.answers,
 });
