@@ -15,12 +15,12 @@ import Header from '../../components/Header';
 const client = algoliasearch(env.algoliaAppId, env.algoliaApiKey);
 const helper = algoliasearchHelper(client, env.algoliaCategoryIndex);
 
-function CategorySearch({ onChange, onClick, initialText, hideHits }) {
+function CategorySearch({ onChange, onChoseCategory, initialText, hideHits }) {
   return (
     <Provider helper={helper}>
       <Header>
         <SearchBox initialText={initialText} onChange={onChange} />
-        {hideHits && <Hits onClick={onClick} />}
+        {hideHits && <Hits onClick={onChoseCategory} />}
       </Header>
     </Provider>
   );
@@ -28,7 +28,7 @@ function CategorySearch({ onChange, onClick, initialText, hideHits }) {
 
 CategorySearch.propTypes = {
   hideHits: PropTypes.bool,
-  onClick: PropTypes.func,
+  onChoseCategory: PropTypes.func,
   onChange: PropTypes.func,
   initialText: PropTypes.string,
 };
