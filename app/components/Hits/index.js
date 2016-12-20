@@ -14,7 +14,7 @@ const Hits = ({ results, onClick }) => {
       {results.hits.map(
         (hit) => (
           <li key={hit.objectID}>
-            <button onClick={onClick}>{hit.term}</button>
+            <button onClick={() => onClick(hit)}>{hit.term}</button>
           </li>
         )
       )}
