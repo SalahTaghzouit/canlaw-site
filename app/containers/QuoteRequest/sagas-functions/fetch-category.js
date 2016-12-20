@@ -1,19 +1,18 @@
-import { take, call, put, fork, cancel, select } from 'redux-saga/effects';
+import { call, put, fork, select } from 'redux-saga/effects';
 import { takeLatest } from 'redux-saga';
-import { LOCATION_CHANGE } from 'react-router-redux';
 import { categoryNotFetched, cacheCategory, setCategory } from '../actions';
 import env from '../../../utils/env';
 import request from '../../../utils/request';
 import { FETCH_CATEGORY } from '../constants';
-import { makeSelectCategorySlug, selectCategoryFromCache } from '../selectors';
+import { makeSelectCategoryId, selectCategoryFromCache } from '../selectors';
 
 /**
  * Category request/response handler
  */
 export function* fetchCategory() {
   // Find the request first in the requests list
-  const slug = yield select(makeSelectCategorySlug());
-  const cachedCategory = yield select(selectCategoryFromCache(slug));
+  const id = yield select(makeSelectCategoryId());
+  const cachedCategory = yield select(selectCategoryFromCache(id));
 
   if (cachedCategory) {
     yield put(setCategory(cachedCategory));
@@ -21,7 +20,7 @@ export function* fetchCategory() {
   }
 
   // Call our request helper (see 'utils/request')
-  const requestURL = `${env.apiUrl}/category/${slug}`;
+  const requestURL = `${env.apiUrl}/category/${id}`;
   try {
     const cat = yield call(request, requestURL);
     yield put(setCategory(cat));
@@ -44,11 +43,7 @@ export function* getRequestWatcher() {
  * Request sage lifecycle
  */
 export function* category() {
-  const watcher = getRequestWatcher();
-
-  // Suspend execution until location changes
-  yield take(LOCATION_CHANGE);
-  yield cancel(watcher);
+  getRequestWatcher();
 }
 
 export default category;
