@@ -3,7 +3,6 @@
  * QuoteRequest reducer
  *
  */
-import { fromJS } from 'immutable';
 import {
   SET_CATEGORY,
   SET_ANSWER,
@@ -11,46 +10,57 @@ import {
   FETCH_CATEGORY,
   CATEGORY_NOT_FETCHED,
   QUOTE_REQUEST_NOT_SAVED,
+  SEND_QUOTE_REQUEST,
 } from './constants';
 
-const initialState = fromJS({
+const initialState = {
   loadingCategory: false,
   toFetch: '',
   category: {},
   answers: {},
   place: {},
   errors: {},
-});
+  categoryCache: {},
+};
 
 function quoteRequestReducer(state = initialState, action) {
   switch (action.type) {
 
     case FETCH_CATEGORY:
-      return state
-        .set('loadingCategory', true)
-        .set('toFetch', action.slug);
+      return {
+        ...state,
+        loadingCategory: true,
+        toFetch: action.id,
+      };
 
     case SET_CATEGORY:
-      return state
-        .set('loadingCategory', false)
-        .set('category', action.category);
+      return {
+        ...state,
+        loadingCategory: false,
+        category: action.category || {},
+      };
 
     case SET_ANSWER:
-      return state
-        .setIn(['answers', action.question], action.answer);
+      return {
+        ...state,
+        answers: { ...state.answers, [action.question]: action.answer },
+      };
 
     case CATEGORY_NOT_FETCHED:
-      return state
-        .set('loadingCategory', false)
-        .set('category', {});
+      return {
+        ...state,
+        loadingCategory: false,
+        category: {},
+      };
 
     case CLEAR_ANSWERS:
-      return state
-        .set('answers', {});
+      return { ...state, answers: {} };
 
     case QUOTE_REQUEST_NOT_SAVED:
-      return state
-        .set('errors', action.reason);
+      return { ...state, errors: action.reason };
+
+    case SEND_QUOTE_REQUEST:
+      return { ...state, errors: {} };
 
     default:
       return state;
