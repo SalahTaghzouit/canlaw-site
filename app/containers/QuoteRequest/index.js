@@ -43,12 +43,13 @@ export class QuoteRequest extends React.PureComponent { // eslint-disable-line r
 
         <CategorySearchHeader
           initialText={this.name}
-          onClick={this.props.setCategory}
+          onChoseCategory={this.props.setCategory}
           hideHits={!!this.props.category}
         />
 
         <Container>
           <Questions
+            answers={this.props.answers}
             category={this.props.category}
             onAnswered={this.props.setAnswer}
           />
@@ -68,10 +69,12 @@ QuoteRequest.propTypes = {
   fetchCategory: PropTypes.func.isRequired,
   setCategory: PropTypes.func.isRequired,
   categorySlug: PropTypes.string,
-  // placeName: PropTypes.string,
   category: PropTypes.object,
-  setAnswer: PropTypes.func,
-  sendRequest: PropTypes.func,
+  // placeName: PropTypes.string,
+  // place: PropTypes.object,
+  setAnswer: PropTypes.func.isRequired,
+  sendRequest: PropTypes.func.isRequired,
+  answers: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
