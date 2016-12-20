@@ -17,26 +17,26 @@ import {
 /**
  * Fetch category
  *
- * @param slug
- * @returns {{type, slug: *}}
+ * @param id
+ * @returns {{type, id: *}}
  */
-export function fetchCategory(slug) {
+export function fetchCategory(id) {
   return {
     type: FETCH_CATEGORY,
-    slug,
+    id,
   };
 }
 
 /**
  * Cache category
  *
- * @param slug
- * @returns {{type, slug: *}}
+ * @param id
+ * @returns {{type, id: *}}
  */
-export function cacheCategory(slug) {
+export function cacheCategory(id) {
   return {
     type: CACHE_CATEGORY,
-    slug,
+    id,
   };
 }
 
