@@ -6,11 +6,11 @@ import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import Helmet from 'react-helmet';
 import { createStructuredSelector } from 'reselect';
-import Container from 'canlaw-components/components/Container';
 import { makeSelectCategory, makeSelectAnswers } from './selectors';
 import { fetchCategory, setCategory, setAnswer, sendQuoteRequest } from './actions';
 import CategorySearchHeader from '../../components/CategorySearchHeader';
 import Questions from '../Questions';
+import NarrowContainer from './NarrowContainer';
 import messages from './messages';
 
 export class QuoteRequest extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -47,7 +47,7 @@ export class QuoteRequest extends React.PureComponent { // eslint-disable-line r
           hideHits={!!this.props.category}
         />
 
-        <Container>
+        <NarrowContainer>
           <Questions
             answers={this.props.answers}
             category={this.props.category}
@@ -58,7 +58,7 @@ export class QuoteRequest extends React.PureComponent { // eslint-disable-line r
             <FormattedMessage {...messages.save} />
           </button>
 
-        </Container>
+        </NarrowContainer>
 
       </div>
     );
