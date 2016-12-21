@@ -47,19 +47,14 @@ export default function createRoutes(store) {
           System.import('containers/QuoteRequest/sagas'),
           System.import('containers/QuoteRequest'),
 
-          System.import('containers/Questions/reducer'),
-          System.import('containers/Questions/sagas'),
           System.import('containers/Questions'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([quoteReducer, quoteSagas, component, questionReducer, questionSagas]) => {
+        importModules.then(([quoteReducer, quoteSagas, component]) => {
           injectReducer('quoteRequest', quoteReducer.default);
           injectSagas(quoteSagas.default);
-
-          injectReducer('questions', questionReducer.default);
-          injectSagas(questionSagas.default);
 
           renderRoute(component);
         });
