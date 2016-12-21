@@ -1,8 +1,7 @@
 import React, { PropTypes } from 'react';
-import Label from './Label';
-import Input from './Input';
+import Control from 'canlaw-components/components/Control';
 
-class Control extends React.PureComponent {
+class QuestionControl extends React.PureComponent {
   componentDidMount() {
     if (!this.props.value) {
       this.props.onChange(this.props.question, this.props.defaultValue || '');
@@ -11,22 +10,21 @@ class Control extends React.PureComponent {
 
   render() {
     return (
-      <div>
-        <Label>{this.props.question}</Label>
-        <Input
-          type={this.props.type || 'text'}
-          placeholder={this.props.placeholder && this.props.placeholder}
-          required={this.props.required}
-          disabled={this.props.disabled}
-          title={this.props.title}
-          value={this.props.value || ''}
-          onChange={(evt) => this.props.onChange(this.props.question, evt.target.value)}
-        />
-      </div>
+      <Control
+        label={this.props.question}
+        type={this.props.type || 'text'}
+        placeholder={this.props.placeholder && this.props.placeholder}
+        required={this.props.required}
+        disabled={this.props.disabled}
+        title={this.props.title}
+        value={this.props.value || ''}
+        onChange={(evt) => this.props.onChange(this.props.question, evt.target.value)}
+      />
     );
   }
 }
-Control.propTypes = {
+
+QuestionControl.propTypes = {
   question: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   type: PropTypes.string,
@@ -44,4 +42,4 @@ Control.propTypes = {
   ]),
 };
 
-export default Control;
+export default QuestionControl;
