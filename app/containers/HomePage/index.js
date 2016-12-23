@@ -19,7 +19,9 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
   render() {
     return (
       <div>
-        <CategorySearchHeader onClick={this.props.onClick} />
+        <CategorySearchHeader
+          onChoseCategory={this.props.onClick}
+        />
 
         <Container>
           {/* Content */}
@@ -33,11 +35,9 @@ HomePage.propTypes = {
   onClick: React.PropTypes.func,
 };
 
-function mapDispatchToProps(dispatch) {
-  return {
-    onClick: (evt) => dispatch(startQuoteRequest(evt.target.value)),
-  };
-}
+const mapDispatchToProps = (dispatch) => ({
+  onClick: (category) => dispatch(startQuoteRequest(category)),
+});
 
 export default connect(() => ({}), mapDispatchToProps)(HomePage);
 
