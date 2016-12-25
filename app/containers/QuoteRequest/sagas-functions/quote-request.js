@@ -52,14 +52,12 @@ export function* sendQuoteRequest() {
  * By using `takeLatest` only the result of the latest API call is applied.
  */
 export function* getSendWatcher() {
-  console.log('Registring watcher');
   yield fork(takeLatest, SEND_QUOTE_REQUEST, sendQuoteRequest);
 }
 
 export function* quoteRequestSave() {
-  console.log('Starting');
   const watcher = yield fork(getSendWatcher);
-  console.log('Watcher registered');
+
   // Suspend execution until location changes
   yield take(LOCATION_CHANGE);
   yield cancel(watcher);
