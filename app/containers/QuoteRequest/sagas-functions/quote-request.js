@@ -7,6 +7,8 @@ import { quoteRequestNotSaved } from '../actions';
 import env from '../../../utils/env';
 import request from '../../../utils/request';
 import redirect from '../../../utils/redirect';
+import { saveState } from '../../../utils/state-persistor';
+import { getStore } from '../../../store';
 
 export function redirectToDashboard() {
   redirect(env.dashboardUrl);
@@ -34,7 +36,10 @@ export function* sendQuoteRequest() {
 
     yield call(redirectToDashboard);
   } catch (err) {
-    if (err.status === 401) {
+    if (err.response.status === 401) {
+      saveState({
+        quoteRequest: getStore().getState().quoteRequest,
+      });
       yield call(redirectToAuth);
     } else {
       yield put(quoteRequestNotSaved(err));
