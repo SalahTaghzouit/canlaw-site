@@ -13,7 +13,7 @@ import Questions from '../Questions';
 import NarrowContainer from './NarrowContainer';
 import messages from './messages';
 
-export class QuoteRequest extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
+export class QuoteRequest extends React.PureComponent {
 
   /**
    * If the category slug in the url (props.categorySlug) is different than what we have in the
@@ -42,9 +42,10 @@ export class QuoteRequest extends React.PureComponent { // eslint-disable-line r
         />
 
         <CategorySearchHeader
+          exampleQuestions={['this is a test', 'and this is another test']}
           initialText={this.name}
           onChoseCategory={this.props.setCategory}
-          hideHits={!!this.props.category}
+          showHits={!!this.props.category}
         />
 
         <NarrowContainer>
