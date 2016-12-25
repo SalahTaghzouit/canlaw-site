@@ -2,55 +2,53 @@
  * The global state selectors
  */
 import { createSelector } from 'reselect';
-
+import isEqual from 'lodash/isEqual';
 
 // makeSelectLocationState expects a plain JS object for the routing state
-const makeSelectGlobal = () => (state) => state.get('global');
+const makeSelectGlobal = () => (state) => state.global;
 
 const makeSelectLocationState = () => {
   let prevRoutingState;
-  let prevRoutingStateJS;
 
   return (state) => {
-    const routingState = state.get('route'); // or state.route
+    const routingState = state.route; // or state.route
 
-    if (!routingState.equals(prevRoutingState)) {
+    if (!isEqual(routingState, prevRoutingState)) {
       prevRoutingState = routingState;
-      prevRoutingStateJS = routingState.toJS();
     }
 
-    return prevRoutingStateJS;
+    return prevRoutingState;
   };
 };
 
 const makeSelectLoading = () => createSelector(
   makeSelectGlobal(),
-  (globalState) => globalState.get('loading')
+  (globalState) => globalState.loading
 );
 
 const makeSelectEnv = () => createSelector(
   makeSelectGlobal(),
-  (envState) => envState.get('env')
+  (envState) => envState.env
 );
 
 const makeSelectBlogUrl = () => createSelector(
   makeSelectEnv(),
-  (envState) => envState.get('blogUrl')
+  (envState) => envState.blogUrl
 );
 
 const makeSelectDashboardUrl = () => createSelector(
   makeSelectEnv(),
-  (envState) => envState.get('dashboardUrl')
+  (envState) => envState.dashboardUrl
 );
 
 const makeSelectLoginUrl = () => createSelector(
   makeSelectEnv(),
-  (envState) => envState.get('loginUrl')
+  (envState) => envState.loginUrl
 );
 
 const makeSelectRegisterUrl = () => createSelector(
   makeSelectEnv(),
-  (envState) => envState.get('registerUrl')
+  (envState) => envState.registerUrl
 );
 
 export {

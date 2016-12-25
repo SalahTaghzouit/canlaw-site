@@ -1,4 +1,3 @@
-// import { fromJS } from 'immutable';
 // import { makeSelectQuoteRequestDomain } from '../selectors';
 
 // const selector = makeSelectQuoteRequestDomain();
