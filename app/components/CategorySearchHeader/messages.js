@@ -7,7 +7,7 @@ import { defineMessages } from 'react-intl';
 
 export default defineMessages({
   header: {
-    id: 'app.components.CategorySearch.header',
+    id: 'canlaw.components.CategorySearch.header',
     defaultMessage: 'This is the CategorySearchHeader component !',
   },
 });
