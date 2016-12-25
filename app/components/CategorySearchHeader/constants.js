@@ -1,11 +1,9 @@
 /*
- * Category Constants
- * Each action has a corresponding type, which the reducer knows and picks up on.
- * To avoid weird typos between the reducer and the actions, we save them as
- * constants here. We prefix them with 'canlaw/ComponentName' so we avoid
- * reducers accidentally picking up actions they shouldn't.
- *
- * Follow this format:
- * export const ACTION_CONSTANT = 'canlaw/ContainerName/ACTION_CONSTANT';
+ * CategorySearchHeader constants
  */
-export const CHOOSE_CATEGORY = 'canlaw/App/CHOOSE_CATEGORY';
+
+export const TYPE_INDEX = 'canlaw/CategorySearchHeader/TYPE_INDEX';
+export const RUN_TYPEWRITER = 'canlaw/CategorySearchHeader/RUN_TYPEWRITER';
+export const SET_EXAMPLE_TYPING_DIRECTION = 'canlaw/CategorySearchHeader/SET_EXAMPLE_TYPING_DIRECTION';
+export const MOVE_TO_NEXT_STEP_OF_EXAMPLES = 'canlaw/CategorySearchHeader/MOVE_TO_NEXT_STEP_OF_EXAMPLES';
+export const TYPE_NEXT_EXAMPLE = 'canlaw/CategorySearchHeader/TYPE_NEXT_EXAMPLE';
