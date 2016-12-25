@@ -4,17 +4,17 @@ import isEmpty from 'lodash/isEmpty';
 /**
  * Direct selector to the userProvider state domain
  */
-const selectIdentityDomain = () => (state) => state.get('user');
+const selectIdentityDomain = () => (state) => state.user;
 
 
 const makeSelectIdentity = () => createSelector(
   selectIdentityDomain(),
-  (identityDomain) => identityDomain.get('identity')
+  (identityDomain) => identityDomain.identity
 );
 
 const makeSelectIsAuthenticated = () => createSelector(
   selectIdentityDomain(),
-  (identityDomain) => isEmpty(identityDomain.get('loggedIn'))
+  (identityDomain) => isEmpty(identityDomain.loggedIn)
 );
 
 export {

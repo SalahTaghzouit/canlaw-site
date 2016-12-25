@@ -2,11 +2,8 @@
  * Combine all reducers in this file and export the combined reducers.
  * If we were to do this in store.js, reducers wouldn't be hot reloadable.
  */
-
-import { combineReducers } from 'redux-immutable';
-import { fromJS } from 'immutable';
+import { combineReducers } from 'redux';
 import { LOCATION_CHANGE } from 'react-router-redux';
-
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import globalReducer from './containers/App/reducer';
 import userProviderReducer from './containers/Identity/reducer';
@@ -14,15 +11,15 @@ import userProviderReducer from './containers/Identity/reducer';
 /*
  * routeReducer
  *
- * The reducer merges route location changes into our immutable state.
+ * The reducer merges route location changes.
  * The change is necessitated by moving to react-router-redux@4
  *
  */
 
 // Initial routing state
-const routeInitialState = fromJS({
+const routeInitialState = {
   locationBeforeTransitions: null,
-});
+};
 
 /**
  * Merge route into the global application state
