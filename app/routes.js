@@ -25,15 +25,12 @@ export default function createRoutes(store) {
           System.import('containers/HomePage/reducer'),
           System.import('containers/HomePage/sagas'),
           System.import('containers/HomePage'),
-
-          System.import('components/CategorySearchHeader/reducer'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([reducer, sagas, component, categorySearchHeaderReducer]) => {
+        importModules.then(([reducer, sagas, component]) => {
           injectReducer('home', reducer.default);
-          injectReducer('categorySearchHeader', categorySearchHeaderReducer.default);
           injectSagas(sagas.default);
 
           renderRoute(component);
@@ -49,15 +46,12 @@ export default function createRoutes(store) {
           System.import('containers/QuoteRequest/reducer'),
           System.import('containers/QuoteRequest/sagas'),
           System.import('containers/QuoteRequest'),
-
-          System.import('components/CategorySearchHeader/reducer'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([quoteReducer, quoteSagas, component, categorySearchHeaderReducer]) => {
+        importModules.then(([quoteReducer, quoteSagas, component]) => {
           injectReducer('quoteRequest', quoteReducer.default);
-          injectReducer('categorySearchHeader', categorySearchHeaderReducer.default);
           injectSagas(quoteSagas.default);
 
           renderRoute(component);
