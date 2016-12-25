@@ -2,14 +2,16 @@
 const express = require('express');
 const path = require('path');
 const compression = require('compression');
+
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
 
 // Dev middleware
-const addDevMiddlewares = (app, webpackConfig) => {
+const addDevMiddlewares = (app, router, webpackConfig) => {
   const webpack = require('webpack');
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
   const compiler = webpack(webpackConfig);
+
   const middleware = webpackDevMiddleware(compiler, {
     noInfo: true,
     publicPath: webpackConfig.output.publicPath,
@@ -26,12 +28,14 @@ const addDevMiddlewares = (app, webpackConfig) => {
 
   if (pkg.dllPlugin) {
     app.get(/\.dll\.js$/, (req, res) => {
-      const filename = req.path.replace(/^\//, '');
+      // This is assuming that PUBLIC_ASSETS_PATH is a local folder, in dev we won't
+      // be using a CDN or a full URL
+      const filename = req.path.replace(process.env.PUBLIC_ASSETS_PATH, '').replace(/^\//, '');
       res.sendFile(path.join(process.cwd(), pkg.dllPlugin.path, filename));
     });
   }
 
-  app.get('*', (req, res) => {
+  router.get('*', (req, res) => {
     fs.readFile(path.join(compiler.outputPath, 'index.html'), (err, file) => {
       if (err) {
         res.sendStatus(404);
@@ -43,7 +47,7 @@ const addDevMiddlewares = (app, webpackConfig) => {
 };
 
 // Production middlewares
-const addProdMiddlewares = (app, options) => {
+const addProdMiddlewares = (app, router, options) => {
   const publicPath = options.publicPath || '/';
   const outputPath = options.outputPath || path.resolve(process.cwd(), 'build');
 
@@ -53,20 +57,20 @@ const addProdMiddlewares = (app, options) => {
   app.use(compression());
   app.use(publicPath, express.static(outputPath));
 
-  app.get('*', (req, res) => res.sendFile(path.resolve(outputPath, 'index.html')));
+  router.get('*', (req, res) => res.sendFile(path.resolve(outputPath, 'index.html')));
 };
 
 /**
  * Front-end middleware
  */
-module.exports = (app, options) => {
+module.exports = (app, router, options) => {
   const isProd = process.env.NODE_ENV === 'production';
 
   if (isProd) {
-    addProdMiddlewares(app, options);
+    addProdMiddlewares(app, router, options);
   } else {
     const webpackConfig = require('../../internals/webpack/webpack.dev.babel');
-    addDevMiddlewares(app, webpackConfig);
+    addDevMiddlewares(app, router, webpackConfig);
   }
 
   return app;
