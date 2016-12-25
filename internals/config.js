@@ -26,6 +26,10 @@ const Canlaw = {
         'ip',
         'minimist',
         'sanitize.css',
+        'express-request-proxy',
+        'redis',
+        'connect-redis',
+        'express-session',
       ],
 
       /**

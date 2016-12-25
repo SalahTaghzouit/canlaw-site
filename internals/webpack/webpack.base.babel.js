@@ -80,6 +80,7 @@ module.exports = (options) => ({
       // react environment variables
       'window.env': {
         appUrl: JSON.stringify(`${process.env.APP_URL}`),
+        apiUrl: JSON.stringify(`${process.env.APP_URL}/api`),
         blogUrl: JSON.stringify(`${process.env.BLOG_URL}`),
         loginUrl: JSON.stringify(`${process.env.LOGIN_URL}`),
         registerUrl: JSON.stringify(`${process.env.REGISTER_URL}`),
