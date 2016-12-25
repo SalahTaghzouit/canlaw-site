@@ -1,7 +1,6 @@
 /**
  * Create the store with asynchronously loaded reducers
  */
-
 import { createStore, applyMiddleware, compose } from 'redux';
 import { fromJS } from 'immutable';
 import { routerMiddleware } from 'react-router-redux';
@@ -9,6 +8,7 @@ import createSagaMiddleware from 'redux-saga';
 import createReducer from './reducers';
 
 const sagaMiddleware = createSagaMiddleware();
+let savedStore;
 
 export default function configureStore(initialState = {}, history) {
   // Create the store with two middlewares
@@ -55,5 +55,14 @@ export default function configureStore(initialState = {}, history) {
     });
   }
 
+  savedStore = store;
+
   return store;
 }
+
+export const getStore = (initialState = {}, history) => {
+  if (!savedStore) {
+    return configureStore(initialState, history);
+  }
+  return savedStore;
+};

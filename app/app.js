@@ -39,6 +39,7 @@ import '!file?name=[name].[ext]!./manifest.json';
 import 'canlaw-components/global-styles';
 
 import configureStore from './store';
+import { getState } from './utils/state-persistor';
 
 // Import i18n messages
 import { translationMessages } from './i18n';
@@ -50,7 +51,9 @@ import createRoutes from './routes';
 // this uses the singleton browserHistory provided by react-router
 // Optionally, this could be changed to leverage a created history
 // e.g. `const browserHistory = useRouterHistory(createBrowserHistory)();`
-const initialState = {};
+const initialState = getState();
+console.log('Started with initial state:');
+console.log(getState());
 const store = configureStore(initialState, browserHistory);
 
 // Sync history and store, as the react-router-redux reducer
