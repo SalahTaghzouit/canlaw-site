@@ -61,6 +61,26 @@ export default defineMessages({
     defaultMessage: 'Which of the below will be used to fund the business?',
   },
 
+  notSure: {
+    id: 'canlaw.containers.Questions.notSure',
+    defaultMessage: 'I am not sure',
+  },
+
+  foundersSavings: {
+    id: 'canlaw.containers.Questions.foundersSavings',
+    defaultMessage: 'Founder\'s own savings',
+  },
+
+  bankLoans: {
+    id: 'canlaw.containers.Questions.bankLoans',
+    defaultMessage: 'Bank loans',
+  },
+
+  investorsEquity: {
+    id: 'canlaw.containers.Questions.investorsEquity',
+    defaultMessage: 'Investors\' equity',
+  },
+
   howBigIsDocument: {
     id: 'canlaw.containers.Questions.howBigIsDocument',
     defaultMessage: 'How long is the document?',
