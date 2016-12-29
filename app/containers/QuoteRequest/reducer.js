@@ -21,6 +21,11 @@ const initialState = {
   place: {},
   errors: {},
   categoryCache: {},
+  current_page: 0,
+  from: 1,
+  last_page: 0,
+  per_page: 15,
+  total: 0,
 };
 
 function quoteRequestReducer(state = initialState, action) {
