@@ -45,7 +45,6 @@ export class QuoteRequest extends React.PureComponent {
           exampleQuestions={['this is a test', 'and this is another test']}
           initialText={this.name}
           onChoseCategory={this.props.setCategory}
-          showHits={!!this.props.category}
         />
 
         <NarrowContainer>
@@ -71,7 +70,7 @@ QuoteRequest.propTypes = {
   setCategory: PropTypes.func.isRequired,
   categorySlug: PropTypes.string,
   category: PropTypes.object,
-  // placeName: PropTypes.string,
+  // address: PropTypes.string,
   // place: PropTypes.object,
   setAnswer: PropTypes.func.isRequired,
   sendRequest: PropTypes.func.isRequired,
