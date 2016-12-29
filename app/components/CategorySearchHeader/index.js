@@ -7,13 +7,20 @@ import algoliasearch from 'algoliasearch';
 import algoliasearchHelper from 'algoliasearch-helper';
 import TypeWriter from 'react-typewriter';
 import isEmpty from 'lodash/isEmpty';
+import stripTags from 'striptags';
 import env from '../../utils/env';
 import SearchBox from '../../components/SearchBox';
 import Header from '../../components/Header';
 import Hits from '../Hits';
+import './style.scss';
 
 const client = algoliasearch(env.algoliaAppId, env.algoliaApiKey);
-const helper = algoliasearchHelper(client, env.algoliaCategoryIndex);
+const helper = algoliasearchHelper(client, env.algoliaCategoryIndex, {
+  attributesToHighlight: 'term',
+  highlightPreTag: '<span class="highlight-hit">',
+  highlightPostTag: '</span>',
+});
+
 class CategorySearch extends React.PureComponent {
   constructor(props) {
     super(props);
@@ -21,13 +28,37 @@ class CategorySearch extends React.PureComponent {
       currentExampleIndex: 0,
       typeWriterIsRunning: !isEmpty(props.exampleQuestions),
       typingDirection: 1,
+      showHits: false,
+      category: '',
     };
-  }
 
-  componentDidMount() {
     this.nextTyping = this.nextTyping.bind(this);
     this.erase = this.erase.bind(this);
     this.type = this.type.bind(this);
+    this.onClickHit = this.onClickHit.bind(this);
+    this.onChangeSearchBox = this.onChangeSearchBox.bind(this);
+  }
+
+  onChangeSearchBox(text) {
+    this.setState({
+      ...this.state,
+      showHits: true,
+      category: text,
+    });
+
+    if (this.props.onChange) {
+      this.props.onChange();
+    }
+  }
+
+  onClickHit(hit) {
+    const category = stripTags(hit._highlightResult.term.value); // eslint-disable-line no-underscore-dangle
+    this.setState({
+      ...this.state,
+      showHits: false,
+      category,
+    });
+    this.props.onChoseCategory(hit);
   }
 
   nextTyping() {
@@ -73,10 +104,14 @@ class CategorySearch extends React.PureComponent {
           </TypeWriter>}
 
           {!this.state.typeWriterIsRunning &&
-          <SearchBox initialText={this.props.initialText} onChange={this.props.onChange} />}
+          <SearchBox
+            initialText={this.props.initialText}
+            value={this.state.category}
+            onChange={this.onChangeSearchBox}
+          />}
 
-          {!this.state.typeWriterIsRunning && this.props.showHits &&
-          <Hits onClick={this.props.onChoseCategory} />}
+          {!this.state.typeWriterIsRunning && this.state.showHits &&
+          <Hits onClick={this.onClickHit} />}
 
         </Header>
       </Provider>
@@ -85,8 +120,7 @@ class CategorySearch extends React.PureComponent {
 }
 
 CategorySearch.propTypes = {
-  showHits: PropTypes.bool,
-  onChoseCategory: PropTypes.func,
+  onChoseCategory: PropTypes.func, // eslint-disable-line react/no-unused-prop-types
   onChange: PropTypes.func,
   initialText: PropTypes.string,
   exampleQuestions: PropTypes.arrayOf(PropTypes.string),

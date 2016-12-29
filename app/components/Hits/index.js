@@ -1,7 +1,6 @@
 /**
  *
  * Hits
- *
  */
 import React from 'react';
 import { connect as connectAlgolia } from 'react-algoliasearch-helper';
@@ -14,7 +13,13 @@ const Hits = ({ results, onClick }) => {
       {results.hits.map(
         (hit) => (
           <li key={hit.objectID}>
-            <button onClick={() => onClick(hit)}>{hit.term}</button>
+            <button
+              onClick={() => onClick(hit)}
+              // eslint-disable-next-line react/no-danger
+              dangerouslySetInnerHTML={{
+                __html: hit._highlightResult.term.value, // eslint-disable-line no-underscore-dangle
+              }}
+            />
           </li>
         )
       )}
