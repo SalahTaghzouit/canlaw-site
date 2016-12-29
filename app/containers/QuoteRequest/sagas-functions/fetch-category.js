@@ -3,6 +3,7 @@ import { takeLatest } from 'redux-saga';
 import { categoryNotFetched, cacheCategory, setCategory } from '../actions';
 import env from '../../../utils/env';
 import request from '../../../utils/request';
+import { redirectToAuthIfUnauth } from '../../../utils/redirect';
 import { FETCH_CATEGORY } from '../constants';
 import { makeSelectCategoryId, selectCategoryFromCache } from '../selectors';
 
@@ -27,6 +28,7 @@ export function* fetchCategory() {
     // Push it to the cache
     yield put(cacheCategory(cat));
   } catch (err) {
+    yield call(redirectToAuthIfUnauth.bind(null, err));
     yield put(categoryNotFetched(err));
   }
 }
