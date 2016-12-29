@@ -47,13 +47,15 @@ import { translationMessages } from './i18n';
 // Import root routes
 import createRoutes from './routes';
 
+// Saga
+import configureSaga from './saga';
+
 // Create redux store with history
 // this uses the singleton browserHistory provided by react-router
 // Optionally, this could be changed to leverage a created history
 // e.g. `const browserHistory = useRouterHistory(createBrowserHistory)();`
 const initialState = getState();
-console.log('Started with initial state:');
-console.log(getState());
+
 const store = configureStore(initialState, browserHistory);
 
 // Sync history and store, as the react-router-redux reducer
@@ -62,6 +64,9 @@ const store = configureStore(initialState, browserHistory);
 const history = syncHistoryWithStore(browserHistory, store, {
   selectLocationState: makeSelectLocationState(),
 });
+
+// Add default sagas
+configureSaga(store);
 
 // Set up the router, wrapping all Routes in the App component
 const rootRoute = {
