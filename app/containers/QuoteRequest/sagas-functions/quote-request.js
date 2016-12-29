@@ -11,12 +11,12 @@ import { saveState } from '../../../utils/state-persistor';
 import { getStore } from '../../../store';
 
 export function redirectToDashboard() {
-  redirect(env.dashboardUrl);
+  redirect(`${env.dashboardUrl}/requests`);
 }
 
 
 export function redirectToAuth() {
-  redirect(env.registerUrl, true);
+  redirect(env.authUrl, true);
 }
 
 /**
@@ -29,6 +29,8 @@ export function* sendQuoteRequest() {
   // Call our request helper (see 'utils/request')
   const requestURL = `${env.apiUrl}/quote-request`;
   try {
+    // Clear state from storage
+    saveState({ quoteRequest: undefined });
     yield call(request, requestURL, {
       method: 'POST',
       body: JSON.stringify(quoteRequest),
@@ -36,9 +38,13 @@ export function* sendQuoteRequest() {
 
     yield call(redirectToDashboard);
   } catch (err) {
+    console.log(err);
     if (err.response.status === 401) {
       saveState({
-        quoteRequest: getStore().getState().quoteRequest,
+        quoteRequest: {
+          ...getStore().getState().quoteRequest,
+          save: true,
+        },
       });
       yield call(redirectToAuth);
     } else {
