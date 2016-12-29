@@ -14,8 +14,8 @@ export function* goToQuoteRequest() {
   const category = yield select(makeSelectCategory());
 
   yield put(clearCategory());
-  yield put(setCategory(category));
   yield put(push('/quote-request'));
+  yield put(setCategory(category));
 }
 
 /**
