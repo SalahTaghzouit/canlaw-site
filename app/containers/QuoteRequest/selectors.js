@@ -32,7 +32,8 @@ const makeSelectSavableQuoteRequest = () => createSelector(
   selectQuoteRequestDomain(),
   (quoteRequest) => ({
     category: quoteRequest.category.id,
-    place: quoteRequest.place,
+    lat: quoteRequest.place.lat || 21.11132,
+    lng: quoteRequest.place.lng || 122.2132,
     answers: quoteRequest.answers,
   })
 );
