@@ -20,6 +20,7 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     return (
       <div>
         <CategorySearchHeader
+          exampleQuestions={['this is a test', 'and this is another test']}
           onChoseCategory={this.props.onClick}
         />
 
