@@ -40,6 +40,9 @@ function checkStatus(response) {
 export default function request(url, options) {
   const opts = extend({
     credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+    },
   }, options);
 
   return fetch(url, opts)
