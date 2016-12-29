@@ -7,6 +7,7 @@ import { LOCATION_CHANGE } from 'react-router-redux';
 import languageProviderReducer from 'containers/LanguageProvider/reducer';
 import globalReducer from './containers/App/reducer';
 import userProviderReducer from './containers/Identity/reducer';
+import quoteRequestReducer from './containers/QuoteRequest/reducer';
 
 /*
  * routeReducer
@@ -28,9 +29,10 @@ function routeReducer(state = routeInitialState, action) {
   switch (action.type) {
     /* istanbul ignore next */
     case LOCATION_CHANGE:
-      return state.merge({
+      return {
+        ...state,
         locationBeforeTransitions: action.payload,
-      });
+      };
     default:
       return state;
   }
@@ -41,10 +43,11 @@ function routeReducer(state = routeInitialState, action) {
  */
 export default function createReducer(asyncReducers) {
   return combineReducers({
-    route: routeReducer,
+    routing: routeReducer,
     global: globalReducer,
     user: userProviderReducer,
     language: languageProviderReducer,
+    quoteRequest: quoteRequestReducer,
     ...asyncReducers,
   });
 }

@@ -4,14 +4,13 @@
 import { createSelector } from 'reselect';
 import isEqual from 'lodash/isEqual';
 
-// makeSelectLocationState expects a plain JS object for the routing state
 const makeSelectGlobal = () => (state) => state.global;
 
 const makeSelectLocationState = () => {
   let prevRoutingState;
 
   return (state) => {
-    const routingState = state.route; // or state.route
+    const routingState = state.routing;
 
     if (!isEqual(routingState, prevRoutingState)) {
       prevRoutingState = routingState;
