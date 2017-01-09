@@ -1,7 +1,5 @@
 export const saveState = (state) => {
   try {
-    console.log('saving state:');
-    console.log(state);
     localStorage.setItem('canlawSiteState', JSON.stringify(state));
   } catch (err) {
     // ignore (log later)
