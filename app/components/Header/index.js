@@ -17,26 +17,18 @@ function Header({ children }) {
   return (
     <Wrapper>
       <SectionContent>
-
-
         <H2>
           <FormattedMessage
             {...messages.headline}
             values={{ cheap: <Yellow><FormattedMessage {...messages.cheap} /></Yellow> }}
           />
         </H2>
-
         <Hr />
-
         <H3>
           <FormattedMessage {...messages.looking_for_lawyer} />
         </H3>
-
         {children}
-
-
       </SectionContent>
-
     </Wrapper>
   );
 }
