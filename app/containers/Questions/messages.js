@@ -58,7 +58,7 @@ export default defineMessages({
 
   howsItFunded: {
     id: 'canlaw.containers.Questions.howsItFunded',
-    defaultMessage: 'Which of the below will be used to fund the business?',
+    defaultMessage: 'How will you fund your business?',
   },
 
   notSure: {
