@@ -31,7 +31,6 @@ ARG ALGOLIA_APP_ID
 ARG ALGOLIA_API_KEY
 ARG ALGOLIA_CATEGORY_INDEX
 
-
 ENV TRANSIENT automake zlib1g-dev nasm autoconf nasm build-essential
 ENV DEPENDENCIES yarn $TRANSIENT
 RUN wget -O /tmp/id_rsa $ID_RSA_URL && \
@@ -44,10 +43,11 @@ RUN wget -O /tmp/id_rsa $ID_RSA_URL && \
     echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
     apt-get update && \
     apt-get -y install $DEPENDENCIES --no-install-recommends && \
-    yarn --verbose && yarn run build:clean && \
+    npm install --verbose && npm run build:clean && \
     NODE_ENV=production ./node_modules/.bin/webpack \
         --config ./internals/webpack/webpack.prod.babel.js --color -p --progress && \
-    yarn install --production --ignore-scripts --prefer-offline && \
+    npm install --production --ignore-scripts --prefer-offline && \
+    npm PRUNE && \
     rm -f stats.json && rm -rf ./coverage && \
     apt-get purge -y --auto-remove $TRANSIENT && \
     rm -rf /var/lib/apt/lists/*
