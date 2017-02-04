@@ -13,9 +13,10 @@ import { connect } from 'react-redux';
 import Theme from 'canlaw-components/components/Theme';
 import Footer from 'canlaw-components/components/Footer';
 import Loader from 'canlaw-components/components/Loader';
+import Container from 'canlaw-components/components/Container';
 import Navigation from 'canlaw-components/components/Navigation';
+import { makeSelectIsAuthenticated } from 'canlaw-components/containers/UserProvider/selectors';
 import NavData from '../../components/NavData';
-import { makeSelectIsAuthenticated } from '../Identity/selectors';
 import {
   makeSelectLoading,
   makeSelectBlogUrl,
@@ -40,6 +41,7 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
 
         <Navigation>
           <NavData
+            isAuthenticated={this.props.isAuthenticated}
             blogUrl={this.props.blogUrl}
             dashboardUrl={this.props.dashboardUrl}
             loginUrl={this.props.loginUrl}
@@ -47,7 +49,9 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
           />
         </Navigation>
 
-        {React.Children.toArray(this.props.children)}
+        <Container>
+          {React.Children.toArray(this.props.children)}
+        </Container>
 
         <Footer />
       </Theme>
@@ -62,6 +66,7 @@ App.propTypes = {
   dashboardUrl: React.PropTypes.string,
   loginUrl: React.PropTypes.string,
   registerUrl: React.PropTypes.string,
+  isAuthenticated: React.PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({

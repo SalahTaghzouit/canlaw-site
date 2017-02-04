@@ -1,13 +1,25 @@
 /*
  * QuoteRequest
  */
-import React, { PropTypes } from 'react';
+import React from 'react';
+// import history from 'history';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import Helmet from 'react-helmet';
+import Button from 'canlaw-components/components/Button';
+import Loader from 'canlaw-components/components/Loader';
 import { createStructuredSelector } from 'reselect';
-import { makeSelectCategory, makeSelectAnswers } from './selectors';
-import { fetchCategory, setCategory, setAnswer, sendQuoteRequest } from './actions';
+import {
+  makeSelectIsAuthenticated,
+  makeSelectTriedLoggingIn,
+} from 'canlaw-components/containers/UserProvider/selectors';
+import {
+  makeSelectCategory,
+  makeSelectAnswers,
+  makeSelectRecoverFromLogin,
+  makeSelectIsSendingQuoteRequest,
+} from './selectors';
+import { fetchCategory, setCategory, setAnswer, sendQuoteRequest, setRecoverFromLogin, clearAnswers } from './actions';
 import CategorySearchHeader from '../../components/CategorySearchHeader';
 import Questions from '../Questions';
 import NarrowContainer from './NarrowContainer';
@@ -21,7 +33,7 @@ export class QuoteRequest extends React.PureComponent {
    *
    * If the category exists in the state and there's no url, we should redirect to the right url.
    */
-  componentDidMount() {
+  componentWillMount() {
     if (this.props.categorySlug) {
       if (!this.props.category || this.props.category.slug !== this.props.categorySlug) {
         this.props.fetchCategory(this.props.categorySlug);
@@ -29,6 +41,21 @@ export class QuoteRequest extends React.PureComponent {
     }
 
     this.name = this.props.category ? this.props.category.term : '';
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.recoverFromLogin) {
+      if (nextProps.isAuthenticated) {
+        nextProps.sendRequest();
+      } else if (nextProps.triedLoggingIn) {
+        nextProps.setRecoverFromLogin(false);
+      }
+    }
+  }
+
+  handleCategoryWasChosen(category) {
+    this.props.clearAnswers();
+    this.props.setCategory(category);
   }
 
   render() {
@@ -44,21 +71,29 @@ export class QuoteRequest extends React.PureComponent {
         <CategorySearchHeader
           exampleQuestions={['this is a test', 'and this is another test']}
           initialText={this.name}
-          onChoseCategory={this.props.setCategory}
+          onChoseCategory={this.handleCategoryWasChosen}
         />
 
-        <NarrowContainer>
+        {this.props.category.questions && <NarrowContainer>
+
           <Questions
+            questions={this.props.category.questions}
             answers={this.props.answers}
             category={this.props.category}
             onAnswered={this.props.setAnswer}
           />
 
-          <button onClick={this.props.sendRequest}>
-            <FormattedMessage {...messages.save} />
-          </button>
+          <Loader
+            message={<FormattedMessage {...messages.waitWhileWeSave} />}
+            show={this.props.isSendingQuoteRequest}
+          />
 
-        </NarrowContainer>
+          <Button disabled={this.props.isSendingQuoteRequest} onClick={this.props.sendRequest}>
+            <FormattedMessage {...messages.save} />
+          </Button>
+
+        </NarrowContainer>}
+
 
       </div>
     );
@@ -66,20 +101,30 @@ export class QuoteRequest extends React.PureComponent {
 }
 
 QuoteRequest.propTypes = {
-  fetchCategory: PropTypes.func.isRequired,
-  setCategory: PropTypes.func.isRequired,
-  categorySlug: PropTypes.string,
-  category: PropTypes.object,
-  // address: PropTypes.string,
-  // place: PropTypes.object,
-  setAnswer: PropTypes.func.isRequired,
-  sendRequest: PropTypes.func.isRequired,
-  answers: PropTypes.object.isRequired,
+  fetchCategory: React.PropTypes.func.isRequired,
+  setCategory: React.PropTypes.func.isRequired,
+  categorySlug: React.PropTypes.string,
+  category: React.PropTypes.object,
+  // address: React.PropTypes.string,
+  // place: React.PropTypes.object,
+  setAnswer: React.PropTypes.func.isRequired,
+  sendRequest: React.PropTypes.func.isRequired,
+  answers: React.PropTypes.object.isRequired,
+  isAuthenticated: React.PropTypes.bool.isRequired, // eslint-disable-line react/no-unused-prop-types
+  triedLoggingIn: React.PropTypes.bool.isRequired, // eslint-disable-line react/no-unused-prop-types
+  recoverFromLogin: React.PropTypes.bool.isRequired, // eslint-disable-line react/no-unused-prop-types
+  setRecoverFromLogin: React.PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
+  clearAnswers: React.PropTypes.func.isRequired,
+  isSendingQuoteRequest: React.PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   answers: makeSelectAnswers(),
   category: makeSelectCategory(),
+  isAuthenticated: makeSelectIsAuthenticated(),
+  triedLoggingIn: makeSelectTriedLoggingIn(),
+  recoverFromLogin: makeSelectRecoverFromLogin(),
+  isSendingQuoteRequest: makeSelectIsSendingQuoteRequest(),
   categorySlug: (state, ownState) => ownState.params.categorySlug,
   placeName: (state, ownState) => ownState.params.placeName,
 });
@@ -90,6 +135,8 @@ function mapDispatchToProps(dispatch) {
     setCategory: (category) => dispatch(setCategory(category)),
     setAnswer: (question, answer) => dispatch(setAnswer(question, answer)),
     sendRequest: () => dispatch(sendQuoteRequest()),
+    clearAnswers: () => dispatch(clearAnswers()),
+    setRecoverFromLogin: (bool) => dispatch(setRecoverFromLogin(bool)),
   };
 }
 

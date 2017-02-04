@@ -30,6 +30,7 @@ const Canlaw = {
         'redis',
         'connect-redis',
         'express-session',
+        'body-parser',
       ],
 
       /**

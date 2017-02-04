@@ -1,9 +1,8 @@
-import { call, put, fork, select } from 'redux-saga/effects';
-import { takeLatest } from 'redux-saga';
+import { take, fork, cancel, select, call, takeLatest, put } from 'redux-saga/lib/effects';
+import { LOCATION_CHANGE } from 'react-router-redux/lib/reducer';
 import { categoryNotFetched, cacheCategory, setCategory } from '../actions';
 import env from '../../../utils/env';
 import request from '../../../utils/request';
-import { redirectToAuthIfUnauth } from '../../../utils/redirect';
 import { FETCH_CATEGORY } from '../constants';
 import { makeSelectCategoryId, selectCategoryFromCache } from '../selectors';
 
@@ -28,7 +27,7 @@ export function* fetchCategory() {
     // Push it to the cache
     yield put(cacheCategory(cat));
   } catch (err) {
-    yield call(redirectToAuthIfUnauth.bind(null, err));
+    // yield call(redirectToAuthIfUnauth.bind(null, err));
     yield put(categoryNotFetched(err));
   }
 }
@@ -37,7 +36,7 @@ export function* fetchCategory() {
  * Watches for FETCH_CATEGORY actions and calls fetchRequest when one comes in.
  * By using `takeLatest` only the result of the latest API call is applied.
  */
-export function* getRequestWatcher() {
+export function* getWatcher() {
   yield fork(takeLatest, FETCH_CATEGORY, fetchCategory);
 }
 
@@ -45,7 +44,11 @@ export function* getRequestWatcher() {
  * Request sage lifecycle
  */
 export function* category() {
-  getRequestWatcher();
+  const watcher = yield fork(getWatcher);
+
+  // Suspend execution until location changes
+  yield take(LOCATION_CHANGE);
+  yield cancel(watcher);
 }
 
 export default category;

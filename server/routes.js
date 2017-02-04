@@ -2,11 +2,12 @@ const proxy = require('express-request-proxy');
 const querystring = require('querystring');
 const axios = require('axios');
 const moment = require('moment');
+const bodyParser = require('body-parser');
 
 module.exports = (router) => {
   const authHost = process.env.AUTH_HOST || process.env.AUTH_URL;
 
-// Proxy to api
+  // Proxy to api
   router.all('/api/*', (req, res, next) => {
     const runProxy = proxy({
       url: `${process.env.API_URL}/*`,
@@ -18,14 +19,21 @@ module.exports = (router) => {
     runProxy(req, res, next);
   });
 
+  // Parser
+  router.use(bodyParser.json()); // for parsing application/json
+  router.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
+
+
   router.get('/auth', (req, res) => {
     const request = req;
 
-    if (req.params.redirect) {
-      request.session.intedendAfterLogin = req.params.redirect;
+    if (req.query.redirect) {
+      request.session.intedendAfterLogin = req.query.redirect;
     }
-    console.log('######################### AUTH');
-    console.log(request.session);
+
+    if (req.query.type === 'register') {
+      return res.redirect(`${process.env.REGISTER_URL}?role=client`);
+    }
 
     const redirect = `${process.env.APP_URL}/auth/callback`;
 
@@ -58,10 +66,6 @@ module.exports = (router) => {
       request.session.accessToken = response.data.access_token;
       request.session.refreshToken = response.data.refresh_token;
       request.session.expiresAt = moment().add(response.data.expires_in, 'seconds');
-      console.log('######################### CALLBACK');
-
-      console.log(request.session);
-
       res.redirect(redirect);
     }).catch((error) => {
       console.log(error);
@@ -76,19 +80,20 @@ module.exports = (router) => {
   router.get('/identity', (req, res) => {
     const request = req;
     request.session = request.session || {};
-    console.log('######################### IDENTITY');
-    console.log(request.session);
     axios.get(`${authHost}/identity`, {
       headers: {
         Authorization: `${request.session.tokenType} ${request.session.accessToken}`,
       },
     }).then((response) => {
-      console.log(response);
       res.status(response.status).json(response.data);
     }).catch((error) => {
-      console.log(error);
       const status = error.response ? error.response.status : 500;
-      res.status(status).json(error.data);
+      res.status(status).json(error.response.data);
     });
+  });
+
+  router.delete('/auth/logout', (req, res) => {
+    req.session.destroy();
+    return res.status(200).json(`${process.env.AUTH_URL}/logout`);
   });
 };

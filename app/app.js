@@ -27,7 +27,7 @@ import { makeSelectLocationState } from 'containers/App/selectors';
 import LanguageProvider from 'containers/LanguageProvider';
 
 // Import Identity Provider
-import Identity from 'containers/Identity';
+import UserProvider from 'canlaw-components/containers/UserProvider';
 
 // Load the favicon, the manifest.json
 /* eslint-disable import/no-unresolved, import/extensions */
@@ -78,7 +78,7 @@ const render = (messages) => {
   ReactDOM.render(
     <Provider store={store}>
       <LanguageProvider messages={messages}>
-        <Identity>
+        <UserProvider autoReLogin={false}>
           <Router
             history={history}
             routes={rootRoute}
@@ -88,7 +88,7 @@ const render = (messages) => {
               applyRouterMiddleware(useScroll())
             }
           />
-        </Identity>
+        </UserProvider>
       </LanguageProvider>
     </Provider>,
     document.getElementById('app')

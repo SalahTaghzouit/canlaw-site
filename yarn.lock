@@ -213,6 +213,13 @@ array-unique@^0.2.1:
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/array-unique/-/array-unique-0.2.1.tgz#a1d97ccafcbc2625cc70fadceb36a50c58b01a53"
 
+array.prototype.find@^2.0.1:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/array.prototype.find/-/array.prototype.find-2.0.3.tgz#08c3ec33e32ec4bab362a2958e686ae92f59271d"
+  dependencies:
+    define-properties "^1.1.2"
+    es-abstract "^1.7.0"
+
 arrify@^1.0.0, arrify@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/arrify/-/arrify-1.0.1.tgz#898508da2226f380df904728456849c1501a4b0d"
@@ -1452,12 +1459,10 @@ caniuse-db@^1.0.30000601, caniuse-db@^1.0.30000602:
 
 "canlaw-components@git+ssh://git@github.com/redgenie/canlaw-react-shared-components.git#develop":
   version "0.1.2"
-  resolved "git+ssh://git@github.com/redgenie/canlaw-react-shared-components.git#691205f55bd53cc457816a998553da02d1634cb9"
+  resolved "git+ssh://git@github.com/redgenie/canlaw-react-shared-components.git#c7d67f778292845385003cf2dcdfda9ae6127069"
   dependencies:
     bootstrap-sass "^3.3.7"
-    react "^15.4.1"
-    react-bootstrap "^0.30.7"
-    styled-components "^1.2.1"
+    react-input-mask "^0.7.5"
 
 capture-stack-trace@^1.0.0:
   version "1.0.0"
@@ -1602,7 +1607,7 @@ clap@^1.0.9:
   dependencies:
     chalk "^1.1.3"
 
-classnames@^2.2.5:
+classnames@^2.2.4, classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
@@ -2587,6 +2592,15 @@ es-abstract@^1.6.1:
     is-callable "^1.1.3"
     is-regex "^1.0.3"
 
+es-abstract@^1.7.0:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/es-abstract/-/es-abstract-1.7.0.tgz#dfade774e01bfcd97f96180298c449c8623fb94c"
+  dependencies:
+    es-to-primitive "^1.1.1"
+    function-bind "^1.1.0"
+    is-callable "^1.1.3"
+    is-regex "^1.0.3"
+
 es-to-primitive@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/es-to-primitive/-/es-to-primitive-1.1.1.tgz#45355248a88979034b6792e19bb81f2b7975dd0d"
@@ -2754,10 +2768,11 @@ eslint-plugin-jsx-a11y@2.2.3:
     jsx-ast-utils "^1.0.0"
     object-assign "^4.0.1"
 
-eslint-plugin-react@6.8.0:
-  version "6.8.0"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-6.8.0.tgz#741ab5438a094532e5ce1bbb935d6832356f492d"
+eslint-plugin-react@^6.9.0:
+  version "6.9.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-react/-/eslint-plugin-react-6.9.0.tgz#54c2e9906b76f9d10142030bdc34e9d6840a0bb2"
   dependencies:
+    array.prototype.find "^2.0.1"
     doctrine "^1.2.2"
     jsx-ast-utils "^1.3.4"
 
@@ -3691,7 +3706,14 @@ he@1.1.x:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/he/-/he-1.1.0.tgz#29319d49beec13a9b1f3c4f9b2a6dde4859bb2a7"
 
-history@^3.0.0:
+hedron@^0.5.1:
+  version "0.5.1"
+  resolved "https://registry.yarnpkg.com/hedron/-/hedron-0.5.1.tgz#79becbea8f0d2d5836fb6feff5cb1f3bf1060075"
+  dependencies:
+    react "^15.3.2"
+    styled-components "^1.0.10"
+
+history@^3.0.0, history@^3.2.1:
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/history/-/history-3.2.1.tgz#71c7497f4e6090363d19a6713bb52a1bfcdd99aa"
   dependencies:
@@ -4691,14 +4713,14 @@ js-tokens@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-2.0.0.tgz#79903f5563ee778cc1162e6dcf1a0027c97f9cb5"
 
-js-yaml@3.6.1, js-yaml@^3.4.3, js-yaml@^3.5.1, js-yaml@~3.6.1:
+js-yaml@3.6.1, js-yaml@^3.5.1, js-yaml@~3.6.1:
   version "3.6.1"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.6.1.tgz#6e5fe67d8b205ce4d22fad05b7781e8dadcc4b30"
   dependencies:
     argparse "^1.0.7"
     esprima "^2.6.0"
 
-js-yaml@3.x, js-yaml@^3.7.0:
+js-yaml@3.x, js-yaml@^3.4.3, js-yaml@^3.7.0:
   version "3.7.0"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.7.0.tgz#5c967ddd837a9bfdca5f2de84253abe8a1c03b80"
   dependencies:
@@ -4941,7 +4963,7 @@ lock@^0.1.2:
   version "0.1.3"
   resolved "https://registry.yarnpkg.com/lock/-/lock-0.1.3.tgz#f66c1caa0c41956e1426608039ed59b71bdf1854"
 
-lodash-es@^4.2.1:
+lodash-es@^4.2.0, lodash-es@^4.2.1:
   version "4.17.4"
   resolved "https://registry.yarnpkg.com/lodash-es/-/lodash-es-4.17.4.tgz#dcc1d7552e150a0640073ba9cb31d70f032950e7"
 
@@ -6604,14 +6626,28 @@ react-helmet@^3.2.2:
     object-assign "^4.0.1"
     react-side-effect "1.0.2"
 
-react-intl@^2.1.5:
-  version "2.2.2"
-  resolved "https://registry.yarnpkg.com/react-intl/-/react-intl-2.2.2.tgz#266a38334671937bec92729eb4973b4360c07996"
+react-input-autosize@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-1.1.0.tgz#3fe1ac832387d8abab85f6051ceab1c9e5570853"
+
+react-input-mask@^0.7.5:
+  version "0.7.7"
+  resolved "https://registry.yarnpkg.com/react-input-mask/-/react-input-mask-0.7.7.tgz#729d59c271bf42928a894c2af4f61a447351817e"
+
+react-intl@^2.2.3:
+  version "2.2.3"
+  resolved "https://registry.yarnpkg.com/react-intl/-/react-intl-2.2.3.tgz#8eebb03cddc38b337ed22fab78037ab53a594270"
   dependencies:
     intl-format-cache "^2.0.5"
     intl-messageformat "^1.3.0"
     intl-relativeformat "^1.3.0"
     invariant "^2.1.1"
+
+react-notification-system@^0.2.11:
+  version "0.2.11"
+  resolved "https://registry.yarnpkg.com/react-notification-system/-/react-notification-system-0.2.11.tgz#c954ab7f3c355b34ca5f85d6b3fc4236070e7788"
+  dependencies:
+    object-assign "^4.0.1"
 
 react-overlays@^0.6.10:
   version "0.6.10"
@@ -6635,13 +6671,14 @@ react-proxy@^1.1.7:
     lodash "^4.6.1"
     react-deep-force-update "^1.0.0"
 
-react-redux@^4.4.6:
-  version "4.4.6"
-  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-4.4.6.tgz#4b9d32985307a11096a2dd61561980044fcc6209"
+react-redux@^5.0.2:
+  version "5.0.2"
+  resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.0.2.tgz#3d9878f5f71c6fafcd45de1fbb162ea31f389814"
   dependencies:
     hoist-non-react-statics "^1.0.3"
     invariant "^2.0.0"
     lodash "^4.2.0"
+    lodash-es "^4.2.0"
     loose-envify "^1.1.0"
 
 react-router-redux@^4.0.7:
@@ -6664,6 +6701,13 @@ react-router@^3.0.0:
     invariant "^2.2.1"
     loose-envify "^1.2.0"
     warning "^3.0.0"
+
+react-select@^1.0.0-rc.3:
+  version "1.0.0-rc.3"
+  resolved "https://registry.yarnpkg.com/react-select/-/react-select-1.0.0-rc.3.tgz#94ade090522153067eff09282d0525249ea1d9e3"
+  dependencies:
+    classnames "^2.2.4"
+    react-input-autosize "^1.1.0"
 
 react-side-effect@1.0.2:
   version "1.0.2"
@@ -6695,7 +6739,7 @@ react@^0.14.7:
     envify "^3.0.0"
     fbjs "^0.6.1"
 
-react@^15.4.1:
+react@^15.3.2, react@^15.4.1:
   version "15.4.1"
   resolved "https://registry.yarnpkg.com/react/-/react-15.4.1.tgz#498e918602677a3983cd0fd206dfe700389a0dd6"
   dependencies:
@@ -6866,9 +6910,9 @@ reduce@^1.0.1:
   dependencies:
     object-keys "~1.0.0"
 
-redux-saga@^0.13.0:
-  version "0.13.0"
-  resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-0.13.0.tgz#9294386550deb0d56bc9a1b3c90a613e7ddb6593"
+redux-saga@^0.14.0:
+  version "0.14.3"
+  resolved "https://registry.yarnpkg.com/redux-saga/-/redux-saga-0.14.3.tgz#28cd2c5b49cf780a1de25875765724150c630513"
 
 redux@^3.6.0:
   version "3.6.0"
@@ -7546,7 +7590,7 @@ style-loader@0.13.1:
   dependencies:
     loader-utils "^0.2.7"
 
-styled-components@^1.2.1:
+styled-components@^1.0.10, styled-components@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/styled-components/-/styled-components-1.2.1.tgz#5884267dd9c6a8199d4abd3e0714afb973772b42"
   dependencies:

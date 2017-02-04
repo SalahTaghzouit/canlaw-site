@@ -39,20 +39,26 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
-      path: '/quote-request(/:placeName)(/:categorySlug)',
+      path: '/quote-request(/:categorySlug)(/:placeName)',
       name: 'quoteRequest',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('containers/QuoteRequest/reducer'),
           System.import('containers/QuoteRequest/sagas'),
           System.import('containers/QuoteRequest'),
+
+          System.import('containers/Questions/reducer'),
+          System.import('containers/Questions/sagas'),
         ]);
 
         const renderRoute = loadModule(cb);
 
-        importModules.then(([quoteReducer, quoteSagas, component]) => {
+        importModules.then(([quoteReducer, quoteSagas, component, questionsReducer, questionsSagas]) => {
           injectReducer('quoteRequest', quoteReducer.default);
           injectSagas(quoteSagas.default);
+
+          injectReducer('questions', questionsReducer.default);
+          injectSagas(questionsSagas.default);
 
           renderRoute(component);
         });

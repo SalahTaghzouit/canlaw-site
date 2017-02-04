@@ -4,9 +4,9 @@
  */
 import { combineReducers } from 'redux';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import languageProviderReducer from 'containers/LanguageProvider/reducer';
+import userProviderReducer from 'canlaw-components/containers/UserProvider/reducer';
+import languageProviderReducer from './containers/LanguageProvider/reducer';
 import globalReducer from './containers/App/reducer';
-import userProviderReducer from './containers/Identity/reducer';
 import quoteRequestReducer from './containers/QuoteRequest/reducer';
 
 /*

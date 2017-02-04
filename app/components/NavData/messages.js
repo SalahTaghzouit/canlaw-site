@@ -16,10 +16,10 @@ export default defineMessages({
   },
   openAccount: {
     id: 'canlaw.site.components.NavData.openAccount',
-    defaultMessage: 'Open an account',
+    defaultMessage: 'Lawyer Sign Up',
   },
   login: {
     id: 'canlaw.site.components.NavData.login',
     defaultMessage: 'Login',
-  }
+  },
 });

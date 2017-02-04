@@ -28,13 +28,23 @@ const makeSelectCategoryId = () => createSelector(
   (quoteRequestDomain) => quoteRequestDomain.toFetch
 );
 
+const makeSelectRecoverFromLogin = () => createSelector(
+  selectQuoteRequestDomain(),
+  (quoteRequestDomain) => quoteRequestDomain.recoverFromLogin
+);
+
+const makeSelectIsSendingQuoteRequest = () => createSelector(
+  selectQuoteRequestDomain(),
+  (quoteRequestDomain) => quoteRequestDomain.isSendingQuoteRequest
+);
+
 const makeSelectSavableQuoteRequest = () => createSelector(
   selectQuoteRequestDomain(),
-  (quoteRequest) => ({
-    category: quoteRequest.category.id,
-    lat: quoteRequest.place.lat || 21.11132,
-    lng: quoteRequest.place.lng || 122.2132,
-    answers: quoteRequest.answers,
+  (quoteRequestDomain) => ({
+    category: quoteRequestDomain.category.id,
+    lat: quoteRequestDomain.place.lat || 21.11132,
+    lng: quoteRequestDomain.place.lng || 122.2132,
+    answers: quoteRequestDomain.answers,
   })
 );
 
@@ -55,4 +65,6 @@ export {
   makeSelectCategoryId,
   selectCategoryFromCache,
   makeSelectSavableQuoteRequest,
+  makeSelectRecoverFromLogin,
+  makeSelectIsSendingQuoteRequest,
 };
