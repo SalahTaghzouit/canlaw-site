@@ -47,7 +47,7 @@ RUN wget -O /tmp/id_rsa $ID_RSA_URL && \
     NODE_ENV=production ./node_modules/.bin/webpack \
         --config ./internals/webpack/webpack.prod.babel.js --color -p --progress && \
     npm install --production --ignore-scripts --prefer-offline && \
-    npm PRUNE && \
+    npm prune && \
     rm -f stats.json && rm -rf ./coverage && \
     apt-get purge -y --auto-remove $TRANSIENT && \
     rm -rf /var/lib/apt/lists/*
