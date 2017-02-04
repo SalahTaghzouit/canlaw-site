@@ -20,7 +20,7 @@ module.exports = (options) => ({
     }, {
       test: /\.scss$/,
       exclude: /node_modules(?!\/bootstrap-sass|\/canlaw-components)/,
-      loaders: ['style-loader', 'css-loader', 'sass-loader'],
+      loaders: ['style', 'css', 'sass'],
     }, {
       // Do not transform vendor's CSS with CSS-modules
       // The point is that they remain in global scope.
