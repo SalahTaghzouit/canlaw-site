@@ -10,4 +10,8 @@ export default defineMessages({
     id: 'canlaw.containers.QuoteRequest.save',
     defaultMessage: 'Get my quotes',
   },
+  waitWhileWeSave: {
+    id: 'canlaw.containers.QuoteRequest.waitWhileWeSave',
+    defaultMessage: 'We are trying to send the quote request to the lawyers, please wait...',
+  },
 });

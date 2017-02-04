@@ -12,3 +12,4 @@ export const CACHE_CATEGORY = 'canlaw/QuoteRequest/CACHE_CATEGORY';
 export const CATEGORY_NOT_FETCHED = 'canlaw/QuoteRequest/CATEGORY_NOT_FETCHED';
 export const SEND_QUOTE_REQUEST = 'canlaw/QuoteRequest/SEND_QUOTE_REQUEST';
 export const QUOTE_REQUEST_NOT_SAVED = 'canlaw/QuoteRequest/QUOTE_REQUEST_NOT_SAVED';
+export const SET_RECOVER_FROM_LOGIN = 'canlaw/QuoteRequest/SET_RECOVER_FROM_LOGIN';

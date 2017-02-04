@@ -3,6 +3,7 @@
  * QuoteRequest actions
  *
  */
+import { LOGOUT } from 'canlaw-components/containers/UserProvider/constants';
 import {
   SET_CATEGORY,
   SET_ANSWER,
@@ -12,6 +13,7 @@ import {
   CATEGORY_NOT_FETCHED,
   SEND_QUOTE_REQUEST,
   QUOTE_REQUEST_NOT_SAVED,
+  SET_RECOVER_FROM_LOGIN,
 } from './constants';
 
 /**
@@ -112,5 +114,25 @@ export function quoteRequestNotSaved(reason) {
   return {
     type: QUOTE_REQUEST_NOT_SAVED,
     reason,
+  };
+}
+
+/**
+ * Quote request was not saved
+ *
+ * @returns {{type}}
+ */
+export function setRecoverFromLogin(status = true) {
+  return {
+    type: SET_RECOVER_FROM_LOGIN,
+    status,
+  };
+}
+
+export function logout(reason, soft) {
+  return {
+    type: LOGOUT,
+    reason,
+    soft,
   };
 }

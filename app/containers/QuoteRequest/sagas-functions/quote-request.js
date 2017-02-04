@@ -1,52 +1,56 @@
 import { take, call, put, fork, cancel, select } from 'redux-saga/effects';
 import { takeLatest } from 'redux-saga';
 import { LOCATION_CHANGE } from 'react-router-redux';
-import { makeSelectSavableQuoteRequest } from '../selectors';
+import { saveState } from 'canlaw-components/utils/state-persistor';
+import env from 'canlaw-components/utils/env';
+import request from 'canlaw-components/utils/request';
+import redirect from 'canlaw-components/utils/redirect';
+import { WRONG_ACCOUNT_TYPE } from 'canlaw-components/containers/UserProvider/constants';
+import { makeSelectSavableQuoteRequest, selectQuoteRequestDomain } from '../selectors';
 import { SEND_QUOTE_REQUEST } from '../constants';
-import { quoteRequestNotSaved } from '../actions';
-import env from '../../../utils/env';
-import request from '../../../utils/request';
-import redirect from '../../../utils/redirect';
-import { saveState } from '../../../utils/state-persistor';
-import { getStore } from '../../../store';
+import { quoteRequestNotSaved, setRecoverFromLogin, logout } from '../actions';
 
-export function redirectToDashboard() {
-  redirect(`${env.dashboardUrl}/requests`);
+export function redirectToDashboard(quoteRequestId) {
+  redirect(`${env.dashboardUrl}/requests?quote_request_sent=${quoteRequestId}`);
 }
 
 
 export function redirectToAuth() {
-  redirect(env.authUrl, true);
+  console.log(`Redirecting to: ${env.authUrl}?type=register`);
+  redirect(`${env.authUrl}?type=register`, true);
 }
 
 /**
  * Request request/response handler
  */
 export function* sendQuoteRequest() {
-  console.log('Sending quote request');
   const quoteRequest = yield select(makeSelectSavableQuoteRequest());
-  console.log(quoteRequest);
+
   // Call our request helper (see 'utils/request')
   const requestURL = `${env.apiUrl}/quote-request`;
   try {
     // Clear state from storage
-    saveState({ quoteRequest: undefined });
-    yield call(request, requestURL, {
+    saveState('quoteRequest', { quoteRequest: {} });
+    const newQuoteRequest = yield call(request, requestURL, {
       method: 'POST',
       body: JSON.stringify(quoteRequest),
     });
 
-    yield call(redirectToDashboard);
+    yield call(redirectToDashboard.bind(null, newQuoteRequest.id));
   } catch (err) {
     console.log(err);
     if (err.response.status === 401) {
-      saveState({
+      yield put(setRecoverFromLogin());
+      const quoteRequestDomain = yield select(selectQuoteRequestDomain());
+      saveState('quoteRequest', {
         quoteRequest: {
-          ...getStore().getState().quoteRequest,
-          save: true,
+          ...quoteRequestDomain,
         },
       });
       yield call(redirectToAuth);
+    } else if (err.response.status === 403) {
+      yield put(logout(WRONG_ACCOUNT_TYPE, true));
+      yield call(sendQuoteRequest);
     } else {
       yield put(quoteRequestNotSaved(err));
     }

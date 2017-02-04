@@ -4,6 +4,8 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import NavItem from 'canlaw-components/components/Navigation/NavItem';
+import LogoutButton from 'canlaw-components/containers/LogoutButton';
+import Navbar from 'react-bootstrap/lib/Navbar';
 import A from 'canlaw-components/components/Navigation/A';
 import Nav from 'canlaw-components/components/Navigation/Nav';
 import messages from './messages';
@@ -21,6 +23,12 @@ function NavData({ blogUrl, dashboardUrl, loginUrl, registerUrl, isAuthenticated
         <NavItem href={dashboardUrl} componentClass={A} eventKey={2}>
           <FormattedMessage {...messages.openDashboard} />
         </NavItem>
+        }
+
+        {isAuthenticated &&
+        <Navbar.Text>
+          <LogoutButton />
+        </Navbar.Text>
         }
 
         {!isAuthenticated &&
@@ -44,7 +52,7 @@ NavData.propTypes = {
   dashboardUrl: React.PropTypes.string,
   loginUrl: React.PropTypes.string,
   registerUrl: React.PropTypes.string,
-  isAuthenticated: React.PropTypes.bool,
+  isAuthenticated: React.PropTypes.bool.isRequired,
 };
 
 export default NavData;

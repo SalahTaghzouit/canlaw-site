@@ -47,7 +47,7 @@ const makeSelectLoginUrl = () => createSelector(
 
 const makeSelectRegisterUrl = () => createSelector(
   makeSelectEnv(),
-  (envState) => envState.registerUrl
+  (envState) => `${envState.registerUrl}?role=lawyer`
 );
 
 export {

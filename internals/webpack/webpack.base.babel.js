@@ -20,7 +20,7 @@ module.exports = (options) => ({
     }, {
       test: /\.scss$/,
       exclude: /node_modules(?!\/bootstrap-sass|\/canlaw-components)/,
-      loaders: ['style', 'css', 'sass'],
+      loaders: ['style-loader', 'css-loader', 'sass-loader'],
     }, {
       // Do not transform vendor's CSS with CSS-modules
       // The point is that they remain in global scope.
@@ -89,6 +89,7 @@ module.exports = (options) => ({
         algoliaCategoryIndex: JSON.stringify(`${process.env.ALGOLIA_CATEGORY_INDEX}`),
         algoliaAppId: JSON.stringify(`${process.env.ALGOLIA_APP_ID}`),
         algoliaApiKey: JSON.stringify(`${process.env.ALGOLIA_API_KEY}`),
+        mapsApiKey: JSON.stringify(`${process.env.GOOGLE_MAPS_API_KEY}`),
       },
     }),
     new webpack.NamedModulesPlugin(),

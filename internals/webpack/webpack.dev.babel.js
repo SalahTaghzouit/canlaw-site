@@ -27,6 +27,7 @@ const plugins = [
   }),
 ];
 
+
 module.exports = require('./webpack.base.babel')({
   // Add hot reloading in development
   entry: [
