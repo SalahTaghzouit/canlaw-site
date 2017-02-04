@@ -1,4 +1,4 @@
-FROM node:7.3
+FROM node:7.5
 
 #####################################
 # Non-Root User:
@@ -20,11 +20,18 @@ WORKDIR $PROJECT
 # Build:
 #####################################
 ARG ID_RSA_URL
-RUN echo "Github token is: $GITHUB_TOKEN"
+ARG DASHBOARD_URL
+ARG PREFIX_PATH
 ARG APP_URL
-#apt-get upgrade && \
-#npm prune --production
-ENV APP_URL ${APP_URL}
+ARG API_URL
+ARG BLOG_URL
+ARG LOGIN_URL
+ARG REGISTER_URL
+ARG ALGOLIA_APP_ID
+ARG ALGOLIA_API_KEY
+ARG ALGOLIA_CATEGORY_INDEX
+
+
 ENV TRANSIENT automake zlib1g-dev nasm autoconf nasm build-essential
 ENV DEPENDENCIES yarn $TRANSIENT
 RUN wget -O /tmp/id_rsa $ID_RSA_URL && \

@@ -82,6 +82,7 @@ module.exports = (options) => ({
         appUrl: JSON.stringify(`${process.env.APP_URL}`),
         apiUrl: JSON.stringify(`${process.env.APP_URL}/api`),
         authUrl: JSON.stringify(`${process.env.APP_URL}/auth`),
+        baseUrl: JSON.stringify(process.env.PREFIX_PATH || '/'),
         blogUrl: JSON.stringify(`${process.env.BLOG_URL}`),
         dashboardUrl: JSON.stringify(`${process.env.DASHBOARD_URL}`),
         loginUrl: JSON.stringify(`${process.env.LOGIN_URL}`),

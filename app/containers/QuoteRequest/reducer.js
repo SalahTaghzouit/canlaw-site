@@ -30,7 +30,7 @@ const initialState = {
   total: 0,
   recoverFromLogin: false,
   isSendingQuoteRequest: false,
-  ...getState('quoteRequest').quoteRequest,
+  ...(getState('quoteRequest') || {}).quoteRequest,
 };
 
 function quoteRequestReducer(state = initialState, action) {

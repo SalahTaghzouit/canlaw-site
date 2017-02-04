@@ -64,7 +64,7 @@ const addProdMiddlewares = (app, router, options) => {
   // Routes
   setupRoutes(router);
 
-  router.get('*', (req, res) => res.sendFile(path.resolve(outputPath, 'index.html')));
+  app.get('*', (req, res) => res.sendFile(path.resolve(outputPath, 'index.html')));
 };
 
 /**
