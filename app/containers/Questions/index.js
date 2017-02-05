@@ -17,6 +17,12 @@ import { loadQuestionsTranslations } from './actions';
 
 export class Questions extends React.PureComponent {
 
+  constructor(props) {
+    super(props);
+    this.transOptions = this.transOptions.bind(this);
+    this.trans = this.trans.bind(this);
+  }
+
   componentWillMount() {
     this.handleProps(this.props);
   }
@@ -54,8 +60,11 @@ export class Questions extends React.PureComponent {
       return options;
     }
 
-    options.forEach(() => {
-      all.push({ label: this.props.translatedQuestions[options.value] });
+    options.forEach((option) => {
+      all.push({
+        label: this.trans(this.props.translatedQuestions[option.value]),
+        value: this.trans(this.props.translatedQuestions[option.value]),
+      });
     });
     return all;
   }
