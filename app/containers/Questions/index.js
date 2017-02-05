@@ -50,6 +50,10 @@ export class Questions extends React.PureComponent {
 
   transOptions(options) {
     const all = [];
+    if (!Array.isArray(options)) {
+      return options;
+    }
+
     options.forEach(() => {
       all.push({ label: this.props.translatedQuestions[options.value] });
     });
