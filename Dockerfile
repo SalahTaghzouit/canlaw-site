@@ -37,7 +37,7 @@ RUN wget -O /tmp/id_rsa $ID_RSA_URL && \
     ssh-keyscan -t rsa github.com > /root/.ssh/known_hosts && \
     apt-get update && \
     apt-get -y install $DEPENDENCIES --no-install-recommends && \
-    npm install
+    npm install && npm run build:dll
 #    apt-get purge -y --auto-remove $TRANSIENT && \
 #    rm -rf /var/lib/apt/lists/*
 #    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \

@@ -13,7 +13,7 @@ const cheerio = require('cheerio');
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
 const dllPlugin = pkg.dllPlugin;
 
-const publicPath = process.env.PUBLIC_ASSETS_PATH || '';
+const publicPath = (process.env.PUBLIC_ASSETS_PATH && process.env.PUBLIC_ASSETS_PATH !== '/') ? process.env.PUBLIC_ASSETS_PATH : '/';
 const plugins = [
   new webpack.HotModuleReplacementPlugin(), // Tell webpack we want hot reloading
   new webpack.NoErrorsPlugin(),
@@ -70,7 +70,9 @@ module.exports = require('./webpack.base.babel')({
  */
 function dependencyHandlers() {
   // Don't do anything during the DLL Build step
-  if (process.env.BUILDING_DLL) { return []; }
+  if (process.env.BUILDING_DLL) {
+    return [];
+  }
 
   // If the package.json does not have a dllPlugin property, use the CommonsChunkPlugin
   if (!dllPlugin) {
@@ -138,13 +140,15 @@ function templateContent() {
     path.resolve(process.cwd(), 'app/index.html')
   ).toString();
 
-  if (!dllPlugin) { return html; }
+  if (!dllPlugin) {
+    return html;
+  }
 
   const doc = cheerio(html);
   const body = doc.find('body');
   const dllNames = !dllPlugin.dlls ? ['canlawDeps'] : Object.keys(dllPlugin.dlls);
 
-  dllNames.forEach((dllName) => body.append(`<script data-dll='true' src='${publicPath}/${dllName}.dll.js'></script>`));
+  dllNames.forEach((dllName) => body.append(`<script data-dll="true" src="${publicPath}/${dllName}.dll.js"></script>`));
 
   return doc.toString();
 }
