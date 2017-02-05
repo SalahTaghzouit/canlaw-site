@@ -91,7 +91,7 @@ module.exports = (options) => ({
         registerUrl: JSON.stringify(`${env.registerUrl}`),
         algoliaCategoryIndex: JSON.stringify(`${env.algoliaCategoryIndex}`),
         algoliaAppId: JSON.stringify(`${env.algoliaAppId}`),
-        algoliaApiKey: JSON.stringify(`${env.algoliaAppKey}`),
+        algoliaApiKey: JSON.stringify(`${env.algoliaApiKey}`),
         mapsApiKey: JSON.stringify(`${env.googleMapsApiKey}`),
       },
     }),

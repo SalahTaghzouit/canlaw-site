@@ -54,7 +54,7 @@ import createRoutes from './routes';
 import configureSaga from './saga';
 
 console.log('basename is');
-console.log(env.baseUrl);
+console.log(env.baseUrl || '/');
 const browserHistory = useRouterHistory(createHistory)({
   basename: env.baseUrl || '/',
 });
