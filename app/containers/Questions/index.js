@@ -61,10 +61,7 @@ export class Questions extends React.PureComponent {
     }
 
     options.forEach((option) => {
-      all.push({
-        label: this.trans(this.props.translatedQuestions[option.value]),
-        value: this.trans(this.props.translatedQuestions[option.value]),
-      });
+      all.push(this.trans(this.props.translatedQuestions[option.value]));
     });
     return all;
   }
