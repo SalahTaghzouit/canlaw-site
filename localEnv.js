@@ -29,5 +29,6 @@ module.exports = {
   registerUrl: process.env.REGISTER_URL,
   algoliaCategoryIndex: process.env.ALGOLIA_CATEGORY_INDEX,
   algoliaAppId: process.env.ALGOLIA_APP_ID,
+  algoliaApiKey: process.env.ALGOLIA_API_KEY,
   googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
 };
