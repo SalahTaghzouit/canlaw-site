@@ -3,14 +3,15 @@ const querystring = require('querystring');
 const axios = require('axios');
 const moment = require('moment');
 const bodyParser = require('body-parser');
+const env = require('../localEnv');
 
 module.exports = (router) => {
-  const authHost = process.env.AUTH_HOST || process.env.AUTH_URL;
+  const authHost = env.authUrl;
 
   // Proxy to api
   router.all('/api/*', (req, res, next) => {
     const runProxy = proxy({
-      url: `${process.env.API_URL}/*`,
+      url: `${env.apiUrl}/*`,
       headers: {
         Authorization: `${req.session.tokenType} ${req.session.accessToken}`,
       },
@@ -19,7 +20,7 @@ module.exports = (router) => {
     runProxy(req, res, next);
   });
 
-  // Parser
+  // Body parser after the proxy to allow it to consume the body
   router.use(bodyParser.json()); // for parsing application/json
   router.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 
@@ -27,24 +28,20 @@ module.exports = (router) => {
   router.get('/auth', (req, res) => {
     const request = req;
 
-    if (req.query.redirect) {
+    if (req.query.redirect && request.session) {
       request.session.intedendAfterLogin = req.query.redirect;
     }
 
-    if (req.query.type === 'register') {
-      return res.redirect(`${process.env.REGISTER_URL}?role=client`);
-    }
-
-    const redirect = `${process.env.APP_URL}/auth/callback`;
+    const redirect = `${env.appUrl}/auth/callback`;
 
     const query = querystring.stringify({
-      client_id: process.env.CLIENT_ID,
+      client_id: env.clientId,
       redirect_uri: redirect,
       response_type: 'code',
       scope: '',
     });
 
-    const url = `${process.env.AUTH_URL}/oauth/authorize?${query}`;
+    const url = `${env.authUrl}/oauth/authorize?${query}`;
 
     return res.redirect(url);
   });
@@ -52,14 +49,14 @@ module.exports = (router) => {
   router.get('/auth/callback', (req, res) => {
     const request = req;
     request.session = request.session || {};
-    const redirect = request.session.intedendAfterLogin || process.env.APP_URL;
+    const redirect = request.session.intedendAfterLogin || env.appUrl;
 
     axios.post(`${authHost}/oauth/token`, {
       grant_type: 'authorization_code',
-      client_id: process.env.CLIENT_ID,
-      client_secret: process.env.CLIENT_SECRET,
+      client_id: env.clientId,
+      client_secret: env.clientSecret,
       // This doesn't really mean a redirect, it's just an additional verification in the flow
-      redirect_uri: `${process.env.APP_URL}/auth/callback`,
+      redirect_uri: `${env.appUrl}/auth/callback`,
       code: req.query.code,
     }).then((response) => {
       request.session.tokenType = response.data.token_type;
@@ -87,6 +84,7 @@ module.exports = (router) => {
     }).then((response) => {
       res.status(response.status).json(response.data);
     }).catch((error) => {
+      console.log(error);
       const status = error.response ? error.response.status : 500;
       res.status(status).json(error.response.data);
     });
@@ -94,6 +92,6 @@ module.exports = (router) => {
 
   router.delete('/auth/logout', (req, res) => {
     req.session.destroy();
-    return res.status(200).json(`${process.env.AUTH_URL}/logout`);
+    return res.status(200).json(`${env.authUrl}/logout`);
   });
 };

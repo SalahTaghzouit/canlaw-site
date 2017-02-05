@@ -4,9 +4,10 @@ const resolve = require('path').resolve;
 const logger = require('./logger');
 const setup = require('./middlewares/frontendMiddleware');
 const setupSession = require('./middlewares/sessionMiddleware');
+const env = require('../localEnv');
 
-const isDev = process.env.NODE_ENV !== 'production';
-const ngrok = (isDev && process.env.ENABLE_TUNNEL) || argv.tunnel ? require('ngrok') : false;
+const isDev = env.nodeEnv !== 'production';
+const ngrok = (isDev && env.enableTunnel) || argv.tunnel ? require('ngrok') : false;
 
 const app = express();
 const router = express.Router(); // eslint-disable-line new-cap
@@ -15,20 +16,20 @@ const router = express.Router(); // eslint-disable-line new-cap
 setupSession(app);
 
 // Prefix
-app.use(process.env.PREFIX_PATH || '/', router);
+app.use(`${env.baseUrlPath}/`, router);
 
 // In production we need to pass these values in instead of relying on webpack
 setup(app, router, {
   outputPath: resolve(process.cwd(), 'build'),
-  publicPath: process.env.PUBLIC_ASSETS_PATH || '/',
+  publicPath: `${env.baseUrlPath}/`,
 });
 
 // get the intended host and port number, use localhost and port 3000 if not provided
-const customHost = argv.host || process.env.HOST;
+const customHost = argv.host || env.host;
 const host = customHost || null; // Let http.Server use its default IPv6/4 host
 const prettyHost = customHost || 'localhost';
 
-const port = argv.port || process.env.PORT || 3000;
+const port = argv.port || env.port || 3000;
 
 // Start your app.
 app.listen(port, host, (err) => {
