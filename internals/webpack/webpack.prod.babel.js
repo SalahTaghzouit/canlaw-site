@@ -4,6 +4,8 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
 
+const publicPath = process.env.PUBLIC_ASSETS_PATH || '/';
+
 module.exports = require('./webpack.base.babel')({
   // In production, we skip all hot-reloading stuff
   entry: [
@@ -14,6 +16,7 @@ module.exports = require('./webpack.base.babel')({
   output: {
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].chunk.js',
+    publicPath: `${publicPath}`,
   },
 
   plugins: [
@@ -23,6 +26,9 @@ module.exports = require('./webpack.base.babel')({
       minChunks: 2,
       async: true,
     }),
+
+    // Merge all duplicate modules
+    new webpack.optimize.DedupePlugin(),
 
     // Minify and optimize the index.html
     new HtmlWebpackPlugin({
@@ -46,7 +52,7 @@ module.exports = require('./webpack.base.babel')({
     // assets manipulations and do leak its manipulations to HtmlWebpackPlugin
     new OfflinePlugin({
       relativePaths: false,
-      publicPath: '/',
+      publicPath: `${publicPath}`,
 
       caches: {
         main: [':rest:'],
