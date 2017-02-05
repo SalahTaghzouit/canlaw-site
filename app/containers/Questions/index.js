@@ -26,13 +26,34 @@ export class Questions extends React.PureComponent {
   }
 
   handleProps(props) {
-    if (!props.areQuestionsBeingTranslated && this.props.questions && (!props.areQuestionsTranslated || !isEqual(props.questions, this.props.questions))) {
-      props.translateQuestions(props.questions.map((question) => question.name));
+    if (
+      !props.areQuestionsBeingTranslated &&
+      this.props.questions &&
+      (!props.areQuestionsTranslated || !isEqual(props.questions, this.props.questions))
+    ) {
+      const all = props.questions.map((question) => question.name);
+      props.questions.forEach((question) => {
+        if (question.options) {
+          question.options.forEach((option) => {
+            all.push(option);
+          });
+        }
+      });
+
+      props.translateQuestions(all);
     }
   }
 
   trans(message) {
     return this.props.translatedQuestions[message];
+  }
+
+  transOptions(options) {
+    const all = [];
+    options.forEach(() => {
+      all.push({ label: this.props.translatedQuestions[options.value] });
+    });
+    return all;
   }
 
   render() {
@@ -48,7 +69,7 @@ export class Questions extends React.PureComponent {
                 onChange={this.props.onAnswered}
                 question={this.trans(question.name)}
                 placeholder="Please specify"
-                options={question.options}
+                options={this.transOptions(question.options)}
               />
             </Column>
           </Row>
