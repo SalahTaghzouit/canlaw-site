@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const compression = require('compression');
 const setupRoutes = require('../routes');
+const env = require('../../localEnv');
 
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
 
@@ -31,7 +32,7 @@ const addDevMiddlewares = (app, router, webpackConfig) => {
     app.get(/\.dll\.js$/, (req, res) => {
       // This is assuming that PUBLIC_ASSETS_PATH is a local folder, in dev we won't
       // be using a CDN or a full URL
-      const filename = req.path.replace(process.env.PUBLIC_ASSETS_PATH, '').replace(/^\//, '');
+      const filename = req.path.replace(env.baseUrlPath, '').replace(/^\//, '');
       res.sendFile(path.join(process.cwd(), pkg.dllPlugin.path, filename));
     });
   }
@@ -71,7 +72,7 @@ const addProdMiddlewares = (app, router, options) => {
  * Front-end middleware
  */
 module.exports = (app, router, options) => {
-  const isProd = process.env.NODE_ENV === 'production';
+  const isProd = env.nodeEnv === 'production';
 
   if (isProd) {
     addProdMiddlewares(app, router, options);

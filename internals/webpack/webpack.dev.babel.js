@@ -9,11 +9,12 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CircularDependencyPlugin = require('circular-dependency-plugin');
 const logger = require('../../server/logger');
 const cheerio = require('cheerio');
+const env = require('../../localEnv');
 
 const pkg = require(path.resolve(process.cwd(), 'package.json'));
 const dllPlugin = pkg.dllPlugin;
 
-const publicPath = (process.env.PUBLIC_ASSETS_PATH && process.env.PUBLIC_ASSETS_PATH !== '/') ? process.env.PUBLIC_ASSETS_PATH : '/';
+const publicPath = env.cdnUrl;
 const plugins = [
   new webpack.HotModuleReplacementPlugin(), // Tell webpack we want hot reloading
   new webpack.NoErrorsPlugin(),
@@ -40,7 +41,7 @@ module.exports = require('./webpack.base.babel')({
   output: {
     filename: '[name].js',
     chunkFilename: '[name].chunk.js',
-    publicPath: `${publicPath}/`,
+    publicPath: `${publicPath}`,
   },
 
   // Add development plugins

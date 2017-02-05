@@ -3,8 +3,9 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
+const env = require('../../localEnv');
 
-const publicPath = process.env.PUBLIC_ASSETS_PATH || '/';
+const publicPath = env.cdnUrl;
 
 module.exports = require('./webpack.base.babel')({
   // In production, we skip all hot-reloading stuff
@@ -16,7 +17,6 @@ module.exports = require('./webpack.base.babel')({
   output: {
     filename: '[name].[chunkhash].js',
     chunkFilename: '[name].[chunkhash].chunk.js',
-    publicPath: `${publicPath}`,
   },
 
   plugins: [
@@ -52,7 +52,7 @@ module.exports = require('./webpack.base.babel')({
     // assets manipulations and do leak its manipulations to HtmlWebpackPlugin
     new OfflinePlugin({
       relativePaths: false,
-      publicPath: `${publicPath}`,
+      publicPath: `${publicPath}/`, // needs trailing slash
 
       caches: {
         main: [':rest:'],

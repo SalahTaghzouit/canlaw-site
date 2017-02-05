@@ -4,6 +4,7 @@
 
 const path = require('path');
 const webpack = require('webpack');
+const env = require('../../localEnv');
 
 module.exports = (options) => ({
   entry: options.entry,
@@ -75,22 +76,23 @@ module.exports = (options) => ({
     // drop any unreachable code.
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: JSON.stringify(process.env.NODE_ENV),
+        NODE_ENV: JSON.stringify(env.nodeEnv),
       },
       // react environment variables
       'window.env': {
-        appUrl: JSON.stringify(`${process.env.APP_URL}`),
-        apiUrl: JSON.stringify(`${process.env.APP_URL}/api`),
-        authUrl: JSON.stringify(`${process.env.APP_URL}/auth`),
-        baseUrl: JSON.stringify(process.env.PREFIX_PATH || '/'),
-        blogUrl: JSON.stringify(`${process.env.BLOG_URL}`),
-        dashboardUrl: JSON.stringify(`${process.env.DASHBOARD_URL}`),
-        loginUrl: JSON.stringify(`${process.env.LOGIN_URL}`),
-        registerUrl: JSON.stringify(`${process.env.REGISTER_URL}`),
-        algoliaCategoryIndex: JSON.stringify(`${process.env.ALGOLIA_CATEGORY_INDEX}`),
-        algoliaAppId: JSON.stringify(`${process.env.ALGOLIA_APP_ID}`),
-        algoliaApiKey: JSON.stringify(`${process.env.ALGOLIA_API_KEY}`),
-        mapsApiKey: JSON.stringify(`${process.env.GOOGLE_MAPS_API_KEY}`),
+        appUrl: JSON.stringify(`${env.appUrl}`),
+        apiUrl: JSON.stringify(`${env.appUrl}/api`),
+        authUrl: JSON.stringify(`${env.appUrl}/auth`),
+        baseUrl: JSON.stringify(`${env.baseUrlPath}`),
+        websiteUrl: JSON.stringify(`${env.websiteUrl}`),
+        blogUrl: JSON.stringify(`${env.blogUrl}`),
+        dashboardUrl: JSON.stringify(`${env.dashboardUrl}`),
+        loginUrl: JSON.stringify(`${env.loginUrl}`),
+        registerUrl: JSON.stringify(`${env.registerUrl}`),
+        algoliaCategoryIndex: JSON.stringify(`${env.algoliaCategoryIndex}`),
+        algoliaAppId: JSON.stringify(`${env.algoliaAppId}`),
+        algoliaApiKey: JSON.stringify(`${env.algoliaAppKey}`),
+        mapsApiKey: JSON.stringify(`${env.googleMapsApiKey}`),
       },
     }),
     new webpack.NamedModulesPlugin(),

@@ -1,27 +1,26 @@
 const session = require('express-session');
 const RedisStore = require('connect-redis')(session);
+const env = require('../../localEnv');
 
 /**
  * Session middleware
  */
 module.exports = (app) => {
-  const secureCookie = typeof process.env.SECURE_COOKIE === 'boolean' ?
-    process.env.SECURE_COOKIE :
-    process.env.SECURE_COOKIE === 'true';
+  const secureCookie = env.secureCookie;
 
   // Sessions
   app.use(session({
     store: new RedisStore({
-      host: process.env.REDIS_HOST,
-      port: process.env.REDIS_PORT,
+      host: env.redisHost,
+      port: env.redisPort,
     }),
-    secret: process.env.COOKIE_SECRET,
+    secret: env.cookieSecret,
     resave: false,
     saveUninitialized: false,
     name: 'canlaw_lawyer',
     cookie: {
-      domain: process.env.COOKIE_DOMAINE,
-      path: process.env.COOKIE_PATH || '/',
+      domain: env.cookieDomain,
+      path: env.cookiePath || '/',
       secure: secureCookie,
       httpOnly: false,
       maxAge: 31536000, // 1 year
