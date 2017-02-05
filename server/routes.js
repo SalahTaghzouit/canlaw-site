@@ -86,7 +86,8 @@ module.exports = (router) => {
     }).catch((error) => {
       console.log(error);
       const status = error.response ? error.response.status : 500;
-      res.status(status).json(error.response.data);
+      const data = error.response ? error.response.data : { error: 'unknown_error' };
+      res.status(status).json(data);
     });
   });
 
