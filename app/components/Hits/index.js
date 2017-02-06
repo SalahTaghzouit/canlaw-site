@@ -4,15 +4,16 @@
  */
 import React from 'react';
 import { connect as connectAlgolia } from 'react-algoliasearch-helper';
+import Ul from './Ul';
+import Li from './Li';
 
-
-const Hits = ({ results, onClick }) => {
+const Hits = ({ results, onClick, visible }) => {
   if (!results) return <div />;
   return (
-    <ul>
+    <Ul visible={visible}>
       {results.hits.map(
         (hit) => (
-          <li key={hit.objectID}>
+          <Li key={hit.objectID}>
             <button
               onClick={() => onClick(hit)}
               // eslint-disable-next-line react/no-danger
@@ -20,16 +21,17 @@ const Hits = ({ results, onClick }) => {
                 __html: hit._highlightResult.term.value, // eslint-disable-line no-underscore-dangle
               }}
             />
-          </li>
+          </Li>
         )
       )}
-    </ul>
+    </Ul>
   );
 };
 
 Hits.propTypes = {
   results: React.PropTypes.object,
   onClick: React.PropTypes.func,
+  visible: React.PropTypes.bool,
 };
 
 const mapStateToProps = (state, ownProps) => ({

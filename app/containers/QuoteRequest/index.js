@@ -50,7 +50,9 @@ export class QuoteRequest extends React.PureComponent {
   componentWillReceiveProps(nextProps) {
     if (nextProps.recoverFromLogin) {
       if (nextProps.isAuthenticated) {
-        nextProps.sendRequest();
+        if (!nextProps.isSendingQuoteRequest) {
+          nextProps.sendRequest();
+        }
       } else if (nextProps.triedLoggingIn) {
         nextProps.setRecoverFromLogin(false);
       }

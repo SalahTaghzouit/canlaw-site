@@ -6,8 +6,8 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  header: {
+  startTyping: {
     id: 'canlaw.components.CategorySearch.header',
-    defaultMessage: 'This is the CategorySearchHeader component !',
+    defaultMessage: 'Start typing: ',
   },
 });

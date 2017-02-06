@@ -3,8 +3,7 @@
  */
 import React from 'react';
 import { connect } from 'react-algoliasearch-helper';
-import { injectIntl } from 'react-intl';
-import messages from './messages';
+import Input from './Input';
 
 class SearchBox extends React.PureComponent {
 
@@ -22,9 +21,8 @@ class SearchBox extends React.PureComponent {
 
   render() {
     return (
-      <input
+      <Input
         value={this.props.value}
-        placeholder={this.props.intl.formatMessage({ ...messages.pleaceholder })}
         autoFocus
         defaultValue={this.props.initialText}
         onChange={this.onChangeInput}
@@ -37,9 +35,8 @@ class SearchBox extends React.PureComponent {
 SearchBox.propTypes = {
   helper: React.PropTypes.object.isRequired,
   initialText: React.PropTypes.string,
-  intl: React.PropTypes.object.isRequired,
   onChange: React.PropTypes.func,
   value: React.PropTypes.string,
 };
 
-export default connect()(injectIntl(SearchBox));
+export default connect()(SearchBox);

@@ -3,6 +3,7 @@
  */
 import React, { PropTypes } from 'react';
 import { Provider } from 'react-algoliasearch-helper';
+import { FormattedMessage } from 'react-intl';
 import algoliasearch from 'algoliasearch';
 import algoliasearchHelper from 'algoliasearch-helper';
 import TypeWriter from 'react-typewriter';
@@ -13,6 +14,10 @@ import SearchBox from '../../components/SearchBox';
 import Header from '../../components/Header';
 import Hits from '../Hits';
 import './style.scss';
+import Wrapper from './Wrapper';
+import HintColumn from './HintColumn';
+import SearchColumn from './SearchColumn';
+import messages from './messages';
 
 const client = algoliasearch(env.algoliaAppId, env.algoliaApiKey);
 const helper = algoliasearchHelper(client, env.algoliaCategoryIndex, {
@@ -41,8 +46,6 @@ class CategorySearch extends React.PureComponent {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.initialText) {
-      console.log('YEAHHHHHHH');
-      console.log(nextProps);
       this.setState({
         ...this.state,
         showHits: false,
@@ -105,27 +108,33 @@ class CategorySearch extends React.PureComponent {
     return (
       <Provider helper={helper}>
         <Header>
-          Start typing:
-          {this.state.typeWriterIsRunning && <TypeWriter
-            onClick={() => this.setState({ ...this.state, typeWriterIsRunning: false })}
-            maxDelay={50}
-            minDelay={5}
-            onTypingEnd={this.nextTyping}
-            typing={this.state.typingDirection}
-          >
-            {this.props.exampleQuestions[this.state.currentExampleIndex]}
-          </TypeWriter>}
+          <Wrapper onClick={() => this.setState({ ...this.state, typeWriterIsRunning: false })}>
 
-          {!this.state.typeWriterIsRunning &&
-          <SearchBox
-            initialText={this.props.initialText}
-            value={this.state.category}
-            onChange={this.onChangeSearchBox}
-          />}
+            <HintColumn fluid md={4}>
+              <FormattedMessage {...messages.startTyping} />
+            </HintColumn>
+            <SearchColumn fluid md={8}>
+              {this.state.typeWriterIsRunning && <TypeWriter
+                maxDelay={50}
+                minDelay={5}
+                onTypingEnd={this.nextTyping}
+                typing={this.state.typingDirection}
+              >
+                {this.props.exampleQuestions[this.state.currentExampleIndex]}
+              </TypeWriter>}
 
-          {!this.state.typeWriterIsRunning && this.state.showHits &&
-          <Hits onClick={this.onClickHit} />}
+              {!this.state.typeWriterIsRunning &&
+              <SearchBox
+                initialText={this.props.initialText}
+                value={this.state.category}
+                onChange={this.onChangeSearchBox}
+              />}
 
+              {!this.state.typeWriterIsRunning && this.state.showHits &&
+              <Hits visible={this.state.showHits} onClick={this.onClickHit} />}
+            </SearchColumn>
+
+          </Wrapper>
         </Header>
       </Provider>
     );
