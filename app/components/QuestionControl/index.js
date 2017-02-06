@@ -11,6 +11,7 @@ class QuestionControl extends React.PureComponent {
     this.state = {
       focused: false,
     };
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
   componentWillMount() {
@@ -21,6 +22,11 @@ class QuestionControl extends React.PureComponent {
 
   fixOptions(options) {
     return options.map((option) => ({ value: option, label: option }));
+  }
+
+  handleSelect(evt) {
+    const many = this.props.type === 'select_many';
+    this.props.onChange(this.props.question, many ? evt.map((one) => one.value) : evt.value);
   }
 
   render() {
@@ -50,7 +56,7 @@ class QuestionControl extends React.PureComponent {
           value={this.props.value || ''}
           name={this.props.question}
           multi={many}
-          onChange={(evt) => this.props.onChange(this.props.question, many ? evt : evt.value)}
+          onChange={this.handleSelect}
         />
       );
     } else if (this.props.type === 'date') {

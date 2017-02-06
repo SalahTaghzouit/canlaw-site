@@ -29,8 +29,9 @@ const initialState = {
   per_page: 15,
   total: 0,
   recoverFromLogin: false,
-  isSendingQuoteRequest: false,
   ...(getState('quoteRequest') || {}).quoteRequest,
+  // We don't want to have this recovered!
+  isSendingQuoteRequest: false,
 };
 
 function quoteRequestReducer(state = initialState, action) {
