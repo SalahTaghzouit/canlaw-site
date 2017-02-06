@@ -15,13 +15,13 @@ module.exports = (options) => ({
   module: {
     loaders: [{
       test: /\.js$/, // Transform all .js files required somewhere with Babel
-      loader: 'babel',
+      loader: 'babel-loader',
       exclude: /node_modules(?!\/canlaw-components)/,
       query: options.babelQuery,
     }, {
       test: /\.scss$/,
       exclude: /node_modules(?!\/bootstrap-sass|\/canlaw-components)/,
-      loaders: ['style', 'css', 'sass'],
+      loaders: ['style-loader', 'css-loader', 'sass-loader'],
     }, {
       // Do not transform vendor's CSS with CSS-modules
       // The point is that they remain in global scope.
@@ -39,7 +39,7 @@ module.exports = (options) => ({
       loaders: [
         'file-loader',
         {
-          loader: 'image-webpack',
+          loader: 'image-webpack-loader',
           query: {
             progressive: true,
             optimizationLevel: 7,
@@ -68,7 +68,7 @@ module.exports = (options) => ({
   plugins: options.plugins.concat([
     new webpack.ProvidePlugin({
       // make fetch available
-      fetch: 'exports?self.fetch!whatwg-fetch',
+      fetch: 'exports-loader?self.fetch!whatwg-fetch',
     }),
 
     // Always expose NODE_ENV to webpack, in order to use `process.env.NODE_ENV`
@@ -112,4 +112,5 @@ module.exports = (options) => ({
   },
   devtool: options.devtool,
   target: 'web', // Make web variables accessible to webpack, e.g. window
+  performance: options.performance || {},
 });

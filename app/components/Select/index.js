@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 import BaseSelect from 'react-select';
-import styles from './styles';
+import './scss/default.scss';
 
-const Select = styled(BaseSelect)`${styles}`;
+const Select = styled(BaseSelect)`
+  text-align: left;
+`;
 
 export default Select;

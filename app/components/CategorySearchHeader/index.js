@@ -8,7 +8,7 @@ import algoliasearchHelper from 'algoliasearch-helper';
 import TypeWriter from 'react-typewriter';
 import isEmpty from 'lodash/isEmpty';
 import stripTags from 'striptags';
-import env from '../../utils/env';
+import env from 'canlaw-components/utils/env';
 import SearchBox from '../../components/SearchBox';
 import Header from '../../components/Header';
 import Hits from '../Hits';
