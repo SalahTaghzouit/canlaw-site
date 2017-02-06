@@ -61,7 +61,7 @@ class QuestionControl extends React.PureComponent {
           date={date}
           focused={this.state.focused}
           displayFormat="LL"
-          onDateChange={(d) => this.props.onChange(d.format('LL'))}
+          onDateChange={(d) => this.props.onChange(this.props.question, d.format('LL'))}
           onFocusChange={({ focused }) => {
             this.setState({ focused });
           }}

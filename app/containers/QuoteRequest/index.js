@@ -65,8 +65,6 @@ export class QuoteRequest extends React.PureComponent {
   }
 
   render() {
-    console.log('Name is');
-    console.log(this.name);
     return (
       <div>
         <Helmet
