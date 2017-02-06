@@ -3,6 +3,7 @@
  */
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
+import { injectIntl } from 'react-intl';
 import isEqual from 'lodash/isEqual';
 import { createStructuredSelector } from 'reselect';
 import SectionContent from 'canlaw-components/components/SectionContent';
@@ -14,6 +15,7 @@ import {
   makeSelectQuestions,
 } from './selectors';
 import { loadQuestionsTranslations } from './actions';
+import messages from './messages';
 
 export class Questions extends React.PureComponent {
 
@@ -73,12 +75,25 @@ export class Questions extends React.PureComponent {
                 value={this.props.answers[this.trans(question.name)]}
                 onChange={this.props.onAnswered}
                 question={this.trans(question.name)}
-                placeholder="Please specify"
+                placeholder=""
                 options={this.transOptions(question.options)}
               />
             </Column>
           </Row>
         ))}
+
+        <Row key={'others'}>
+          <Column>
+            <QuestionControl
+              type={'text'}
+              required
+              value={this.props.answers[this.props.intl.formatMessage(messages.others)]}
+              onChange={this.props.onAnswered}
+              question={this.props.intl.formatMessage(messages.others)}
+              placeholder=""
+            />
+          </Column>
+        </Row>
       </SectionContent>
     );
   }
@@ -92,6 +107,7 @@ Questions.propTypes = {
   translateQuestions: React.PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   translatedQuestions: React.PropTypes.object.isRequired,
   questions: React.PropTypes.array.isRequired,
+  intl: React.PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -107,4 +123,4 @@ const mapDispatchToProps = (dispatch) => ({
   translateQuestions: (questions) => dispatch(loadQuestionsTranslations(questions)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Questions);
+export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Questions));

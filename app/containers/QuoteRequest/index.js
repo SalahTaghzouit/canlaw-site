@@ -39,8 +39,6 @@ export class QuoteRequest extends React.PureComponent {
         this.props.fetchCategory(this.props.categorySlug);
       }
     }
-
-    this.name = this.props.category ? this.props.category.term : '';
   }
 
   componentWillReceiveProps(nextProps) {
@@ -51,6 +49,8 @@ export class QuoteRequest extends React.PureComponent {
         nextProps.setRecoverFromLogin(false);
       }
     }
+
+    this.name = this.props.category ? this.props.category.human : '';
   }
 
   handleCategoryWasChosen(category) {
@@ -59,6 +59,8 @@ export class QuoteRequest extends React.PureComponent {
   }
 
   render() {
+    console.log('Name is');
+    console.log(this.name);
     return (
       <div>
         <Helmet

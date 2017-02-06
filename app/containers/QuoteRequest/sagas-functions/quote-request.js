@@ -8,7 +8,7 @@ import redirect from 'canlaw-components/utils/redirect';
 import { WRONG_ACCOUNT_TYPE } from 'canlaw-components/containers/UserProvider/constants';
 import { makeSelectSavableQuoteRequest, selectQuoteRequestDomain } from '../selectors';
 import { SEND_QUOTE_REQUEST } from '../constants';
-import { quoteRequestNotSaved, setRecoverFromLogin, logout } from '../actions';
+import { quoteRequestNotSaved, logout } from '../actions';
 
 export function redirectToDashboard(quoteRequestId) {
   redirect(`${env.dashboardUrl}/requests?quote_request_sent=${quoteRequestId}`);
@@ -38,13 +38,12 @@ export function* sendQuoteRequest() {
 
     yield call(redirectToDashboard.bind(null, newQuoteRequest.id));
   } catch (err) {
-    console.log(err);
     if (err.response.status === 401) {
-      yield put(setRecoverFromLogin());
       const quoteRequestDomain = yield select(selectQuoteRequestDomain());
       saveState('quoteRequest', {
         quoteRequest: {
           ...quoteRequestDomain,
+          recoverFromLogin: true,
         },
       });
       yield call(redirectToAuth);

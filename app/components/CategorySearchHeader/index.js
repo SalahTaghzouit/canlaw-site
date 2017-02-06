@@ -39,11 +39,14 @@ class CategorySearch extends React.PureComponent {
     this.onChangeSearchBox = this.onChangeSearchBox.bind(this);
   }
 
-  componentWillMount() {
-    if (this.props.initialText) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.initialText) {
+      console.log('YEAHHHHHHH');
+      console.log(nextProps);
       this.setState({
         ...this.state,
         showHits: false,
+        typeWriterIsRunning: false,
         category: this.props.initialText,
       });
     }
