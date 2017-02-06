@@ -1,4 +1,4 @@
-FROM node:7.3
+FROM node:7.5
 
 #####################################
 # Non-Root User:
@@ -16,42 +16,32 @@ ENV PROJECT /project
 COPY . $PROJECT
 WORKDIR $PROJECT
 
+RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
+    echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
+    apt-get update && apt-get install yarn && rm -rf /var/lib/apt/lists/*
+
 #####################################
 # Build:
 #####################################
 ARG ID_RSA_URL
-ARG APP_URL
-ARG PUBLIC_ASSETS_PATH
-ARG WEBSITE_URL
-ARG DASHBOARD_URL
-ARG PREFIX_PATH
 
-ENV TRANSIENT automake zlib1g-dev nasm autoconf nasm build-essential
-ENV DEPENDENCIES $TRANSIENT
-#ENV DEPENDENCIES yarn $TRANSIENT
+ENV DEPENDENCIES automake zlib1g-dev nasm autoconf nasm build-essential
 RUN wget -O /tmp/id_rsa $ID_RSA_URL && \
     chmod 600 /tmp/id_rsa && \
     eval $(ssh-agent) && \
     ssh-add /tmp/id_rsa && \
     mkdir /root/.ssh && \
     ssh-keyscan -t rsa github.com > /root/.ssh/known_hosts && \
-    apt-get update && \
-    apt-get -y install $DEPENDENCIES --no-install-recommends && \
-    npm install && npm run build:dll
-#    apt-get purge -y --auto-remove $TRANSIENT && \
-#    rm -rf /var/lib/apt/lists/*
-#    curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
-#    echo "deb http://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-#    apt-get update && \
-#    apt-get -y install $DEPENDENCIES --no-install-recommends && \
-#    npm install --verbose && npm run build:clean && \
-#    NODE_ENV=production ./node_modules/.bin/webpack \
-#        --config ./internals/webpack/webpack.prod.babel.js --color -p --progress && \
-#    npm install --production --ignore-scripts --prefer-offline && \
-#    npm prune && \
-#    rm -f stats.json && rm -rf ./coverage && \
-#    apt-get purge -y --auto-remove $TRANSIENT && \
-#    rm -rf /var/lib/apt/lists/*
+    apt-get update && apt-get -y install $DEPENDENCIES --no-install-recommends && \
+    yarn --verbose && yarn build:clean && \
+    NODE_ENV=production ./node_modules/.bin/webpack \
+        --config ./internals/webpack/webpack.prod.babel.js --color -p --progress && \
+    yarn --production --ignore-scripts --prefer-offline && \
+    rm -rf stats.json && rm -rf ./coverage && \
+    apt-get purge -y --auto-remove $DEPENDENCIES && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm -rf $PROJECT/.git && \
+    yarn cache clean && rm -rf /home/canlaw/.yarn/*
 
 #####################################
 # Permissions:
@@ -64,5 +54,5 @@ USER canlaw
 
 EXPOSE 3000
 
-ENTRYPOINT ["/usr/bin/yarn", "run"]
+ENTRYPOINT ["/usr/bin/yarn"]
 CMD ["start:prod"]
