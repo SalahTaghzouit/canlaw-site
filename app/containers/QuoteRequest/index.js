@@ -27,6 +27,12 @@ import messages from './messages';
 
 export class QuoteRequest extends React.PureComponent {
 
+  constructor(props) {
+    super(props);
+
+    this.handleCategoryWasChosen = this.handleCategoryWasChosen.bind(this);
+  }
+
   /**
    * If the category slug in the url (props.categorySlug) is different than what we have in the
    * state, we will prefer the category in the URL and we will fetch it.
