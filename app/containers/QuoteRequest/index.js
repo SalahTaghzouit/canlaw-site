@@ -58,7 +58,9 @@ export class QuoteRequest extends React.PureComponent {
       }
     }
 
-    this.name = this.props.category ? this.props.category.human : '';
+    if (this.props.category) {
+      this.name = (this.props.category.human ? this.props.category.human : this.props.category.term) || '';
+    }
   }
 
   handleCategoryWasChosen(category) {
