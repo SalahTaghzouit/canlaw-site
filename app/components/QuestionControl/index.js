@@ -1,9 +1,17 @@
 import React from 'react';
-import Input from 'canlaw-components/components/Input';
+import moment from 'moment';
+import SingleDatePicker from '../SingleDatePicker';
 import Control from './Control';
 import Select from '../Select';
+import QuestionInput from '../QuestionInput';
 
 class QuestionControl extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      focused: false,
+    };
+  }
 
   componentWillMount() {
     if (!this.props.value) {
@@ -20,12 +28,12 @@ class QuestionControl extends React.PureComponent {
 
     if (this.props.type === 'text' || this.props.type === 'number') {
       component = (
-        <Input
+        <QuestionInput
           type={this.props.type || 'text'}
           placeholder={this.props.placeholder && this.props.placeholder}
           required={this.props.required}
           disabled={this.props.disabled}
-          title={this.props.title}
+          title={this.props.title || this.props.question}
           value={this.props.value || ''}
           onChange={(evt) => this.props.onChange(this.props.question, evt.target.value)}
         />
@@ -38,30 +46,28 @@ class QuestionControl extends React.PureComponent {
           placeholder={this.props.placeholder && this.props.placeholder}
           required={this.props.required}
           disabled={this.props.disabled}
-          title={this.props.title}
+          title={this.props.title || this.props.question}
           value={this.props.value || ''}
-          name="Some name"
+          name={this.props.question}
           multi={many}
           onChange={(evt) => this.props.onChange(this.props.question, many ? evt : evt.value)}
         />
       );
-    } else if (this.props.type === 'select_many') {
+    } else if (this.props.type === 'date') {
+      const date = moment(this.props.value).isValid() ? moment(this.props.value) : moment();
       component = (
-        <div>
-          {/* <MultiSelect*/}
-          {/* type={this.props.type || 'text'}*/ }
-          {/* placeholder={this.props.placeholder && this.props.placeholder}*/ }
-          {/* required={this.props.required}*/ }
-          {/* disabled={this.props.disabled}*/ }
-          {/* title={this.props.title}*/ }
-          {/* value={this.props.value || ''}*/ }
-          {/* onChange={(evt) => this.props.onChange(this.props.question, evt.target.value)}*/ }
-          {/* />*/}
-        </div>
+        <SingleDatePicker
+          id={this.props.question}
+          date={date}
+          focused={this.state.focused}
+          displayFormat="LL"
+          onDateChange={(d) => this.props.onChange(d.format('LL'))}
+          onFocusChange={({ focused }) => {
+            this.setState({ focused });
+          }}
+        />
       );
     }
-
-
     return (
       <Control label={this.props.question}>
         {component}
