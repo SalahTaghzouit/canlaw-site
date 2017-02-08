@@ -14,7 +14,7 @@ const Hits = ({ results, onClick, visible, othersCategory }) => {
     <Ul visible={visible}>
       {results.hits.map(
         (hit) => (
-          <Li key={hit.id}>
+          <Li key={hit.objectID}>
             <Button
               onClick={() => onClick(hit)}
               // eslint-disable-next-line react/no-danger
