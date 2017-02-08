@@ -1507,7 +1507,7 @@ caniuse-db@^1.0.30000346, caniuse-db@^1.0.30000617, caniuse-db@^1.0.30000618:
 
 "canlaw-components@git+ssh://git@github.com/redgenie/canlaw-react-shared-components.git#develop":
   version "0.1.4"
-  resolved "git+ssh://git@github.com/redgenie/canlaw-react-shared-components.git#98d9758763900e7258bba3e2fa65c02004049404"
+  resolved "git+ssh://git@github.com/redgenie/canlaw-react-shared-components.git#24661d23a7da9e5d8159784beb60fb5bb61827d2"
   dependencies:
     bootstrap-sass "^3.3.7"
     react-input-mask "^0.7.5"
