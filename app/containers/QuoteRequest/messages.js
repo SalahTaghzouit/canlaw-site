@@ -14,4 +14,12 @@ export default defineMessages({
     id: 'canlaw.containers.QuoteRequest.waitWhileWeSave',
     defaultMessage: 'We are trying to send the quote request to the lawyers, please wait...',
   },
+  wereNearlyThere: {
+    id: 'canlaw.containers.QuoteRequest.wereNearlyThere',
+    defaultMessage: "We're nearly there...",
+  },
+  answerTheseQuestions: {
+    id: 'canlaw.containers.QuoteRequest.answerTheseQuestions',
+    defaultMessage: 'Please fill in this form so that we can find lawyers who can help you with {what}',
+  },
 });

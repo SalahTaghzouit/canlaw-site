@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 import isEqual from 'lodash/isEqual';
 import { createStructuredSelector } from 'reselect';
-import SectionContent from 'canlaw-components/components/SectionContent';
 import LoadingIndicator from 'canlaw-components/components/LoadingIndicator';
 import { Row, Column } from 'hedron';
 import QuestionControl from '../../components/QuestionControl';
@@ -70,7 +69,7 @@ export class Questions extends React.PureComponent {
     }
 
     return (
-      <SectionContent>
+      <div>
         {this.props.areQuestionsTranslated && this.props.questions && this.props.questions.map((question) => (
           <Row key={question.name}>
             <Column>
@@ -101,7 +100,7 @@ export class Questions extends React.PureComponent {
             />
           </Column>
         </Row>
-      </SectionContent>
+      </div>
     );
   }
 }
