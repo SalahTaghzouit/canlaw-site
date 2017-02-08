@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   headline: {
     id: 'canlaw.components.Header.headline',
-    defaultMessage: 'We help you find a lawyer Fast, Easy and {cheap}',
+    defaultMessage: 'FIND THE RIGHT LAWYER, AT THE RIGHT PRICE',
   },
   cheap: {
     id: 'canlaw.components.Header.cheap',

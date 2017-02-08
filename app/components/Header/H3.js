@@ -10,7 +10,7 @@ const H3 = styled.h3`
   margin-top: 30px;
   font-size: 18px;
   text-transform: uppercase;
-  font-weight: 400;
+  font-weight: 600;
   
   @media all and (max-width: 400px) {
     letter-spacing: 1px;
