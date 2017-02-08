@@ -13,6 +13,10 @@ import { connect } from 'react-redux';
 import Container from 'canlaw-components/components/Container';
 import CategorySearchHeader from '../../components/CategorySearchHeader';
 import { startQuoteRequest } from './actions';
+import HowItWorks from '../../components/HowItWorks';
+// import ThreeCharacteristics from '../../components/ThreeCharacteristics';
+import Testimonials from '../../components/Testimonials';
+import Awards from '../../components/Awards';
 
 class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -20,12 +24,26 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
     return (
       <div>
         <CategorySearchHeader
-          exampleQuestions={['this is a test', 'and this is another test']}
+          exampleQuestions={[
+            'Divorce procedure',
+            'Tenancy agreement',
+            'Car accident claims',
+            'Child custody',
+            'Buy a house',
+          ]}
           onChoseCategory={this.props.onClick}
         />
 
         <Container>
-          {/* Content */}
+
+          <HowItWorks />
+
+          {/* <ThreeCharacteristics />*/}
+
+          <Testimonials />
+
+          <Awards />
+
         </Container>
       </div>
     );

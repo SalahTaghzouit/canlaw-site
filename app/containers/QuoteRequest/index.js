@@ -80,7 +80,7 @@ export class QuoteRequest extends React.PureComponent {
     }
 
     if (this.props.category) {
-      this.name = (this.props.category.human ? this.props.category.human : this.props.category.term) || '';
+      this.name = (this.props.category.human ? this.props.category.human : this.props.category.human) || '';
     }
   }
 

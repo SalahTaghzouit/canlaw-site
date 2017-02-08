@@ -19,12 +19,14 @@ const Hits = ({ results, onClick, visible, othersCategory }) => {
               onClick={() => onClick(hit)}
               // eslint-disable-next-line react/no-danger
               dangerouslySetInnerHTML={{
-                __html: hit._highlightResult.term.value, // eslint-disable-line no-underscore-dangle
+                __html: hit.human, // eslint-disable-line no-underscore-dangle
               }}
             />
           </Li>
         )
       )}
+
+      {!results.hits.length &&
       <Li key={othersCategory.id}>
         <Button
           onClick={() => onClick(othersCategory)}
@@ -32,6 +34,7 @@ const Hits = ({ results, onClick, visible, othersCategory }) => {
           {othersCategory.human}
         </Button>
       </Li>
+      }
     </Ul>
   );
 };
