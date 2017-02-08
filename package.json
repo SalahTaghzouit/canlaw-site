@@ -231,6 +231,7 @@
     "react-bootstrap": "^0.30.7",
     "react-dates": "^6.0.1",
     "react-dom": "^15.4.2",
+    "react-geosuggest": "^2.1.0",
     "react-helmet": "^3.2.2",
     "react-intl": "^2.2.3",
     "react-notification-system": "^0.2.11",

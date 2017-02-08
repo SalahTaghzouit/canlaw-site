@@ -13,6 +13,7 @@ import {
   QUOTE_REQUEST_NOT_SAVED,
   SEND_QUOTE_REQUEST,
   SET_RECOVER_FROM_LOGIN,
+  SET_LOCATION,
 } from './constants';
 
 const initialState = {
@@ -49,23 +50,28 @@ function quoteRequestReducer(state = initialState, action) {
         ...state,
         loadingCategory: false,
         category: action.category || {},
-        answers: state.category.id === action.category.id ?
-          state.answers :
-          ((questions) => {
-            const answers = {};
-            questions.forEach((question) => {
-              answers[question.name] = '';
-            });
-
-            return answers;
-          })(action.category.questions),
+        answers: {},
       };
     }
 
-    case SET_ANSWER:
+    case SET_ANSWER: {
+      if (!action.question) {
+        return state;
+      }
       return {
         ...state,
         answers: { ...state.answers, [action.question]: action.answer },
+      };
+    }
+
+    case SET_LOCATION:
+      return {
+        ...state,
+        place: {
+          lat: action.location.lat,
+          lng: action.location.lng,
+          address: action.location.address,
+        },
       };
 
     case SET_RECOVER_FROM_LOGIN:
