@@ -3,7 +3,6 @@
  */
 import React from 'react';
 import isEmpty from 'lodash/isEmpty';
-// import history from 'history';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import Helmet from 'react-helmet';
@@ -35,6 +34,8 @@ import Questions from '../Questions';
 import NarrowContainer from './NarrowContainer';
 import messages from './messages';
 import QuoteRequestLocation from '../../components/QuoteRequestLocation';
+import QuestionsHeading from './QuestionsHeading';
+import QuestionsTalk from './QuestionsTalk';
 
 export class QuoteRequest extends React.PureComponent {
 
@@ -124,7 +125,19 @@ export class QuoteRequest extends React.PureComponent {
           onChoseCategory={this.handleCategoryWasChosen}
         />
 
-        {this.props.category.questions && <NarrowContainer>
+        {this.props.category.questions &&
+        <NarrowContainer>
+
+          <QuestionsHeading>
+            <FormattedMessage {...messages.wereNearlyThere} />
+          </QuestionsHeading>
+
+          <QuestionsTalk>
+            <FormattedMessage
+              {...messages.answerTheseQuestions}
+              values={{ what: this.name }}
+            />
+          </QuestionsTalk>
 
           {this.state.mapsLoaded && <QuoteRequestLocation
             onChoseLocation={this.props.setLocation}
@@ -145,8 +158,8 @@ export class QuoteRequest extends React.PureComponent {
           <Button disabled={this.props.isSendingQuoteRequest} onClick={this.props.sendRequest}>
             <FormattedMessage {...messages.save} />
           </Button>
-
-        </NarrowContainer>}
+        </NarrowContainer>
+        }
 
 
       </div>

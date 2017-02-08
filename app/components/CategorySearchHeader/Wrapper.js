@@ -14,7 +14,8 @@ const Wrapper = styled(Row)`
     content: "";
     position: absolute;
     width: 50%;
-    height: 2px;
+    height: 4px;
+    border-radius: 1px;
     bottom: 0px;
     left: 25%;
     background-color: ${(props) => props.theme.searchUnderlineColor};
