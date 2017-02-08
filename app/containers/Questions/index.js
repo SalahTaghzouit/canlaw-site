@@ -7,6 +7,7 @@ import { injectIntl } from 'react-intl';
 import isEqual from 'lodash/isEqual';
 import { createStructuredSelector } from 'reselect';
 import SectionContent from 'canlaw-components/components/SectionContent';
+import LoadingIndicator from 'canlaw-components/components/LoadingIndicator';
 import { Row, Column } from 'hedron';
 import QuestionControl from '../../components/QuestionControl';
 import {
@@ -53,7 +54,7 @@ export class Questions extends React.PureComponent {
   }
 
   trans(message) {
-    return this.props.translatedQuestions[message];
+    return this.props.translatedQuestions[message] || message;
   }
 
   transOptions(options) {
@@ -64,6 +65,10 @@ export class Questions extends React.PureComponent {
   }
 
   render() {
+    if (this.props.areQuestionsBeingTranslated) {
+      return (<LoadingIndicator />);
+    }
+
     return (
       <SectionContent>
         {this.props.areQuestionsTranslated && this.props.questions && this.props.questions.map((question) => (
@@ -75,7 +80,9 @@ export class Questions extends React.PureComponent {
                 value={this.props.answers[this.trans(question.name)]}
                 onChange={this.props.onAnswered}
                 question={this.trans(question.name)}
+                originalQuestion={question}
                 placeholder=""
+                othersText={this.trans('other')}
                 options={this.transOptions(question.options)}
               />
             </Column>

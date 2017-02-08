@@ -14,6 +14,7 @@ import {
   SEND_QUOTE_REQUEST,
   QUOTE_REQUEST_NOT_SAVED,
   SET_RECOVER_FROM_LOGIN,
+  SET_LOCATION,
 } from './constants';
 
 /**
@@ -134,5 +135,13 @@ export function logout(reason, soft) {
     type: LOGOUT,
     reason,
     soft,
+  };
+}
+
+
+export function setLocation(location) {
+  return {
+    type: SET_LOCATION,
+    location,
   };
 }

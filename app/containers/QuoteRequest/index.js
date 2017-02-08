@@ -2,6 +2,7 @@
  * QuoteRequest
  */
 import React from 'react';
+import isEmpty from 'lodash/isEmpty';
 // import history from 'history';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
@@ -19,17 +20,32 @@ import {
   makeSelectRecoverFromLogin,
   makeSelectIsSendingQuoteRequest,
 } from './selectors';
-import { fetchCategory, setCategory, setAnswer, sendQuoteRequest, setRecoverFromLogin, clearAnswers } from './actions';
+import {
+  fetchCategory,
+  setCategory,
+  setAnswer,
+  sendQuoteRequest,
+  setRecoverFromLogin,
+  clearAnswers,
+  setLocation,
+} from './actions';
+import { makeSelectMapsApiKey } from '../App/selectors';
 import CategorySearchHeader from '../../components/CategorySearchHeader';
 import Questions from '../Questions';
 import NarrowContainer from './NarrowContainer';
 import messages from './messages';
+import QuoteRequestLocation from '../../components/QuoteRequestLocation';
 
 export class QuoteRequest extends React.PureComponent {
 
   constructor(props) {
     super(props);
 
+    this.state = {
+      mapsLoaded: false,
+    };
+
+    this.handleScriptInject = this.handleScriptInject.bind(this);
     this.handleCategoryWasChosen = this.handleCategoryWasChosen.bind(this);
   }
 
@@ -48,6 +64,10 @@ export class QuoteRequest extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (!isEmpty(nextProps.category) && !nextProps.category.questions) {
+      this.props.fetchCategory(this.props.category.id);
+    }
+
     if (nextProps.recoverFromLogin) {
       if (nextProps.isAuthenticated) {
         if (!nextProps.isSendingQuoteRequest) {
@@ -68,7 +88,25 @@ export class QuoteRequest extends React.PureComponent {
     this.props.setCategory(category);
   }
 
+  handleScriptInject({ scriptTags }) {
+    if (scriptTags) {
+      scriptTags[0].addEventListener('load', () => {
+        this.setState({
+          ...this.state,
+          mapsLoaded: true,
+        });
+      });
+    }
+  }
+
   render() {
+    const maps = !this.state.mapsLoaded ?
+      [{ // eslint-disable-line indent
+        src: `https://maps.googleapis.com/maps/api/js?key=${this.props.mapsApiKey}&libraries=places`,
+        type: 'text/javascript',
+      }] :
+      [];
+
     return (
       <div>
         <Helmet
@@ -76,15 +114,21 @@ export class QuoteRequest extends React.PureComponent {
           meta={[
             { name: 'description', content: 'Request a quote free from a lawyer by quickly answering few questions.' },
           ]}
+          script={maps}
+          onChangeClientState={(newState, addedTags) => this.handleScriptInject(addedTags)}
         />
 
         <CategorySearchHeader
           exampleQuestions={['this is a test', 'and this is another test']}
-          initialText={this.name}
+          initialText={this.name || ''}
           onChoseCategory={this.handleCategoryWasChosen}
         />
 
         {this.props.category.questions && <NarrowContainer>
+
+          {this.state.mapsLoaded && <QuoteRequestLocation
+            onChoseLocation={this.props.setLocation}
+          />}
 
           <Questions
             questions={this.props.category.questions}
@@ -126,6 +170,8 @@ QuoteRequest.propTypes = {
   setRecoverFromLogin: React.PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   clearAnswers: React.PropTypes.func.isRequired,
   isSendingQuoteRequest: React.PropTypes.bool.isRequired,
+  setLocation: React.PropTypes.func.isRequired,
+  mapsApiKey: React.PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -137,6 +183,7 @@ const mapStateToProps = createStructuredSelector({
   isSendingQuoteRequest: makeSelectIsSendingQuoteRequest(),
   categorySlug: (state, ownState) => ownState.params.categorySlug,
   placeName: (state, ownState) => ownState.params.placeName,
+  mapsApiKey: makeSelectMapsApiKey(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -147,6 +194,7 @@ function mapDispatchToProps(dispatch) {
     sendRequest: () => dispatch(sendQuoteRequest()),
     clearAnswers: () => dispatch(clearAnswers()),
     setRecoverFromLogin: (bool) => dispatch(setRecoverFromLogin(bool)),
+    setLocation: (location) => dispatch(setLocation(location)),
   };
 }
 

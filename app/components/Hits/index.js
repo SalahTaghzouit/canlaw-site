@@ -7,7 +7,7 @@ import { connect as connectAlgolia } from 'react-algoliasearch-helper';
 import Ul from './Ul';
 import Li from './Li';
 
-const Hits = ({ results, onClick, visible }) => {
+const Hits = ({ results, onClick, visible, othersCategory }) => {
   if (!results) return <div />;
   return (
     <Ul visible={visible}>
@@ -24,6 +24,13 @@ const Hits = ({ results, onClick, visible }) => {
           </Li>
         )
       )}
+      <Li key={othersCategory.id}>
+        <button
+          onClick={() => onClick(othersCategory)}
+        >
+          {othersCategory.human}
+        </button>
+      </Li>
     </Ul>
   );
 };
@@ -32,6 +39,7 @@ Hits.propTypes = {
   results: React.PropTypes.object,
   onClick: React.PropTypes.func,
   visible: React.PropTypes.bool,
+  othersCategory: React.PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => ({

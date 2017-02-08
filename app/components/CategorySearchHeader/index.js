@@ -1,7 +1,7 @@
 /**
  * CategorySearch
  */
-import React, { PropTypes } from 'react';
+import React from 'react';
 import { Provider } from 'react-algoliasearch-helper';
 import { FormattedMessage } from 'react-intl';
 import algoliasearch from 'algoliasearch';
@@ -59,7 +59,7 @@ class CategorySearch extends React.PureComponent {
     this.setState({
       ...this.state,
       showHits: true,
-      category: text,
+      category: text || '',
     });
 
     if (this.props.onChange) {
@@ -105,6 +105,19 @@ class CategorySearch extends React.PureComponent {
   }
 
   render() {
+    const othersCategory = {
+      objectID: 'others',
+      id: 'others',
+      name: 'others',
+      human: 'Others',
+      term: 'Others',
+      _highlightResult: {
+        term: {
+          value: 'Others',
+        },
+      },
+    };
+
     return (
       <Provider helper={helper}>
         <Header>
@@ -125,13 +138,17 @@ class CategorySearch extends React.PureComponent {
 
               {!this.state.typeWriterIsRunning &&
               <SearchBox
-                initialText={this.props.initialText}
-                value={this.state.category}
+                initialText={this.props.initialText || ''}
+                value={this.state.category || ''}
                 onChange={this.onChangeSearchBox}
               />}
 
               {!this.state.typeWriterIsRunning && this.state.showHits &&
-              <Hits visible={this.state.showHits} onClick={this.onClickHit} />}
+              <Hits
+                othersCategory={othersCategory}
+                visible={this.state.showHits}
+                onClick={this.onClickHit}
+              />}
             </SearchColumn>
 
           </Wrapper>
@@ -142,10 +159,10 @@ class CategorySearch extends React.PureComponent {
 }
 
 CategorySearch.propTypes = {
-  onChoseCategory: PropTypes.func, // eslint-disable-line react/no-unused-prop-types
-  onChange: PropTypes.func,
-  initialText: PropTypes.string,
-  exampleQuestions: PropTypes.arrayOf(PropTypes.string),
+  onChoseCategory: React.PropTypes.func, // eslint-disable-line react/no-unused-prop-types
+  onChange: React.PropTypes.func,
+  initialText: React.PropTypes.string,
+  exampleQuestions: React.PropTypes.arrayOf(React.PropTypes.string),
 };
 
 export default CategorySearch;

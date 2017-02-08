@@ -22,7 +22,7 @@ class SearchBox extends React.PureComponent {
   render() {
     return (
       <Input
-        value={this.props.value}
+        value={this.props.value || ''}
         autoFocus
         defaultValue={this.props.initialText}
         onChange={this.onChangeInput}
