@@ -68,12 +68,15 @@ class CategorySearch extends React.PureComponent {
   }
 
   onClickHit(hit) {
-    const category = stripTags(hit._highlightResult.term.value); // eslint-disable-line no-underscore-dangle
+    // const category = stripTags(hit._highlightResult.term.value); // eslint-disable-line no-underscore-dangle
+    const category = stripTags(hit.human); // eslint-disable-line no-underscore-dangle
+
     this.setState({
       ...this.state,
       showHits: false,
       category,
     });
+
     this.props.onChoseCategory(hit);
   }
 
