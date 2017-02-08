@@ -6,6 +6,7 @@ import React from 'react';
 import { connect as connectAlgolia } from 'react-algoliasearch-helper';
 import Ul from './Ul';
 import Li from './Li';
+import Button from './Button';
 
 const Hits = ({ results, onClick, visible, othersCategory }) => {
   if (!results) return <div />;
@@ -14,7 +15,7 @@ const Hits = ({ results, onClick, visible, othersCategory }) => {
       {results.hits.map(
         (hit) => (
           <Li key={hit.objectID}>
-            <button
+            <Button
               onClick={() => onClick(hit)}
               // eslint-disable-next-line react/no-danger
               dangerouslySetInnerHTML={{
@@ -25,11 +26,11 @@ const Hits = ({ results, onClick, visible, othersCategory }) => {
         )
       )}
       <Li key={othersCategory.id}>
-        <button
+        <Button
           onClick={() => onClick(othersCategory)}
         >
           {othersCategory.human}
-        </button>
+        </Button>
       </Li>
     </Ul>
   );

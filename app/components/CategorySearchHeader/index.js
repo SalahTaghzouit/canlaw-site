@@ -126,6 +126,7 @@ class CategorySearch extends React.PureComponent {
             <HintColumn fluid md={4}>
               <FormattedMessage {...messages.startTyping} />
             </HintColumn>
+
             <SearchColumn fluid md={8}>
               {this.state.typeWriterIsRunning && <TypeWriter
                 maxDelay={50}
