@@ -15,8 +15,8 @@ import CategorySearchHeader from '../../components/CategorySearchHeader';
 import { startQuoteRequest } from './actions';
 import HowItWorks from '../../components/HowItWorks';
 // import ThreeCharacteristics from '../../components/ThreeCharacteristics';
-import Testimonials from '../../components/Testimonials';
-import Awards from '../../components/Awards';
+// import Testimonials from '../../components/Testimonials';
+// import Awards from '../../components/Awards';
 
 class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
 
@@ -40,9 +40,9 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
 
           {/* <ThreeCharacteristics />*/}
 
-          <Testimonials />
+          {/* <Testimonials />*/}
 
-          <Awards />
+          {/* <Awards />*/}
 
         </Container>
       </div>

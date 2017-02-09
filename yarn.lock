@@ -1505,13 +1505,6 @@ caniuse-db@^1.0.30000346, caniuse-db@^1.0.30000617, caniuse-db@^1.0.30000618:
   version "1.0.30000620"
   resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000620.tgz#88b27b951966c5b0d127c4448169b92a1339e453"
 
-"canlaw-components@git+ssh://git@github.com/redgenie/canlaw-react-shared-components.git#develop":
-  version "0.1.4"
-  resolved "git+ssh://git@github.com/redgenie/canlaw-react-shared-components.git#24661d23a7da9e5d8159784beb60fb5bb61827d2"
-  dependencies:
-    bootstrap-sass "^3.3.7"
-    react-input-mask "^0.7.5"
-
 capture-stack-trace@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/capture-stack-trace/-/capture-stack-trace-1.0.0.tgz#4a6fa07399c26bba47f0b2496b4d0fb408c5550d"
@@ -6576,10 +6569,6 @@ react-helmet@^3.2.2:
 react-input-autosize@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-input-autosize/-/react-input-autosize-1.1.0.tgz#3fe1ac832387d8abab85f6051ceab1c9e5570853"
-
-react-input-mask@^0.7.5:
-  version "0.7.7"
-  resolved "https://registry.yarnpkg.com/react-input-mask/-/react-input-mask-0.7.7.tgz#729d59c271bf42928a894c2af4f61a447351817e"
 
 react-intl@^2.2.3:
   version "2.2.3"

@@ -14,9 +14,11 @@ class SearchBox extends React.PureComponent {
 
   onChangeInput(e) {
     this.props.onChange(e.target.value);
-    this.props.helper
-      .setQuery(e.target.value)
-      .search();
+    if (e.target.value.length > 1) {
+      this.props.helper
+        .setQuery(e.target.value)
+        .search();
+    }
   }
 
   render() {
@@ -26,6 +28,8 @@ class SearchBox extends React.PureComponent {
         autoFocus
         defaultValue={this.props.initialText}
         onChange={this.onChangeInput}
+        onFocus={this.props.onFocus}
+        onBlur={this.props.onBlur}
       />
     );
   }
@@ -37,6 +41,8 @@ SearchBox.propTypes = {
   initialText: React.PropTypes.string,
   onChange: React.PropTypes.func,
   value: React.PropTypes.string,
+  onBlur: React.PropTypes.func,
+  onFocus: React.PropTypes.func,
 };
 
 export default connect()(SearchBox);
