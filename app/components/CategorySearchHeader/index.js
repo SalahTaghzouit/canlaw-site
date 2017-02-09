@@ -34,6 +34,7 @@ class CategorySearch extends React.PureComponent {
       typeWriterIsRunning: !isEmpty(props.exampleQuestions),
       typingDirection: 1,
       showHits: false,
+      searchFocused: false,
       category: '',
     };
 
@@ -69,6 +70,7 @@ class CategorySearch extends React.PureComponent {
     this.setState({
       ...this.state,
       showHits: true,
+      searchFocused: true,
       category: text || '',
     });
 
@@ -100,7 +102,6 @@ class CategorySearch extends React.PureComponent {
 
   blurredSearch(evt) {
     if (!this.area.contains(evt.target)) {
-      console.log('search focused?');
       this.setState({
         ...this.state,
         searchFocused: false,
@@ -147,7 +148,12 @@ class CategorySearch extends React.PureComponent {
           <div ref={(ref) => (this.area = ref)}>
 
             <Wrapper
-              onClick={() => this.setState({ ...this.state, typeWriterIsRunning: false })}
+              onClick={() => {
+                this.setState({
+                  ...this.state,
+                  typeWriterIsRunning: false,
+                });
+              }}
             >
 
               <HintColumn fluid md={4}>
@@ -157,6 +163,7 @@ class CategorySearch extends React.PureComponent {
 
               <SearchColumn fluid md={8}>
                 {this.state.typeWriterIsRunning && <TypeWriter
+                  ref={(ref) => (this.typeWriter = ref)}
                   maxDelay={50}
                   minDelay={5}
                   onTypingEnd={this.nextTyping}
@@ -167,6 +174,7 @@ class CategorySearch extends React.PureComponent {
 
                 {!this.state.typeWriterIsRunning &&
                 <SearchBox
+                  id="typewriter"
                   onFocus={() => this.setState({
                     ...this.state,
                     searchFocused: true,
