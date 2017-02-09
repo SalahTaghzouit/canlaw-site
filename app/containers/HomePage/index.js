@@ -26,10 +26,11 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
         <CategorySearchHeader
           exampleQuestions={[
             'Divorce procedure',
+            'Freelancer contract',
             'Tenancy agreement',
-            'Car accident claims',
+            'Car accident claim',
             'Child custody',
-            'Buy a house',
+            'I want to buy a house',
           ]}
           onChoseCategory={this.props.onClick}
         />
