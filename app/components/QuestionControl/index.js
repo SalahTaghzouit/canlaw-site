@@ -141,6 +141,7 @@ class QuestionControl extends React.PureComponent {
         <SingleDatePicker
           id={this.props.question}
           enableOutsideDays
+          isOutsideRange={() => false}
           date={date}
           startDate={moment('1920-01-01')}
           numberOfMonths={1}
