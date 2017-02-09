@@ -1,15 +1,16 @@
 import React from 'react';
 import moment from 'moment';
-import SingleDatePicker from '../SingleDatePicker';
+import SingleDatePicker from 'react-dates/lib/components/SingleDatePicker';
 import Control from './Control';
 import Select from '../Select';
 import QuestionInput from '../QuestionInput';
+import '../SingleDatePicker/scss/main.scss';
 
 class QuestionControl extends React.PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      focusedDate: false,
+      focused: false,
       pristine: true,
       othersSelected: false,
       selectText: '',
@@ -51,6 +52,7 @@ class QuestionControl extends React.PureComponent {
     }
 
     this.setState({
+      ...this.state,
       othersSelected: false,
       pristine: false,
     });
@@ -134,16 +136,19 @@ class QuestionControl extends React.PureComponent {
         />
       );
     } else if (this.props.type === 'date') {
-      const date = moment(this.props.value).isValid() ? moment(this.props.value) : moment();
+      const date = moment(this.props.value).isValid() ? moment(this.props.value) : null;
       component = (
         <SingleDatePicker
           id={this.props.question}
+          enableOutsideDays
           date={date}
-          focused={this.state.focusedDate}
+          startDate={moment('1920-01-01')}
+          numberOfMonths={1}
+          focused={this.state.focused}
           displayFormat="LL"
           onDateChange={(d) => this.props.onChange(this.props.question, d.format('LL'))}
-          onFocusChange={({ focusedDate }) => {
-            this.setState({ focusedDate });
+          onFocusChange={({ focused }) => {
+            this.setState({ focused });
           }}
         />
       );

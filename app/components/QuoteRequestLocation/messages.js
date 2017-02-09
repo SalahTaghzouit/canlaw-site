@@ -8,6 +8,6 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   where: {
     id: 'canlaw.site.components.QuoteRequestLocation.where',
-    defaultMessage: 'Around which area are you looking for a lawyer?',
+    defaultMessage: 'Where are you looking for a lawyer?',
   },
 });

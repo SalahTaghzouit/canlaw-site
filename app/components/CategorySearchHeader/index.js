@@ -42,6 +42,11 @@ class CategorySearch extends React.PureComponent {
     this.type = this.type.bind(this);
     this.onClickHit = this.onClickHit.bind(this);
     this.onChangeSearchBox = this.onChangeSearchBox.bind(this);
+    this.blurredSearch = this.blurredSearch.bind(this);
+  }
+
+  componentDidMount() {
+    window.document.addEventListener('click', this.blurredSearch);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -51,8 +56,13 @@ class CategorySearch extends React.PureComponent {
         showHits: false,
         typeWriterIsRunning: false,
         category: this.props.initialText,
+        searchFocused: false,
       });
     }
+  }
+
+  componentWillUnmount() {
+    window.document.removeEventListener('click', this.blurredSearch);
   }
 
   onChangeSearchBox(text) {
@@ -85,6 +95,16 @@ class CategorySearch extends React.PureComponent {
       setTimeout(this.erase, 1000);
     } else {
       this.type();
+    }
+  }
+
+  blurredSearch(evt) {
+    if (!this.area.contains(evt.target)) {
+      console.log('search focused?');
+      this.setState({
+        ...this.state,
+        searchFocused: false,
+      });
     }
   }
 
@@ -124,38 +144,50 @@ class CategorySearch extends React.PureComponent {
     return (
       <Provider helper={helper}>
         <Header>
-          <Wrapper onClick={() => this.setState({ ...this.state, typeWriterIsRunning: false })}>
+          <div ref={(ref) => (this.area = ref)}>
 
-            <HintColumn fluid md={4}>
-              <FormattedMessage {...messages.startTyping} />
-            </HintColumn>
+            <Wrapper
+              onClick={() => this.setState({ ...this.state, typeWriterIsRunning: false })}
+            >
 
-            <SearchColumn fluid md={8}>
-              {this.state.typeWriterIsRunning && <TypeWriter
-                maxDelay={50}
-                minDelay={5}
-                onTypingEnd={this.nextTyping}
-                typing={this.state.typingDirection}
-              >
-                {this.props.exampleQuestions[this.state.currentExampleIndex]}
-              </TypeWriter>}
+              <HintColumn fluid md={4}>
+                <FormattedMessage {...messages.startTyping} />
+              </HintColumn>
 
-              {!this.state.typeWriterIsRunning &&
-              <SearchBox
-                initialText={this.props.initialText || ''}
-                value={this.state.category || ''}
-                onChange={this.onChangeSearchBox}
-              />}
 
-              {!this.state.typeWriterIsRunning && this.state.showHits &&
-              <Hits
-                othersCategory={othersCategory}
-                visible={this.state.showHits}
-                onClick={this.onClickHit}
-              />}
-            </SearchColumn>
+              <SearchColumn fluid md={8}>
+                {this.state.typeWriterIsRunning && <TypeWriter
+                  maxDelay={50}
+                  minDelay={5}
+                  onTypingEnd={this.nextTyping}
+                  typing={this.state.typingDirection}
+                >
+                  {this.props.exampleQuestions[this.state.currentExampleIndex]}
+                </TypeWriter>}
 
-          </Wrapper>
+                {!this.state.typeWriterIsRunning &&
+                <SearchBox
+                  onFocus={() => this.setState({
+                    ...this.state,
+                    searchFocused: true,
+                  })}
+                  initialText={this.props.initialText || ''}
+                  value={this.state.category || ''}
+                  onChange={this.onChangeSearchBox}
+                />}
+
+                {!this.state.typeWriterIsRunning && this.state.showHits && this.state.searchFocused &&
+                <Hits
+                  othersCategory={othersCategory}
+                  visible={this.state.showHits}
+                  onClick={this.onClickHit}
+                />}
+              </SearchColumn>
+
+
+            </Wrapper>
+          </div>
+
         </Header>
       </Provider>
     );

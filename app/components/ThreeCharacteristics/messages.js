@@ -6,6 +6,10 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
+  header: {
+    id: 'canlaw.site.components.ThreeCharacteristics.header',
+    defaultMessage: 'Find the right lawyer to serve your legal needs',
+  },
   budget: {
     id: 'canlaw.site.components.ThreeCharacteristics.budget',
     defaultMessage: 'Works to your budget',
