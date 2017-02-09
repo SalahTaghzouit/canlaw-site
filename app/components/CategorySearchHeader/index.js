@@ -36,6 +36,8 @@ class CategorySearch extends React.PureComponent {
       showHits: false,
       searchFocused: false,
       category: '',
+      maxDelay: 100,
+      minDelay: 50,
     };
 
     this.nextTyping = this.nextTyping.bind(this);
@@ -94,9 +96,19 @@ class CategorySearch extends React.PureComponent {
 
   nextTyping() {
     if (this.state.typingDirection === 1) {
+      this.setState({
+        ...this.state,
+        maxDelay: 40,
+        minDelay: 5,
+      });
       setTimeout(this.erase, 1000);
     } else {
-      this.type();
+      this.setState({
+        ...this.state,
+        maxDelay: 100,
+        minDelay: 50,
+      });
+      setTimeout(this.type, 100);
     }
   }
 
@@ -164,8 +176,8 @@ class CategorySearch extends React.PureComponent {
               <SearchColumn fluid md={8}>
                 {this.state.typeWriterIsRunning && <TypeWriter
                   ref={(ref) => (this.typeWriter = ref)}
-                  maxDelay={50}
-                  minDelay={5}
+                  maxDelay={this.state.maxDelay}
+                  minDelay={this.state.minDelay}
                   onTypingEnd={this.nextTyping}
                   typing={this.state.typingDirection}
                 >
