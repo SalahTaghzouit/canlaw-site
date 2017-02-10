@@ -34,19 +34,19 @@ module.exports = (router) => {
       request.session.intedendAfterLogin = redirect;
     }
 
-    const redirectToAuth = `${env.appUrl}/auth/callback`;
+    const redirectToAuth = `${env.appUrl}/auth`;
 
     if (req.query.type === 'register') {
       return res.redirect(`${env.registerUrl}?role=client&redirect=${redirectToAuth}`);
     }
 
     if (req.query.forceLogin === '1') {
-      return res.redirect(`${env.loginUrl}?role=client&redirect=${redirectToAuth}&force=1`);
+      return res.redirect(`${env.loginUrl}?role=client&force=1&redirect=${redirectToAuth}`);
     }
 
     const query = querystring.stringify({
       client_id: env.clientId,
-      redirect_uri: redirectToAuth,
+      redirect_uri: `${env.appUrl}/auth/callback`,
       response_type: 'code',
       scope: '',
     });
@@ -80,7 +80,7 @@ module.exports = (router) => {
         redirect,
         error,
       });
-      res.redirect(`/auth?${query}`);
+      res.redirect(`${env.authUrl}/auth?${query}`);
     });
   });
 
