@@ -12,6 +12,7 @@ import stripTags from 'striptags';
 import env from 'canlaw-components/utils/env';
 import SearchBox from '../../components/SearchBox';
 import Header from '../../components/Header';
+import TypewriterEffect from '../../components/TypewriterEffect';
 import Hits from '../Hits';
 import './style.scss';
 import Wrapper from './Wrapper';
@@ -181,7 +182,9 @@ class CategorySearch extends React.PureComponent {
                   onTypingEnd={this.nextTyping}
                   typing={this.state.typingDirection}
                 >
-                  {this.props.exampleQuestions[this.state.currentExampleIndex]}
+                  <TypewriterEffect>
+                    {this.props.exampleQuestions[this.state.currentExampleIndex]}
+                  </TypewriterEffect>
                 </TypeWriter>}
 
                 {!this.state.typeWriterIsRunning &&
