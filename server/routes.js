@@ -37,7 +37,11 @@ module.exports = (router) => {
     const redirectToAuth = `${env.appUrl}/auth/callback`;
 
     if (req.query.type === 'register') {
-      return res.redirect(`${process.env.REGISTER_URL}?role=client&redirect=${redirectToAuth}`);
+      return res.redirect(`${env.registerUrl}?role=client&redirect=${redirectToAuth}`);
+    }
+
+    if (req.query.forceLogin === '1') {
+      return res.redirect(`${env.loginUrl}?role=client&redirect=${redirectToAuth}&force=1`);
     }
 
     const query = querystring.stringify({
