@@ -5,7 +5,7 @@ const Hr = styled.hr`
   border-top: 1px solid ${(props) => props.theme.gray};
   margin-top: 30px;
   transition: all 0.4s;
-  margin-left: 0;
+  margin: auto;
 `;
 
 export default Hr;
