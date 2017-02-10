@@ -32,6 +32,10 @@ module.exports = (router) => {
       request.session.intedendAfterLogin = req.query.redirect;
     }
 
+    if (req.query.type === 'register') {
+      return res.redirect(`${process.env.REGISTER_URL}?role=client`);
+    }
+
     const redirect = `${env.appUrl}/auth/callback`;
 
     const query = querystring.stringify({

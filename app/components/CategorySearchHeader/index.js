@@ -147,7 +147,7 @@ class CategorySearch extends React.PureComponent {
       objectID: 'others',
       id: 'others',
       name: 'others',
-      human: 'Others',
+      human: "I can't find what I'm looking for",
       term: 'Others',
       _highlightResult: {
         term: {
