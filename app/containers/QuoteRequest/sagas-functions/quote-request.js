@@ -17,7 +17,7 @@ export function redirectToDashboard(quoteRequestId) {
 
 export function redirectToAuth() {
   console.log(`Redirecting to: ${env.authUrl}?type=register`);
-  redirect(`${env.authUrl}?type=register`, true);
+  redirect(`${env.authUrl}?type=register`, `${window.location.href}?autosubmit=1`);
 }
 
 /**
@@ -29,12 +29,13 @@ export function* sendQuoteRequest() {
   // Call our request helper (see 'utils/request')
   const requestURL = `${env.apiUrl}/quote-request`;
   try {
-    // Clear state from storage
-    saveState('quoteRequest', { quoteRequest: {} });
     const newQuoteRequest = yield call(request, requestURL, {
       method: 'POST',
       body: JSON.stringify(quoteRequest),
     });
+
+    // Clear state from storage
+    saveState('quoteRequest', { quoteRequest: {} });
 
     yield call(redirectToDashboard.bind(null, newQuoteRequest.id));
   } catch (err) {

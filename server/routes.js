@@ -28,19 +28,21 @@ module.exports = (router) => {
   router.get('/auth', (req, res) => {
     const request = req;
 
+    const redirect = req.query.redirect;
+
     if (req.query.redirect && request.session) {
-      request.session.intedendAfterLogin = req.query.redirect;
+      request.session.intedendAfterLogin = redirect;
     }
+
+    const redirectToAuth = `${env.appUrl}/auth/callback`;
 
     if (req.query.type === 'register') {
-      return res.redirect(`${process.env.REGISTER_URL}?role=client`);
+      return res.redirect(`${process.env.REGISTER_URL}?role=client&redirect=${redirectToAuth}`);
     }
-
-    const redirect = `${env.appUrl}/auth/callback`;
 
     const query = querystring.stringify({
       client_id: env.clientId,
-      redirect_uri: redirect,
+      redirect_uri: redirectToAuth,
       response_type: 'code',
       scope: '',
     });

@@ -115,7 +115,8 @@ class CategorySearch extends React.PureComponent {
   }
 
   blurredSearch(evt) {
-    if (!this.area.contains(evt.target)) {
+    console.log(this.area);
+    if (this.area && !this.area.contains(evt.target)) {
       this.setState({
         ...this.state,
         searchFocused: false,
@@ -159,7 +160,7 @@ class CategorySearch extends React.PureComponent {
     return (
       <Provider helper={helper}>
         <Header>
-          <SearchWrapper ref={(ref) => (this.area = ref)}>
+          <SearchWrapper innerRef={(ref) => (this.area = ref)}>
 
             <Wrapper
               onClick={() => {

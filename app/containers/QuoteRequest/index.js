@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import isEmpty from 'lodash/isEmpty';
+import get from 'lodash/get';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import Helmet from 'react-helmet';
@@ -18,6 +19,7 @@ import {
   makeSelectAnswers,
   makeSelectRecoverFromLogin,
   makeSelectIsSendingQuoteRequest,
+  makeSelectAreQuestionsPristine,
 } from './selectors';
 import {
   fetchCategory,
@@ -69,13 +71,11 @@ export class QuoteRequest extends React.PureComponent {
       this.props.fetchCategory(this.props.category.id);
     }
 
-    if (nextProps.recoverFromLogin) {
+    if (nextProps.pristine && get(this.props.location, 'query.autosubmit')) {
       if (nextProps.isAuthenticated) {
         if (!nextProps.isSendingQuoteRequest) {
           nextProps.sendRequest();
         }
-      } else if (nextProps.triedLoggingIn) {
-        nextProps.setRecoverFromLogin(false);
       }
     }
 
@@ -177,14 +177,16 @@ QuoteRequest.propTypes = {
   setAnswer: React.PropTypes.func.isRequired,
   sendRequest: React.PropTypes.func.isRequired,
   answers: React.PropTypes.object.isRequired,
+  pristine: React.PropTypes.bool.isRequired, // eslint-disable-line react/no-unused-prop-types
   isAuthenticated: React.PropTypes.bool.isRequired, // eslint-disable-line react/no-unused-prop-types
   triedLoggingIn: React.PropTypes.bool.isRequired, // eslint-disable-line react/no-unused-prop-types
-  recoverFromLogin: React.PropTypes.bool.isRequired, // eslint-disable-line react/no-unused-prop-types
-  setRecoverFromLogin: React.PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
+  // recoverFromLogin: React.PropTypes.bool.isRequired, // eslint-disable-line react/no-unused-prop-types
+  // setRecoverFromLogin: React.PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   clearAnswers: React.PropTypes.func.isRequired,
   isSendingQuoteRequest: React.PropTypes.bool.isRequired,
   setLocation: React.PropTypes.func.isRequired,
   mapsApiKey: React.PropTypes.string.isRequired,
+  location: React.PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -194,6 +196,7 @@ const mapStateToProps = createStructuredSelector({
   triedLoggingIn: makeSelectTriedLoggingIn(),
   recoverFromLogin: makeSelectRecoverFromLogin(),
   isSendingQuoteRequest: makeSelectIsSendingQuoteRequest(),
+  pristine: makeSelectAreQuestionsPristine(),
   categorySlug: (state, ownState) => ownState.params.categorySlug,
   placeName: (state, ownState) => ownState.params.placeName,
   mapsApiKey: makeSelectMapsApiKey(),
