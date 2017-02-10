@@ -19,6 +19,7 @@ import Wrapper from './Wrapper';
 import HintColumn from './HintColumn';
 import SearchColumn from './SearchColumn';
 import messages from './messages';
+import SearchWrapper from './SearchWrapper';
 
 const client = algoliasearch(env.algoliaAppId, env.algoliaApiKey);
 const helper = algoliasearchHelper(client, env.algoliaCategoryIndex, {
@@ -158,7 +159,7 @@ class CategorySearch extends React.PureComponent {
     return (
       <Provider helper={helper}>
         <Header>
-          <div ref={(ref) => (this.area = ref)}>
+          <SearchWrapper ref={(ref) => (this.area = ref)}>
 
             <Wrapper
               onClick={() => {
@@ -209,7 +210,7 @@ class CategorySearch extends React.PureComponent {
 
 
             </Wrapper>
-          </div>
+          </SearchWrapper>
 
         </Header>
       </Provider>
