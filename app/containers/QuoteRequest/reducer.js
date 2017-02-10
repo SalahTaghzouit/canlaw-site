@@ -33,6 +33,7 @@ const initialState = {
   ...(getState('quoteRequest') || {}).quoteRequest,
   // We don't want to have this recovered!
   isSendingQuoteRequest: false,
+  pristine: true,
 };
 
 function quoteRequestReducer(state = initialState, action) {
@@ -60,6 +61,7 @@ function quoteRequestReducer(state = initialState, action) {
       }
       return {
         ...state,
+        pristine: false,
         answers: { ...state.answers, [action.question]: action.answer },
       };
     }
@@ -72,6 +74,7 @@ function quoteRequestReducer(state = initialState, action) {
           lng: action.location.lng,
           address: action.location.address,
         },
+        pristine: false,
       };
 
     case SET_RECOVER_FROM_LOGIN:

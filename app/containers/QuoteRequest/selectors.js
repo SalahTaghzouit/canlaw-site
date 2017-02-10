@@ -38,6 +38,11 @@ const makeSelectIsSendingQuoteRequest = () => createSelector(
   (quoteRequestDomain) => quoteRequestDomain.isSendingQuoteRequest
 );
 
+const makeSelectAreQuestionsPristine = () => createSelector(
+  selectQuoteRequestDomain(),
+  (quoteRequestDomain) => quoteRequestDomain.pristine
+);
+
 const makeSelectSavableQuoteRequest = () => createSelector(
   selectQuoteRequestDomain(),
   (quoteRequestDomain) => ({
@@ -67,4 +72,5 @@ export {
   makeSelectSavableQuoteRequest,
   makeSelectRecoverFromLogin,
   makeSelectIsSendingQuoteRequest,
+  makeSelectAreQuestionsPristine,
 };
