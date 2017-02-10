@@ -4,7 +4,7 @@
 import React from 'react';
 import Wrapper from './Wrapper';
 
-function TypewriterEffect({ children }) {
+function TypewriterEffect({ children }) { // eslint-disable-line react/prop-types
   return (
     <Wrapper>
       {children}
@@ -12,8 +12,6 @@ function TypewriterEffect({ children }) {
   );
 }
 
-TypewriterEffect.propTypes = {
-  children: React.PropTypes.node,
-};
+TypewriterEffect.propTypes = {};
 
 export default TypewriterEffect;

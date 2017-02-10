@@ -184,7 +184,7 @@ QuoteRequest.propTypes = {
   clearAnswers: React.PropTypes.func.isRequired,
   isSendingQuoteRequest: React.PropTypes.bool.isRequired,
   setLocation: React.PropTypes.func.isRequired,
-  mapsApiKey: React.PropTypes.bool.isRequired,
+  mapsApiKey: React.PropTypes.string.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
