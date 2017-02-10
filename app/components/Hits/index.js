@@ -4,12 +4,22 @@
  */
 import React from 'react';
 import { connect as connectAlgolia } from 'react-algoliasearch-helper';
+import LoadingIndicator from './LoadingIndicator';
 import Ul from './Ul';
 import Li from './Li';
 import Button from './Button';
 
 const Hits = ({ results, onClick, visible, othersCategory }) => {
-  if (!results) return <div />;
+  if (!results) {
+    return (
+      <Ul visible>
+        <Li>
+          <LoadingIndicator />
+        </Li>
+      </Ul>
+    );
+  }
+
   return (
     <Ul visible={visible}>
       {results.hits.map(
