@@ -38,7 +38,7 @@ class QuestionControl extends React.PureComponent {
   }
 
   fixOptions(options) {
-    return options.map((option) => ({ value: option, label: option }));
+    return options.map((option) => ({ value: option, label: option })).sort();
   }
 
   handleSelect(evt) {
