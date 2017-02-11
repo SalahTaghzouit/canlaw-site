@@ -66,6 +66,59 @@ export default function createRoutes(store) {
         importModules.catch(errorLoading);
       },
     }, {
+      path: '/terms',
+      name: 'terms',
+      getComponent(location, cb) {
+        System.import('components/Terms')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+      indexRoute: {
+        getComponent(location, cb) {
+          System.import('components/Terms/User')
+            .then(loadModule(cb))
+            .catch(errorLoading);
+        },
+      },
+      childRoutes: [
+        {
+          path: 'lawyers',
+          name: 'lawyersTerms',
+          getComponent(location, cb) {
+            System.import('components/Terms/Lawyer')
+              .then(loadModule(cb))
+              .catch(errorLoading);
+          },
+        },
+        {
+          path: 'users',
+          name: 'usersTerms',
+          getComponent(location, cb) {
+            System.import('components/Terms/User')
+              .then(loadModule(cb))
+              .catch(errorLoading);
+          },
+        },
+        {
+          path: 'compliance',
+          name: 'compliance',
+          getComponent(location, cb) {
+            System.import('components/Terms/Compliance')
+              .then(loadModule(cb))
+              .catch(errorLoading);
+          },
+        },
+        {
+          path: 'privacy-policy',
+          name: 'privacyPolicy',
+          getComponent(location, cb) {
+            System.import('components/Terms/PrivacyPolicy')
+              .then(loadModule(cb))
+              .catch(errorLoading);
+          },
+        },
+      ],
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
