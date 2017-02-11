@@ -2,6 +2,7 @@ import React from 'react';
 import H1 from 'canlaw-components/components/H1';
 import Ol from './Ol';
 import Li from './Li';
+import Separator from './Separator';
 
 function PrivacyPolicy() {
   return (
@@ -270,6 +271,8 @@ function PrivacyPolicy() {
       <p>
         Last Revised: 15 February 2017
       </p>
+
+      <Separator />
 
       <H1>POLISI PRIVASI</H1>
       <p>
