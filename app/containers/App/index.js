@@ -56,7 +56,8 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
 
         <Footer
           terms={`${this.props.appUrl}/terms`}
-          privacy={`${this.props.appUrl}/privacy-policy`}
+          privacy={`${this.props.appUrl}/terms/privacy-policy`}
+          compliance={`${this.props.appUrl}/terms/compliance`}
           homeUrl={this.props.appUrl}
         />
       </Theme>
