@@ -22,4 +22,8 @@ export default defineMessages({
     id: 'canlaw.containers.QuoteRequest.answerTheseQuestions',
     defaultMessage: 'Please fill in this form so that we can find lawyers who can help you with {what}',
   },
+  unauthenticatedTryToSubmit: {
+    id: 'canlaw.containers.QuoteRequest.unauthenticatedTryToSubmit',
+    defaultMessage: 'It looks like you have tried to submit a quote before then you have been logged out, please try again.',
+  },
 });

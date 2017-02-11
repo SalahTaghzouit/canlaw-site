@@ -38,6 +38,11 @@ const makeSelectIsSendingQuoteRequest = () => createSelector(
   (quoteRequestDomain) => quoteRequestDomain.isSendingQuoteRequest
 );
 
+const makeSelectIsFetchingCategory = () => createSelector(
+  selectQuoteRequestDomain(),
+  (quoteRequestDomain) => quoteRequestDomain.isFetchingCategory
+);
+
 const makeSelectAreQuestionsPristine = () => createSelector(
   selectQuoteRequestDomain(),
   (quoteRequestDomain) => quoteRequestDomain.pristine
@@ -73,4 +78,5 @@ export {
   makeSelectRecoverFromLogin,
   makeSelectIsSendingQuoteRequest,
   makeSelectAreQuestionsPristine,
+  makeSelectIsFetchingCategory,
 };

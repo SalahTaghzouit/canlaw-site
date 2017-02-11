@@ -23,6 +23,7 @@ import {
   makeSelectDashboardUrl,
   makeSelectLoginUrl,
   makeSelectRegisterUrl,
+  makeSelectAppUrl,
 } from './selectors';
 
 export class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -39,7 +40,7 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
 
         <Loader show={this.props.loading} />
 
-        <Navigation>
+        <Navigation home={this.props.appUrl}>
           <NavData
             isAuthenticated={this.props.isAuthenticated}
             blogUrl={this.props.blogUrl}
@@ -53,7 +54,7 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
           {React.Children.toArray(this.props.children)}
         </Container>
 
-        <Footer />
+        <Footer homeUrl={this.props.appUrl} />
       </Theme>
     );
   }
@@ -67,6 +68,7 @@ App.propTypes = {
   loginUrl: React.PropTypes.string,
   registerUrl: React.PropTypes.string,
   isAuthenticated: React.PropTypes.bool.isRequired,
+  appUrl: React.PropTypes.string.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -76,6 +78,7 @@ const mapStateToProps = createStructuredSelector({
   loginUrl: makeSelectLoginUrl(),
   registerUrl: makeSelectRegisterUrl(),
   isAuthenticated: makeSelectIsAuthenticated(),
+  appUrl: makeSelectAppUrl(),
 });
 
 // Wrap the component to inject dispatch and state into it

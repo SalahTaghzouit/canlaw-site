@@ -13,7 +13,6 @@ import {
   CATEGORY_NOT_FETCHED,
   SEND_QUOTE_REQUEST,
   QUOTE_REQUEST_NOT_SAVED,
-  SET_RECOVER_FROM_LOGIN,
   SET_LOCATION,
 } from './constants';
 
@@ -115,18 +114,6 @@ export function quoteRequestNotSaved(reason) {
   return {
     type: QUOTE_REQUEST_NOT_SAVED,
     reason,
-  };
-}
-
-/**
- * Quote request was not saved
- *
- * @returns {{type}}
- */
-export function setRecoverFromLogin(status = true) {
-  return {
-    type: SET_RECOVER_FROM_LOGIN,
-    status,
   };
 }
 

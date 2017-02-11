@@ -7,29 +7,21 @@ import get from 'lodash/get';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
 import Helmet from 'react-helmet';
+import { push } from 'react-router-redux';
 import Button from 'canlaw-components/components/Button';
 import Loader from 'canlaw-components/components/Loader';
+import { addNotification } from 'canlaw-components/containers/Notification/actions';
+import smoothScroll from 'canlaw-components/utils/smoothscroll';
 import { createStructuredSelector } from 'reselect';
+import { makeSelectIsAuthenticated } from 'canlaw-components/containers/UserProvider/selectors';
 import {
-  makeSelectIsAuthenticated,
-  makeSelectTriedLoggingIn,
-} from 'canlaw-components/containers/UserProvider/selectors';
-import {
-  makeSelectCategory,
   makeSelectAnswers,
-  makeSelectRecoverFromLogin,
-  makeSelectIsSendingQuoteRequest,
   makeSelectAreQuestionsPristine,
+  makeSelectCategory,
+  makeSelectIsFetchingCategory,
+  makeSelectIsSendingQuoteRequest,
 } from './selectors';
-import {
-  fetchCategory,
-  setCategory,
-  setAnswer,
-  sendQuoteRequest,
-  setRecoverFromLogin,
-  clearAnswers,
-  setLocation,
-} from './actions';
+import { clearAnswers, fetchCategory, sendQuoteRequest, setAnswer, setLocation } from './actions';
 import { makeSelectMapsApiKey } from '../App/selectors';
 import CategorySearchHeader from '../../components/CategorySearchHeader';
 import Questions from '../Questions';
@@ -56,18 +48,26 @@ export class QuoteRequest extends React.PureComponent {
    * If the category slug in the url (props.categorySlug) is different than what we have in the
    * state, we will prefer the category in the URL and we will fetch it.
    *
-   * If the category exists in the state and there's no url, we should redirect to the right url.
+   * If the category exists in the state and there's no url, nothing to do.
    */
   componentWillMount() {
     if (this.props.categorySlug) {
-      if (!this.props.category || this.props.category.slug !== this.props.categorySlug) {
+      if (!this.props.category || this.props.category.id !== this.props.categorySlug) {
         this.props.fetchCategory(this.props.categorySlug);
       }
     }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!isEmpty(nextProps.category) && !nextProps.category.questions) {
+    if (!nextProps.isFetchingCategory && nextProps.categorySlug) {
+      if (this.props.categorySlug !== nextProps.categorySlug) {
+        this.props.fetchCategory(nextProps.categorySlug);
+        return;
+      }
+    }
+
+    // Handle when there are no questions in the category (get a fresh copy from server)
+    if (!this.props.isFetchingCategory && !isEmpty(nextProps.category) && !nextProps.category.questions) {
       this.props.fetchCategory(this.props.category.id);
     }
 
@@ -76,11 +76,23 @@ export class QuoteRequest extends React.PureComponent {
         if (!nextProps.isSendingQuoteRequest) {
           nextProps.sendRequest();
         }
+      } else {
+        this.props.addNotification({
+          message: messages.unauthenticatedTryToSubmit,
+          level: 'warning',
+        });
       }
     }
 
-    if (this.props.category) {
-      this.name = (this.props.category.human ? this.props.category.human : this.props.category.human) || '';
+    if (nextProps.category) {
+      this.name = (nextProps.category.human ? nextProps.category.human : nextProps.category.human) || '';
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    // Scroll to component if we had a new category
+    if (prevProps.category.id !== this.props.category.id && this.questionsForm) {
+      smoothScroll(this.questionsForm, 70, 400);
     }
   }
 
@@ -120,13 +132,20 @@ export class QuoteRequest extends React.PureComponent {
         />
 
         <CategorySearchHeader
-          exampleQuestions={['this is a test', 'and this is another test']}
-          initialText={this.name || ''}
+          exampleQuestions={[
+            'Divorce procedure',
+            'Freelancer contract',
+            'Tenancy agreement',
+            'Car accident claim',
+            'Child custody',
+            'I want to buy a house',
+          ]}
+          category={this.props.category}
           onChoseCategory={this.handleCategoryWasChosen}
         />
 
         {this.props.category.questions &&
-        <NarrowContainer>
+        <NarrowContainer innerRef={(ref) => (this.questionsForm = ref)}>
 
           <QuestionsHeading>
             <FormattedMessage {...messages.wereNearlyThere} />
@@ -172,45 +191,41 @@ QuoteRequest.propTypes = {
   setCategory: React.PropTypes.func.isRequired,
   categorySlug: React.PropTypes.string,
   category: React.PropTypes.object,
-  // address: React.PropTypes.string,
-  // place: React.PropTypes.object,
   setAnswer: React.PropTypes.func.isRequired,
   sendRequest: React.PropTypes.func.isRequired,
   answers: React.PropTypes.object.isRequired,
   pristine: React.PropTypes.bool.isRequired, // eslint-disable-line react/no-unused-prop-types
   isAuthenticated: React.PropTypes.bool.isRequired, // eslint-disable-line react/no-unused-prop-types
-  triedLoggingIn: React.PropTypes.bool.isRequired, // eslint-disable-line react/no-unused-prop-types
-  // recoverFromLogin: React.PropTypes.bool.isRequired, // eslint-disable-line react/no-unused-prop-types
-  // setRecoverFromLogin: React.PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   clearAnswers: React.PropTypes.func.isRequired,
   isSendingQuoteRequest: React.PropTypes.bool.isRequired,
   setLocation: React.PropTypes.func.isRequired,
   mapsApiKey: React.PropTypes.string.isRequired,
   location: React.PropTypes.object.isRequired,
+  isFetchingCategory: React.PropTypes.bool.isRequired,
+  addNotification: React.PropTypes.func.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
   answers: makeSelectAnswers(),
   category: makeSelectCategory(),
   isAuthenticated: makeSelectIsAuthenticated(),
-  triedLoggingIn: makeSelectTriedLoggingIn(),
-  recoverFromLogin: makeSelectRecoverFromLogin(),
   isSendingQuoteRequest: makeSelectIsSendingQuoteRequest(),
   pristine: makeSelectAreQuestionsPristine(),
   categorySlug: (state, ownState) => ownState.params.categorySlug,
   placeName: (state, ownState) => ownState.params.placeName,
   mapsApiKey: makeSelectMapsApiKey(),
+  isFetchingCategory: makeSelectIsFetchingCategory(),
 });
 
 function mapDispatchToProps(dispatch) {
   return {
     fetchCategory: (category) => dispatch(fetchCategory(category)),
-    setCategory: (category) => dispatch(setCategory(category)),
+    setCategory: (category) => dispatch(push(`/quote-request/${category.id}`)),
     setAnswer: (question, answer) => dispatch(setAnswer(question, answer)),
     sendRequest: () => dispatch(sendQuoteRequest()),
     clearAnswers: () => dispatch(clearAnswers()),
-    setRecoverFromLogin: (bool) => dispatch(setRecoverFromLogin(bool)),
     setLocation: (location) => dispatch(setLocation(location)),
+    addNotification: (notification) => dispatch(addNotification(notification)),
   };
 }
 
