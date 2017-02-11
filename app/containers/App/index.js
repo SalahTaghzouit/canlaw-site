@@ -54,7 +54,11 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
           {React.Children.toArray(this.props.children)}
         </Container>
 
-        <Footer homeUrl={this.props.appUrl} />
+        <Footer
+          terms={`${this.props.appUrl}/terms`}
+          privacy={`${this.props.appUrl}/privacy-policy`}
+          homeUrl={this.props.appUrl}
+        />
       </Theme>
     );
   }
