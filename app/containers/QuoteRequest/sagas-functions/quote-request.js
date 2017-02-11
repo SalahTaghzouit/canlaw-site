@@ -16,7 +16,6 @@ export function redirectToDashboard(quoteRequestId) {
 
 
 export function redirectToAuth() {
-  console.log(`Redirecting to: ${env.authUrl}?type=register`);
   redirect(`${env.authUrl}?type=register&forceLogin=1`, `${window.location.href}?autosubmit=1`);
 }
 

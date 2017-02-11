@@ -25,12 +25,6 @@ class QuestionControl extends React.PureComponent {
     this.shouldShowText = this.shouldShowText.bind(this);
   }
 
-  componentWillMount() {
-    if (!this.props.value) {
-      this.props.onChange(this.props.question, this.props.defaultValue || '');
-    }
-  }
-
   hasOther() {
     return this.props.originalQuestion &&
       Array.isArray(this.props.originalQuestion.options) &&
@@ -172,10 +166,6 @@ QuestionControl.propTypes = {
   onChange: React.PropTypes.func.isRequired,
   othersText: React.PropTypes.string,
   originalQuestion: React.PropTypes.object,
-  defaultValue: React.PropTypes.oneOfType([
-    React.PropTypes.number,
-    React.PropTypes.string,
-  ]),
   value: React.PropTypes.oneOfType([
     React.PropTypes.number,
     React.PropTypes.string,

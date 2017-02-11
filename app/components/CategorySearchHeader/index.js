@@ -45,7 +45,7 @@ class CategorySearch extends React.PureComponent {
     this.nextTyping = this.nextTyping.bind(this);
     this.erase = this.erase.bind(this);
     this.type = this.type.bind(this);
-    this.onClickHit = this.onClickHit.bind(this);
+    this.onChoseCategory = this.onChoseCategory.bind(this);
     this.onChangeSearchBox = this.onChangeSearchBox.bind(this);
     this.blurredSearch = this.blurredSearch.bind(this);
   }
@@ -55,12 +55,16 @@ class CategorySearch extends React.PureComponent {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.initialText) {
+    if (!nextProps.category) {
+      return;
+    }
+
+    if (this.props.category || this.props.category.id !== nextProps.category.id) {
       this.setState({
         ...this.state,
         showHits: false,
         typeWriterIsRunning: false,
-        category: this.props.initialText,
+        category: nextProps.category.human,
         searchFocused: false,
       });
     }
@@ -83,7 +87,7 @@ class CategorySearch extends React.PureComponent {
     }
   }
 
-  onClickHit(hit) {
+  onChoseCategory(hit) {
     // const category = stripTags(hit._highlightResult.term.value); // eslint-disable-line no-underscore-dangle
     const category = stripTags(hit.human); // eslint-disable-line no-underscore-dangle
 
@@ -94,6 +98,19 @@ class CategorySearch extends React.PureComponent {
     });
 
     this.props.onChoseCategory(hit);
+  }
+
+  getSearchBoxValue() {
+    return this.state.category || '';
+  }
+
+  blurredSearch(evt) {
+    if (this.area && !this.area.contains(evt.target)) {
+      this.setState({
+        ...this.state,
+        searchFocused: false,
+      });
+    }
   }
 
   nextTyping() {
@@ -111,16 +128,6 @@ class CategorySearch extends React.PureComponent {
         minDelay: 50,
       });
       setTimeout(this.type, 100);
-    }
-  }
-
-  blurredSearch(evt) {
-    console.log(this.area);
-    if (this.area && !this.area.contains(evt.target)) {
-      this.setState({
-        ...this.state,
-        searchFocused: false,
-      });
     }
   }
 
@@ -196,8 +203,7 @@ class CategorySearch extends React.PureComponent {
                     ...this.state,
                     searchFocused: true,
                   })}
-                  initialText={this.props.initialText || ''}
-                  value={this.state.category || ''}
+                  value={this.getSearchBoxValue()}
                   onChange={this.onChangeSearchBox}
                 />}
 
@@ -205,7 +211,7 @@ class CategorySearch extends React.PureComponent {
                 <Hits
                   othersCategory={othersCategory}
                   visible={this.state.showHits}
-                  onClick={this.onClickHit}
+                  onClick={this.onChoseCategory}
                 />}
               </SearchColumn>
 
@@ -222,7 +228,7 @@ class CategorySearch extends React.PureComponent {
 CategorySearch.propTypes = {
   onChoseCategory: React.PropTypes.func, // eslint-disable-line react/no-unused-prop-types
   onChange: React.PropTypes.func,
-  initialText: React.PropTypes.string,
+  category: React.PropTypes.object,
   exampleQuestions: React.PropTypes.arrayOf(React.PropTypes.string),
 };
 

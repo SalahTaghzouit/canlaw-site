@@ -22,7 +22,7 @@ class SearchBox extends React.PureComponent {
   }
 
   render() {
-    const value = this.props.value || this.props.initialText || '';
+    const value = this.props.value || '';
     return (
       <Input
         type="text"
@@ -39,7 +39,6 @@ class SearchBox extends React.PureComponent {
 
 SearchBox.propTypes = {
   helper: React.PropTypes.object.isRequired,
-  initialText: React.PropTypes.string,
   onChange: React.PropTypes.func,
   value: React.PropTypes.string,
   onBlur: React.PropTypes.func,

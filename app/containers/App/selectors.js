@@ -45,6 +45,11 @@ const makeSelectLoginUrl = () => createSelector(
   (envState) => envState.loginUrl
 );
 
+const makeSelectAppUrl = () => createSelector(
+  makeSelectEnv(),
+  (envState) => envState.appUrl
+);
+
 const makeSelectMapsApiKey = () => createSelector(
   makeSelectEnv(),
   (envState) => envState.mapsApiKey
@@ -64,4 +69,5 @@ export {
   makeSelectLoginUrl,
   makeSelectRegisterUrl,
   makeSelectMapsApiKey,
+  makeSelectAppUrl,
 };

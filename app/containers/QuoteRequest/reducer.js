@@ -17,7 +17,7 @@ import {
 } from './constants';
 
 const initialState = {
-  loadingCategory: false,
+  isFetchingCategory: false,
   toFetch: '',
   category: {},
   answers: {},
@@ -42,14 +42,14 @@ function quoteRequestReducer(state = initialState, action) {
     case FETCH_CATEGORY:
       return {
         ...state,
-        loadingCategory: true,
+        isFetchingCategory: true,
         toFetch: action.id,
       };
 
     case SET_CATEGORY: {
       return {
         ...state,
-        loadingCategory: false,
+        isFetchingCategory: false,
         category: action.category || {},
         answers: {},
       };
@@ -87,7 +87,7 @@ function quoteRequestReducer(state = initialState, action) {
     case CATEGORY_NOT_FETCHED:
       return {
         ...state,
-        loadingCategory: false,
+        isFetchingCategory: false,
         category: {},
       };
 
