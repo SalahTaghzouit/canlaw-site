@@ -58,6 +58,11 @@ const makeSelectSavableQuoteRequest = () => createSelector(
   })
 );
 
+const makeSelectLocation = () => createSelector(
+  selectQuoteRequestDomain(),
+  (quoteRequestDomain) => quoteRequestDomain.place
+);
+
 /**
  * Default selector used by QuoteRequest
  */
@@ -79,4 +84,5 @@ export {
   makeSelectIsSendingQuoteRequest,
   makeSelectAreQuestionsPristine,
   makeSelectIsFetchingCategory,
+  makeSelectLocation,
 };

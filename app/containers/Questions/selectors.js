@@ -1,6 +1,7 @@
 /**
  * The global state selectors
  */
+import isEmpty from 'lodash/isEmpty';
 import { createSelector } from 'reselect';
 
 const makeSelectQuestionsDomain = () => (state) => state.questions;
@@ -25,10 +26,22 @@ const makeSelectQuestions = () => createSelector(
   (questionsDomain) => questionsDomain.questions
 );
 
+const makeSelectErrors = () => createSelector(
+  makeSelectQuestionsDomain(),
+  (questionsDomain) => questionsDomain.errors
+);
+
+const makeSelectAreQuestionsValid = () => createSelector(
+  makeSelectErrors(),
+  (errors) => isEmpty(errors)
+);
+
 export {
   makeSelectQuestionsDomain,
   makeSelectAreQuestionsTranslated,
   makeSelectAreQuestionsBeingTranslated,
   makeSelectQuestions,
   makeSelectQuestionsToTranslate,
+  makeSelectAreQuestionsValid,
+  makeSelectErrors,
 };

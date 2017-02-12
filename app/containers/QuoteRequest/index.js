@@ -20,7 +20,10 @@ import {
   makeSelectCategory,
   makeSelectIsFetchingCategory,
   makeSelectIsSendingQuoteRequest,
+  makeSelectLocation,
+  makeSelectSavableQuoteRequest,
 } from './selectors';
+import { makeSelectAreQuestionsValid } from '../Questions/selectors';
 import { clearAnswers, fetchCategory, sendQuoteRequest, setAnswer, setLocation } from './actions';
 import { makeSelectMapsApiKey } from '../App/selectors';
 import CategorySearchHeader from '../../components/CategorySearchHeader';
@@ -38,10 +41,12 @@ export class QuoteRequest extends React.PureComponent {
 
     this.state = {
       mapsLoaded: false,
+      triedSubmitting: false,
     };
 
     this.handleScriptInject = this.handleScriptInject.bind(this);
     this.handleCategoryWasChosen = this.handleCategoryWasChosen.bind(this);
+    this.sendRequest = this.sendRequest.bind(this);
   }
 
   /**
@@ -61,6 +66,11 @@ export class QuoteRequest extends React.PureComponent {
   componentWillReceiveProps(nextProps) {
     if (!nextProps.isFetchingCategory && nextProps.categorySlug) {
       if (this.props.categorySlug !== nextProps.categorySlug) {
+        this.setState({
+          ...this.state,
+          triedSubmitting: false,
+        });
+
         this.props.fetchCategory(nextProps.categorySlug);
         return;
       }
@@ -74,7 +84,7 @@ export class QuoteRequest extends React.PureComponent {
     if (nextProps.pristine && get(this.props.location, 'query.autosubmit')) {
       if (nextProps.isAuthenticated) {
         if (!nextProps.isSendingQuoteRequest) {
-          nextProps.sendRequest();
+          this.sendRequest();
         }
       } else {
         this.props.addNotification({
@@ -94,6 +104,46 @@ export class QuoteRequest extends React.PureComponent {
     if (prevProps.category.id !== this.props.category.id && this.questionsForm) {
       smoothScroll(this.questionsForm, 70, 400);
     }
+  }
+
+  validate() {
+    let clean = this.props.areQuestionsValid;
+
+    const quoteRequest = this.props.savableQuoteRequest;
+
+    if (!quoteRequest.category) {
+      // this.props.setError('category', this.props.intl.formatMessage(messages.categoryIsRequired));
+      clean = false;
+    }
+
+    if (!quoteRequest.lat || !quoteRequest.lng) {
+      // this.props.setError('address', this.props.intl.formatMessage(messages.addressIsRequired));
+      clean = false;
+    }
+
+    return clean;
+  }
+
+  sendRequest() {
+    this.setState({
+      ...this.state,
+      triedSubmitting: true,
+    });
+
+    if (!this.validate()) {
+      this.props.addNotification({
+        message: messages.formError,
+        level: 'error',
+      });
+      return;
+    }
+
+    this.props.addNotification({
+      message: messages.hangOnWeReSending,
+      level: 'info',
+    });
+
+    this.props.sendRequest();
   }
 
   handleCategoryWasChosen(category) {
@@ -159,7 +209,9 @@ export class QuoteRequest extends React.PureComponent {
           </QuestionsTalk>
 
           {this.state.mapsLoaded && <QuoteRequestLocation
-            onChoseLocation={this.props.setLocation}
+            location={this.props.place}
+            showErrors={this.state.triedSubmitting}
+            onChoseLocation={this.props.setPlace}
           />}
 
           <Questions
@@ -167,16 +219,17 @@ export class QuoteRequest extends React.PureComponent {
             answers={this.props.answers}
             category={this.props.category}
             onAnswered={this.props.setAnswer}
+            showErrors={this.state.triedSubmitting}
           />
+
+          <Button disabled={this.props.isSendingQuoteRequest} onClick={this.sendRequest}>
+            <FormattedMessage {...messages.save} />
+          </Button>
 
           <Loader
             message={<FormattedMessage {...messages.waitWhileWeSave} />}
             show={this.props.isSendingQuoteRequest}
           />
-
-          <Button disabled={this.props.isSendingQuoteRequest} onClick={this.props.sendRequest}>
-            <FormattedMessage {...messages.save} />
-          </Button>
         </NarrowContainer>
         }
 
@@ -198,11 +251,14 @@ QuoteRequest.propTypes = {
   isAuthenticated: React.PropTypes.bool.isRequired, // eslint-disable-line react/no-unused-prop-types
   clearAnswers: React.PropTypes.func.isRequired,
   isSendingQuoteRequest: React.PropTypes.bool.isRequired,
-  setLocation: React.PropTypes.func.isRequired,
+  setPlace: React.PropTypes.func.isRequired,
   mapsApiKey: React.PropTypes.string.isRequired,
   location: React.PropTypes.object.isRequired,
   isFetchingCategory: React.PropTypes.bool.isRequired,
   addNotification: React.PropTypes.func.isRequired,
+  savableQuoteRequest: React.PropTypes.object.isRequired,
+  areQuestionsValid: React.PropTypes.bool.isRequired,
+  place: React.PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -215,6 +271,9 @@ const mapStateToProps = createStructuredSelector({
   placeName: (state, ownState) => ownState.params.placeName,
   mapsApiKey: makeSelectMapsApiKey(),
   isFetchingCategory: makeSelectIsFetchingCategory(),
+  areQuestionsValid: makeSelectAreQuestionsValid(),
+  savableQuoteRequest: makeSelectSavableQuoteRequest(),
+  place: makeSelectLocation(),
 });
 
 function mapDispatchToProps(dispatch) {
@@ -224,7 +283,7 @@ function mapDispatchToProps(dispatch) {
     setAnswer: (question, answer) => dispatch(setAnswer(question, answer)),
     sendRequest: () => dispatch(sendQuoteRequest()),
     clearAnswers: () => dispatch(clearAnswers()),
-    setLocation: (location) => dispatch(setLocation(location)),
+    setPlace: (location) => dispatch(setLocation(location)),
     addNotification: (notification) => dispatch(addNotification(notification)),
   };
 }

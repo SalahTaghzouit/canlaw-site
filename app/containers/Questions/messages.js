@@ -10,4 +10,8 @@ export default defineMessages({
     id: 'canlaw.containers.Questions.others',
     defaultMessage: 'Is there anything else you would like us to know?',
   },
+  required: {
+    id: 'canlaw.containers.Questions.required',
+    defaultMessage: 'This field is required',
+  },
 });

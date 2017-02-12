@@ -2,13 +2,14 @@ $react-dates-color-primary: #00b050;
 $react-dates-color-focus: #fafcfa;
 $react-dates-color-primary-dark: #00b050;
 $react-dates-color-text-focus: #00b050;
+$react-dates-border-color-danger:  #b02200;
 @import '~react-dates/css/variables.scss';
 @import '~react-dates/css/CalendarDay';
 @import '~react-dates/css/CalendarMonth';
 @import '~react-dates/css/CalendarMonthGrid';
 @import '~react-dates/css/DayPicker';
 @import '~react-dates/css/DayPickerNavigation';
-@import 'DateInput';
+@import './DateInput';
 @import '~react-dates/css/SingleDatePicker';
 @import '~react-dates/css/SingleDatePickerInput';
 

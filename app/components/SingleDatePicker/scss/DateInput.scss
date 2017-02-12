@@ -2,6 +2,12 @@ $caret-top: $react-dates-spacing-vertical-picker - $react-dates-width-tooltip-ar
 @import '../../Select/scss/select';
 @import '../../Select/scss/control';
 
+.Section-control-danger {
+  .DateInput {
+    border-color: $react-dates-border-color-danger;
+  }
+}
+
 .DateInput {
   @extend .Select-control;
   text-align: left;

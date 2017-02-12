@@ -10,4 +10,8 @@ export default defineMessages({
     id: 'canlaw.site.components.QuoteRequestLocation.where',
     defaultMessage: 'Where are you looking for a lawyer?',
   },
+  pleaseChooseAnAddress: {
+    id: 'canlaw.site.components.QuoteRequestLocation.pleaseChooseAnAddress',
+    defaultMessage: 'Please choose an address.',
+  },
 });

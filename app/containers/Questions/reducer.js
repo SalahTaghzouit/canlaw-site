@@ -5,7 +5,15 @@
  * application state.
  * To add a new action, add it to the switch statement in the reducer function
  */
-import { LOAD_QUESTIONS_TRANSLATIONS, LOADED_QUESTIONS_TRANSLATIONS } from './constants';
+import omit from 'lodash/omit';
+
+import {
+  CLEAR_ERROR,
+  CLEAR_ERRORS,
+  LOAD_QUESTIONS_TRANSLATIONS,
+  LOADED_QUESTIONS_TRANSLATIONS,
+  PUSH_ERROR,
+} from './constants';
 
 
 // The initial state of the App
@@ -13,10 +21,43 @@ const initialState = {
   areQuestionsTranslated: false,
   areQuestionsBeingTranslated: false,
   questions: {},
+  errors: {},
 };
 
 function homeReducer(state = initialState, action) {
   switch (action.type) {
+    case PUSH_ERROR: {
+      if (!action.name) {
+        return state;
+      }
+
+      if (Array.isArray(state.errors[action.name]) && state.errors[action.name].indexOf(action.error) !== -1) {
+        return state;
+      }
+
+      return {
+        ...state,
+        errors: {
+          ...state.errors,
+          [action.name]: Array.isArray(state.errors[action.name]) ?
+            [...state.errors[action.name], action.error] :
+            [action.error],
+        },
+      };
+    }
+
+    case CLEAR_ERROR:
+      return {
+        ...state,
+        errors: omit(state.errors, action.name),
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        errors: {},
+      };
+
     case LOAD_QUESTIONS_TRANSLATIONS:
       return {
         ...state,
@@ -31,6 +72,7 @@ function homeReducer(state = initialState, action) {
           return all;
         })(action.questions || {}),
       };
+
     case LOADED_QUESTIONS_TRANSLATIONS:
       return {
         ...state,

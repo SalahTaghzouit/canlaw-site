@@ -26,4 +26,12 @@ export default defineMessages({
     id: 'canlaw.containers.QuoteRequest.unauthenticatedTryToSubmit',
     defaultMessage: 'It looks like you have tried to submit a quote before then you have been logged out, please try again.',
   },
+  hangOnWeReSending: {
+    id: 'canlaw.containers.QuoteRequest.hangOnWeReSending',
+    defaultMessage: "Please hang on, we're sending your quote request.",
+  },
+  formError: {
+    id: 'canlaw.containers.QuoteRequest.formError',
+    defaultMessage: "Whoops! You've got some errors in the form please check it first.",
+  },
 });

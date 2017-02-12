@@ -1,6 +1,8 @@
 import React from 'react';
 import moment from 'moment';
-import SingleDatePicker from 'react-dates/lib/components/SingleDatePicker';
+import isEmpty from 'lodash/isEmpty';
+import isBoolean from 'lodash/isBoolean';
+import SingleDatePicker from '../SingleDatePicker';
 import Control from './Control';
 import Select from '../Select';
 import QuestionInput from '../QuestionInput';
@@ -25,10 +27,16 @@ class QuestionControl extends React.PureComponent {
     this.shouldShowText = this.shouldShowText.bind(this);
   }
 
+  componentWillMount() {
+    if (!this.props.value) {
+      this.props.onChange(this.props.label, '', this.props.question);
+    }
+  }
+
   hasOther() {
-    return this.props.originalQuestion &&
-      Array.isArray(this.props.originalQuestion.options) &&
-      this.props.originalQuestion.options.indexOf('other') !== -1;
+    return this.props.question &&
+      Array.isArray(this.props.question.options) &&
+      this.props.question.options.indexOf('other') !== -1;
   }
 
   fixOptions(options) {
@@ -41,7 +49,7 @@ class QuestionControl extends React.PureComponent {
         ...this.state,
         othersSelected: true,
       });
-      this.props.onChange(this.props.question, '');
+      this.props.onChange(this.props.label, '', this.props.question);
       return;
     }
 
@@ -53,7 +61,7 @@ class QuestionControl extends React.PureComponent {
 
 
     const many = this.props.type === 'select_many';
-    this.props.onChange(this.props.question, many ? evt.map((one) => one.value) : evt.value);
+    this.props.onChange(this.props.label, many ? evt.map((one) => one.value) : evt.value, this.props.question);
   }
 
   isSelect() {
@@ -73,7 +81,7 @@ class QuestionControl extends React.PureComponent {
 
   handleBlur() {
     if (this.hasOther() && this.state.othersSelected) {
-      this.props.onChange(this.props.question, this.state.selectText);
+      this.props.onChange(this.props.label, this.state.selectText, this.props.question);
     }
   }
 
@@ -86,11 +94,15 @@ class QuestionControl extends React.PureComponent {
   }
 
   shouldShowText() {
-    // if (this.state.othersSelected) {
-    //   return true;
-    // }
-
     return this.props.type === 'text' || this.props.type === 'number';
+  }
+
+  shouldShowErrors() {
+    return isBoolean(this.props.showErrors) ? this.props.showErrors : true;
+  }
+
+  hasErrorsAndShouldShowThem() {
+    return this.shouldShowErrors() && Array.isArray(this.props.errors) && !isEmpty(this.props.errors);
   }
 
   render() {
@@ -99,27 +111,30 @@ class QuestionControl extends React.PureComponent {
     if (this.shouldShowText()) {
       component = (
         <QuestionInput
+          hasErrors={this.hasErrorsAndShouldShowThem()}
           ref={(ref) => (this.input = ref)}
           type={this.props.type || 'text'}
           placeholder={this.props.placeholder && this.props.placeholder}
           required={this.props.required}
           disabled={this.props.disabled}
-          title={this.props.title || this.props.question}
+          title={this.props.title || this.props.label}
           value={this.props.value || ''}
-          onChange={(evt) => this.props.onChange(this.props.question, evt.target.value)}
+          onChange={(evt) => this.props.onChange(this.props.label, evt.target.value, this.props.question)}
         />
       );
     } else if (this.shouldShowSelect()) {
       const many = this.props.type === 'select_many';
       component = (
         <Select
+          className={this.hasErrorsAndShouldShowThem() ? 'Section-control-danger' : ''}
+          hasErrors={this.hasErrorsAndShouldShowThem()}
           options={this.fixOptions(this.props.options)}
           placeholder={this.selectPlaceholder()}
           required={this.props.required}
           disabled={this.props.disabled}
-          title={this.props.title || this.props.question}
+          title={this.props.title || this.props.label}
           value={this.props.value || ''}
-          name={this.props.question}
+          name={this.props.label}
           multi={many}
           openOnFocus
           onChange={this.handleSelect}
@@ -133,7 +148,9 @@ class QuestionControl extends React.PureComponent {
       const date = moment(this.props.value).isValid() ? moment(this.props.value) : null;
       component = (
         <SingleDatePicker
-          id={this.props.question}
+          inputClassName={this.hasErrorsAndShouldShowThem() ? 'Section-control-danger' : ''}
+          hasErrors={this.hasErrorsAndShouldShowThem()}
+          id={this.props.label}
           enableOutsideDays
           isOutsideRange={() => false}
           date={date}
@@ -141,7 +158,7 @@ class QuestionControl extends React.PureComponent {
           numberOfMonths={1}
           focused={this.state.focused}
           displayFormat="LL"
-          onDateChange={(d) => this.props.onChange(this.props.question, d.format('LL'))}
+          onDateChange={(d) => this.props.onChange(this.props.label, d.format('LL'), this.props.question)}
           onFocusChange={({ focused }) => {
             this.setState({ focused });
           }}
@@ -149,7 +166,7 @@ class QuestionControl extends React.PureComponent {
       );
     }
     return (
-      <Control label={this.props.question}>
+      <Control label={this.props.label} errors={this.shouldShowErrors() ? this.props.errors : []}>
         {component}
       </Control>
     );
@@ -157,7 +174,7 @@ class QuestionControl extends React.PureComponent {
 }
 
 QuestionControl.propTypes = {
-  question: React.PropTypes.string.isRequired,
+  label: React.PropTypes.string.isRequired,
   placeholder: React.PropTypes.string,
   type: React.PropTypes.string,
   required: React.PropTypes.bool,
@@ -165,12 +182,14 @@ QuestionControl.propTypes = {
   title: React.PropTypes.string,
   onChange: React.PropTypes.func.isRequired,
   othersText: React.PropTypes.string,
-  originalQuestion: React.PropTypes.object,
+  question: React.PropTypes.object,
   value: React.PropTypes.oneOfType([
     React.PropTypes.number,
     React.PropTypes.string,
   ]),
   options: React.PropTypes.array,
+  errors: React.PropTypes.array,
+  showErrors: React.PropTypes.bool,
 };
 
 export default QuestionControl;
