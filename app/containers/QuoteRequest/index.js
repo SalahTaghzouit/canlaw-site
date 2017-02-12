@@ -63,6 +63,10 @@ export class QuoteRequest extends React.PureComponent {
     }
   }
 
+  componentDidMount() {
+    // smoothScroll(document.body, this.questionsForm.offsetTop - 70, 400);
+  }
+
   componentWillReceiveProps(nextProps) {
     if (!nextProps.isFetchingCategory && nextProps.categorySlug) {
       if (this.props.categorySlug !== nextProps.categorySlug) {
@@ -99,10 +103,11 @@ export class QuoteRequest extends React.PureComponent {
     }
   }
 
+
   componentDidUpdate(prevProps) {
     // Scroll to component if we had a new category
     if (prevProps.category.id !== this.props.category.id && this.questionsForm) {
-      smoothScroll(this.questionsForm, 70, 400);
+      smoothScroll(document.body, this.questionsForm.offsetTop - 70, 400);
     }
   }
 
@@ -194,45 +199,47 @@ export class QuoteRequest extends React.PureComponent {
           onChoseCategory={this.handleCategoryWasChosen}
         />
 
-        {this.props.category.questions &&
-        <NarrowContainer innerRef={(ref) => (this.questionsForm = ref)}>
+        <div ref={(ref) => (this.questionsForm = ref)}>
+          {this.props.category.questions &&
+          <NarrowContainer>
 
-          <QuestionsHeading>
-            <FormattedMessage {...messages.wereNearlyThere} />
-          </QuestionsHeading>
+            <QuestionsHeading>
+              <FormattedMessage {...messages.wereNearlyThere} />
+            </QuestionsHeading>
 
-          <QuestionsTalk>
-            <FormattedMessage
-              {...messages.answerTheseQuestions}
-              values={{ what: this.name }}
+            <QuestionsTalk>
+              <FormattedMessage
+                {...messages.answerTheseQuestions}
+                values={{ what: this.name }}
+              />
+            </QuestionsTalk>
+
+            {this.state.mapsLoaded && <QuoteRequestLocation
+              location={this.props.place}
+              showErrors={this.state.triedSubmitting}
+              onChoseLocation={this.props.setPlace}
+            />}
+
+            <Questions
+              questions={this.props.category.questions}
+              answers={this.props.answers}
+              category={this.props.category}
+              onAnswered={this.props.setAnswer}
+              showErrors={this.state.triedSubmitting}
             />
-          </QuestionsTalk>
 
-          {this.state.mapsLoaded && <QuoteRequestLocation
-            location={this.props.place}
-            showErrors={this.state.triedSubmitting}
-            onChoseLocation={this.props.setPlace}
-          />}
+            <Button disabled={this.props.isSendingQuoteRequest} onClick={this.sendRequest}>
+              <FormattedMessage {...messages.save} />
+            </Button>
 
-          <Questions
-            questions={this.props.category.questions}
-            answers={this.props.answers}
-            category={this.props.category}
-            onAnswered={this.props.setAnswer}
-            showErrors={this.state.triedSubmitting}
-          />
+            <Loader
+              message={<FormattedMessage {...messages.waitWhileWeSave} />}
+              show={this.props.isSendingQuoteRequest}
+            />
 
-          <Button disabled={this.props.isSendingQuoteRequest} onClick={this.sendRequest}>
-            <FormattedMessage {...messages.save} />
-          </Button>
-
-          <Loader
-            message={<FormattedMessage {...messages.waitWhileWeSave} />}
-            show={this.props.isSendingQuoteRequest}
-          />
-        </NarrowContainer>
-        }
-
+          </NarrowContainer>
+          }
+        </div>
 
       </div>
     );
