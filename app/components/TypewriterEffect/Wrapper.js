@@ -5,11 +5,12 @@ const blinkCaret = keyframes`
     border-color: transparent;
   }
   50% {
-    border-color: white;
+    border-color: black;
   }
 `;
 
 const Wrapper = styled.span`
+  font-family: 'Raleway', sans-serif;
   overflow: hidden; /* Ensures the content is not revealed until the animation */
   border-right: .05em solid ${(props) => props.color ? props.color : '#FFF'}; /* The typwriter cursor */
   padding-right: 5px;

@@ -9,7 +9,22 @@ import Ul from './Ul';
 import Li from './Li';
 import Button from './Button';
 
-const Hits = ({ results, onClick, visible, othersCategory }) => {
+/**
+ *
+ *
+ * @param results
+ * @param onClick
+ * @param visible
+ * @param othersCategory
+ * @param noResults This one is because algolia keeps the results of the previous query, so we give this explicitly to not show old results
+ * @returns {XML}
+ * @constructor
+ */
+const Hits = ({ results, onClick, visible, othersCategory, noResults }) => {
+  if (noResults) {
+    return (<div />);
+  }
+
   if (!results) {
     return (
       <Ul visible>
@@ -54,6 +69,7 @@ Hits.propTypes = {
   onClick: React.PropTypes.func,
   visible: React.PropTypes.bool,
   othersCategory: React.PropTypes.object.isRequired,
+  noResults: React.PropTypes.bool,
 };
 
 const mapStateToProps = (state, ownProps) => ({

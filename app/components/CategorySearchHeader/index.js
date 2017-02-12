@@ -3,7 +3,6 @@
  */
 import React from 'react';
 import { Provider } from 'react-algoliasearch-helper';
-import { FormattedMessage } from 'react-intl';
 import algoliasearch from 'algoliasearch';
 import algoliasearchHelper from 'algoliasearch-helper';
 import TypeWriter from 'react-typewriter';
@@ -16,9 +15,7 @@ import TypewriterEffect from '../../components/TypewriterEffect';
 import Hits from '../Hits';
 import './style.scss';
 import Wrapper from './Wrapper';
-import HintColumn from './HintColumn';
 import SearchColumn from './SearchColumn';
-import messages from './messages';
 import SearchWrapper from './SearchWrapper';
 
 const client = algoliasearch(env.algoliaAppId, env.algoliaApiKey);
@@ -48,10 +45,12 @@ class CategorySearch extends React.PureComponent {
     this.onChoseCategory = this.onChoseCategory.bind(this);
     this.onChangeSearchBox = this.onChangeSearchBox.bind(this);
     this.blurredSearch = this.blurredSearch.bind(this);
+    this.keyPressed = this.keyPressed.bind(this);
   }
 
   componentDidMount() {
     window.document.addEventListener('click', this.blurredSearch);
+    window.document.addEventListener('keypress', this.keyPressed);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -72,6 +71,7 @@ class CategorySearch extends React.PureComponent {
 
   componentWillUnmount() {
     window.document.removeEventListener('click', this.blurredSearch);
+    window.document.removeEventListener('keypress', this.keyPressed);
   }
 
   onChangeSearchBox(text) {
@@ -102,6 +102,24 @@ class CategorySearch extends React.PureComponent {
 
   getSearchBoxValue() {
     return this.state.category || '';
+  }
+
+  keyPressed(evt) {
+    const inputValue = evt.which;
+    // allow letters and whitespaces only.
+    if (!(inputValue >= 65 && inputValue <= 120) && (inputValue !== 32 && inputValue !== 0)) {
+      event.preventDefault();
+      return;
+    }
+
+    this.setState({
+      ...this.state,
+      searchFocused: false,
+      typeWriterIsRunning: false,
+      // category: evt.key,
+    });
+
+    window.document.removeEventListener('keypress', this.keyPressed);
   }
 
   blurredSearch(evt) {
@@ -178,12 +196,7 @@ class CategorySearch extends React.PureComponent {
               }}
             >
 
-              <HintColumn fluid md={4}>
-                <FormattedMessage {...messages.startTyping} />
-              </HintColumn>
-
-
-              <SearchColumn fluid md={8}>
+              <SearchColumn>
                 {this.state.typeWriterIsRunning && <TypeWriter
                   ref={(ref) => (this.typeWriter = ref)}
                   maxDelay={this.state.maxDelay}
@@ -209,6 +222,7 @@ class CategorySearch extends React.PureComponent {
 
                 {!this.state.typeWriterIsRunning && this.state.showHits && this.state.searchFocused &&
                 <Hits
+                  noResults={this.state.category.length < 2}
                   othersCategory={othersCategory}
                   visible={this.state.showHits}
                   onClick={this.onChoseCategory}
