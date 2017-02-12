@@ -4,6 +4,7 @@ import './scss/default.scss';
 
 const Select = styled(BaseSelect)`
   text-align: left;
+  ${(props) => props.hasErrors && `border-color: ${props.theme.danger}!important;`}
 `;
 
 export default Select;

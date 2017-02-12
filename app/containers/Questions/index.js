@@ -1,20 +1,23 @@
 /*
  * Questions
  */
-import React, { PropTypes } from 'react';
+import React from 'react';
+import isBoolean from 'lodash/isBoolean';
 import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 import isEqual from 'lodash/isEqual';
+import isEmpty from 'lodash/isEmpty';
 import { createStructuredSelector } from 'reselect';
 import LoadingIndicator from 'canlaw-components/components/LoadingIndicator';
-import { Row, Column } from 'hedron';
+import { Column, Row } from 'hedron';
 import QuestionControl from '../../components/QuestionControl';
 import {
-  makeSelectAreQuestionsTranslated,
   makeSelectAreQuestionsBeingTranslated,
+  makeSelectAreQuestionsTranslated,
+  makeSelectErrors,
   makeSelectQuestions,
 } from './selectors';
-import { loadQuestionsTranslations } from './actions';
+import { clearError, clearErrors, loadQuestionsTranslations, pushError } from './actions';
 import messages from './messages';
 
 export class Questions extends React.PureComponent {
@@ -23,21 +26,39 @@ export class Questions extends React.PureComponent {
     super(props);
     this.transOptions = this.transOptions.bind(this);
     this.trans = this.trans.bind(this);
+    this.onAnswered = this.onAnswered.bind(this);
+    this.validate = this.validate.bind(this);
+    this.shouldShowErrors = this.shouldShowErrors.bind(this);
   }
 
   componentWillMount() {
+    this.props.clearErrors();
+    this.props.questions.forEach((question) => this.validate(question, undefined));
     this.handleProps(this.props);
   }
 
-  componentWillReceiveProps(props) {
-    this.handleProps(props);
+  componentWillReceiveProps(nextProps) {
+    if (!isEqual(this.props.questions, nextProps.questions)) {
+      nextProps.clearErrors();
+      nextProps.questions.forEach((question) => this.validate(question, undefined, nextProps));
+    }
+
+    this.handleProps(nextProps);
+  }
+
+  onAnswered(questionName, answer, question) {
+    this.validate(question, answer);
+    this.props.onAnswered(questionName, answer);
   }
 
   handleProps(props) {
     if (
-      !props.areQuestionsBeingTranslated &&
-      this.props.questions &&
-      (!props.areQuestionsTranslated || !isEqual(props.questions, this.props.questions))
+      !isEqual(props.questions, this.props.questions) ||
+      (
+        !props.areQuestionsBeingTranslated &&
+        !isEmpty(props.questions) &&
+        !props.areQuestionsTranslated
+      )
     ) {
       const all = props.questions.map((question) => question.name);
       props.questions.forEach((question) => {
@@ -50,6 +71,28 @@ export class Questions extends React.PureComponent {
 
       props.translateQuestions(all);
     }
+  }
+
+  validate(question, answer, theProps) {
+    const props = theProps || this.props;
+
+    let clean = true;
+
+    if (!answer || answer === '') {
+      props.pushError(
+        question.name,
+        props.intl.formatMessage(messages.required)
+      );
+      clean = false;
+    }
+
+    if (clean) {
+      props.clearError(question.name);
+    }
+  }
+
+  shouldShowErrors() {
+    return isBoolean(this.props.showErrors) ? this.props.showErrors : true;
   }
 
   trans(message) {
@@ -70,19 +113,21 @@ export class Questions extends React.PureComponent {
 
     return (
       <div>
-        {this.props.areQuestionsTranslated && this.props.questions && this.props.questions.map((question) => (
+        {this.props.areQuestionsTranslated && !isEmpty(this.props.questions) && this.props.questions.map((question) => (
           <Row key={question.name}>
             <Column>
               <QuestionControl
                 type={question.type}
                 required
                 value={this.props.answers[this.trans(question.name)]}
-                onChange={this.props.onAnswered}
-                question={this.trans(question.name)}
-                originalQuestion={question}
+                onChange={this.onAnswered}
+                label={this.trans(question.name)}
+                question={question}
                 placeholder=""
                 othersText={this.trans('other')}
                 options={this.transOptions(question.options)}
+                errors={this.props.errors[question.name]}
+                showErrors={this.shouldShowErrors()}
               />
             </Column>
           </Row>
@@ -94,8 +139,8 @@ export class Questions extends React.PureComponent {
               type={'text'}
               required
               value={this.props.answers[this.props.intl.formatMessage(messages.others)]}
-              onChange={this.props.onAnswered}
-              question={this.props.intl.formatMessage(messages.others)}
+              onChange={(question, answer) => this.props.onAnswered(question, answer)}
+              label={this.props.intl.formatMessage(messages.others)}
               placeholder=""
             />
           </Column>
@@ -106,27 +151,37 @@ export class Questions extends React.PureComponent {
 }
 
 Questions.propTypes = {
-  onAnswered: PropTypes.func.isRequired,
-  answers: PropTypes.object.isRequired,
-  areQuestionsTranslated: React.PropTypes.bool.isRequired, // eslint-disable-line react/no-unused-prop-types
-  areQuestionsBeingTranslated: React.PropTypes.bool.isRequired, // eslint-disable-line react/no-unused-prop-types
+  onAnswered: React.PropTypes.func.isRequired,
+  answers: React.PropTypes.object.isRequired,
+  areQuestionsTranslated: React.PropTypes.bool.isRequired,
+  areQuestionsBeingTranslated: React.PropTypes.bool.isRequired,
   translateQuestions: React.PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   translatedQuestions: React.PropTypes.object.isRequired,
   questions: React.PropTypes.array.isRequired,
   intl: React.PropTypes.object.isRequired,
+  pushError: React.PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
+  clearErrors: React.PropTypes.func.isRequired,
+  clearError: React.PropTypes.func.isRequired, // eslint-disable-line react/no-unused-prop-types
+  errors: React.PropTypes.object.isRequired,
+  showErrors: React.PropTypes.bool,
 };
 
 const mapStateToProps = createStructuredSelector({
   onAnswered: (state, ownState) => ownState.onAnswered,
   answers: (state, ownState) => ownState.answers,
   questions: (state, ownState) => ownState.questions,
+  showErrors: (state, ownState) => ownState.showErrors,
   translatedQuestions: makeSelectQuestions(),
   areQuestionsTranslated: makeSelectAreQuestionsTranslated(),
   areQuestionsBeingTranslated: makeSelectAreQuestionsBeingTranslated(),
+  errors: makeSelectErrors(),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   translateQuestions: (questions) => dispatch(loadQuestionsTranslations(questions)),
+  pushError: (name, error) => dispatch(pushError(name, error)),
+  clearErrors: () => dispatch(clearErrors()),
+  clearError: (name) => dispatch(clearError(name)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(injectIntl(Questions));

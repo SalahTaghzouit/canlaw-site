@@ -31,6 +31,12 @@
 
 // base
 
+.Section-control-danger {
+	.Select-control {
+		border-color: $select-input-border-color-danger;
+	}
+}
+
 .Select-control {
 	background-color: $select-input-bg;
 	border-color: lighten($select-input-border-color, 5%) $select-input-border-color darken($select-input-border-color, 10%);
