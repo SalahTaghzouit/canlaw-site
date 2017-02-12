@@ -1,10 +1,9 @@
-import { take, put, fork, cancel, select } from 'redux-saga/effects';
-import { push, LOCATION_CHANGE } from 'react-router-redux';
+import { cancel, fork, put, select, take } from 'redux-saga/effects';
+import { LOCATION_CHANGE, push } from 'react-router-redux';
 import { takeLatest } from 'redux-saga';
 import { clearCategory } from './actions';
 import { START_QUOTE_REQUEST } from './constants';
 import { makeSelectCategory } from './selectors';
-import { setCategory } from '../QuoteRequest/actions';
 
 
 /**
@@ -15,7 +14,6 @@ export function* goToQuoteRequest() {
 
   yield put(clearCategory());
   yield put(push(`/quote-request/${category.id}`));
-  yield put(setCategory(category));
 }
 
 /**
