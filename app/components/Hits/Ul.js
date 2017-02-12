@@ -2,8 +2,9 @@ import styled from 'styled-components';
 
 const Ul = styled.ul`
   position: absolute;
-  top: 50px;
-  left: 0;
+  top: 75px;
+  border-radius: 3px;
+  left: 30%;
   min-width: 50%;
   list-style: none;
   padding: 10px;

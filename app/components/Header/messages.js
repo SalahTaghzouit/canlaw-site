@@ -16,6 +16,6 @@ export default defineMessages({
   },
   looking_for_lawyer: {
     id: 'canlaw.components.Header.looking_for_lawyer',
-    defaultMessage: 'I am looking for a lawyer who can help me:',
+    defaultMessage: 'I am looking for a lawyer who can help me with:',
   },
 });
