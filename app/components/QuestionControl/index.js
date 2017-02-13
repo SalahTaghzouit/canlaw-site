@@ -2,6 +2,7 @@ import React from 'react';
 import moment from 'moment';
 import isEmpty from 'lodash/isEmpty';
 import isBoolean from 'lodash/isBoolean';
+import difference from 'lodash/difference';
 import SingleDatePicker from '../SingleDatePicker';
 import Control from './Control';
 import Select from '../Select';
@@ -16,6 +17,7 @@ class QuestionControl extends React.PureComponent {
       pristine: true,
       othersSelected: false,
       selectText: '',
+      options: [],
     };
     this.hasOther = this.hasOther.bind(this);
     this.handleSelect = this.handleSelect.bind(this);
@@ -31,6 +33,11 @@ class QuestionControl extends React.PureComponent {
     if (!this.props.value) {
       this.props.onChange(this.props.label, '', this.props.question);
     }
+
+    this.setState({
+      ...this.state,
+      options: this.props.options,
+    });
   }
 
   hasOther() {
@@ -44,6 +51,8 @@ class QuestionControl extends React.PureComponent {
   }
 
   handleSelect(evt) {
+    const many = this.props.type === 'select_many';
+
     if (evt.value === this.props.othersText) {
       this.setState({
         ...this.state,
@@ -59,9 +68,19 @@ class QuestionControl extends React.PureComponent {
       pristine: false,
     });
 
+    const value = many ? evt.map((one) => one.value) : evt.value;
+    const diff = difference(value, this.props.options);
+    if (many &&
+      this.props.options.indexOf(this.props.othersText) !== -1 &&
+      diff.length
+    ) {
+      this.setState({
+        ...this.state,
+        options: this.state.options.concat(diff),
+      });
+    }
 
-    const many = this.props.type === 'select_many';
-    this.props.onChange(this.props.label, many ? evt.map((one) => one.value) : evt.value, this.props.question);
+    this.props.onChange(this.props.label, value, this.props.question);
   }
 
   isSelect() {
@@ -128,7 +147,7 @@ class QuestionControl extends React.PureComponent {
         <Select
           className={this.hasErrorsAndShouldShowThem() ? 'Section-control-danger' : ''}
           hasErrors={this.hasErrorsAndShouldShowThem()}
-          options={this.fixOptions(this.props.options)}
+          options={this.fixOptions(this.state.options)}
           placeholder={this.selectPlaceholder()}
           required={this.props.required}
           disabled={this.props.disabled}
@@ -186,6 +205,8 @@ QuestionControl.propTypes = {
   value: React.PropTypes.oneOfType([
     React.PropTypes.number,
     React.PropTypes.string,
+    React.PropTypes.array,
+    React.PropTypes.object,
   ]),
   options: React.PropTypes.array,
   errors: React.PropTypes.array,
