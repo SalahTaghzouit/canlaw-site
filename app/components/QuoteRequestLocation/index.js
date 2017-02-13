@@ -19,6 +19,8 @@ class QuoteRequestLocation extends React.PureComponent {
     this.state = {
       location: {},
     };
+
+    this.setLocation = this.setLocation.bind(this);
   }
 
   setLocation(location) {
