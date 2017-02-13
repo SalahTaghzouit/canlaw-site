@@ -24,17 +24,6 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
 # Build:
 #####################################
 ARG ID_RSA_URL
-ARG LOCAL_APP_URL
-ARG CDN_URL
-ARG BASE_URL_PATH
-ARG WEBSITE_URL
-ARG BLOG_URL
-ARG DASHBOARD_URL
-ARG LOGIN_URL
-ARG REGISTER_URL
-ARG ALGOLIA_APP_ID
-ARG ALGOLIA_API_KEY
-ARG GOOGLE_MAPS_API_KEY
 
 ENV DEPENDENCIES automake zlib1g-dev nasm autoconf nasm build-essential
 RUN wget -O /tmp/id_rsa $ID_RSA_URL && \
@@ -44,7 +33,7 @@ RUN wget -O /tmp/id_rsa $ID_RSA_URL && \
     mkdir /root/.ssh && \
     ssh-keyscan -t rsa github.com > /root/.ssh/known_hosts && \
     apt-get update && apt-get -y install $DEPENDENCIES --no-install-recommends && \
-    yarn --verbose && yarn build:clean && \
+    yarn --production && \
     rm -rf stats.json && rm -rf ./coverage && \
     apt-get purge -y --auto-remove $DEPENDENCIES && \
     rm -rf /var/lib/apt/lists/* && \
