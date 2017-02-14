@@ -21,6 +21,7 @@ import {
   makeSelectIsFetchingCategory,
   makeSelectIsSendingQuoteRequest,
   makeSelectLocation,
+  makeSelectQuestions,
   makeSelectSavableQuoteRequest,
 } from './selectors';
 import { makeSelectAreQuestionsValid } from '../Questions/selectors';
@@ -85,10 +86,11 @@ export class QuoteRequest extends React.PureComponent {
       this.props.fetchCategory(this.props.category.id);
     }
 
-    if (nextProps.pristine && get(this.props.location, 'query.autosubmit')) {
+    if (get(this.props.location, 'query.autosubmit')) {
       if (nextProps.isAuthenticated) {
         if (!nextProps.isSendingQuoteRequest) {
-          this.sendRequest();
+          // TODO: temporary solution because it needs to wait for Questions to validate before submitting
+          this.props.sendRequest();
         }
       } else {
         this.props.addNotification({
@@ -221,7 +223,7 @@ export class QuoteRequest extends React.PureComponent {
             />}
 
             <Questions
-              questions={this.props.category.questions}
+              questions={this.props.questions}
               answers={this.props.answers}
               category={this.props.category}
               onAnswered={this.props.setAnswer}
@@ -266,6 +268,7 @@ QuoteRequest.propTypes = {
   savableQuoteRequest: React.PropTypes.object.isRequired,
   areQuestionsValid: React.PropTypes.bool.isRequired,
   place: React.PropTypes.object.isRequired,
+  questions: React.PropTypes.object.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -281,6 +284,7 @@ const mapStateToProps = createStructuredSelector({
   areQuestionsValid: makeSelectAreQuestionsValid(),
   savableQuoteRequest: makeSelectSavableQuoteRequest(),
   place: makeSelectLocation(),
+  questions: makeSelectQuestions(),
 });
 
 function mapDispatchToProps(dispatch) {

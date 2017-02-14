@@ -5,15 +5,15 @@
  */
 import { getState } from 'canlaw-components/utils/state-persistor';
 import {
-  SET_CATEGORY,
-  SET_ANSWER,
+  CATEGORY_NOT_FETCHED,
   CLEAR_ANSWERS,
   FETCH_CATEGORY,
-  CATEGORY_NOT_FETCHED,
   QUOTE_REQUEST_NOT_SAVED,
   SEND_QUOTE_REQUEST,
-  SET_RECOVER_FROM_LOGIN,
+  SET_ANSWER,
+  SET_CATEGORY,
   SET_LOCATION,
+  SET_RECOVER_FROM_LOGIN,
 } from './constants';
 
 const initialState = {
@@ -59,10 +59,14 @@ function quoteRequestReducer(state = initialState, action) {
       if (!action.question) {
         return state;
       }
+
       return {
         ...state,
         pristine: false,
-        answers: { ...state.answers, [action.question]: action.answer },
+        answers: {
+          ...state.answers,
+          [action.question]: action.answer,
+        },
       };
     }
 
