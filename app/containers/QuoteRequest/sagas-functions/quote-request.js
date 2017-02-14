@@ -1,14 +1,13 @@
-import { take, call, put, fork, cancel, select } from 'redux-saga/effects';
+import { call, cancel, fork, put, select, take } from 'redux-saga/effects';
 import { takeLatest } from 'redux-saga';
 import { LOCATION_CHANGE } from 'react-router-redux';
 import { saveState } from 'canlaw-components/utils/state-persistor';
 import env from 'canlaw-components/utils/env';
 import request from 'canlaw-components/utils/request';
 import redirect from 'canlaw-components/utils/redirect';
-import { WRONG_ACCOUNT_TYPE } from 'canlaw-components/containers/UserProvider/constants';
 import { makeSelectSavableQuoteRequest, selectQuoteRequestDomain } from '../selectors';
 import { SEND_QUOTE_REQUEST } from '../constants';
-import { quoteRequestNotSaved, logout } from '../actions';
+import { quoteRequestNotSaved } from '../actions';
 
 export function redirectToDashboard(quoteRequestId) {
   redirect(`${env.dashboardUrl}/requests?quote_request_sent=${quoteRequestId}`);
@@ -16,7 +15,8 @@ export function redirectToDashboard(quoteRequestId) {
 
 
 export function redirectToAuth() {
-  redirect(`${env.authUrl}?type=register&forceLogin=1`, `${window.location.href}?autosubmit=1`);
+  const sep = window.location.href.indexOf('?') !== -1 ? '&' : '?';
+  redirect(`${env.authUrl}?type=register&forceLogin=1`, `${window.location.href}${sep}autosubmit=1`);
 }
 
 /**
@@ -38,7 +38,7 @@ export function* sendQuoteRequest() {
 
     yield call(redirectToDashboard.bind(null, newQuoteRequest.id));
   } catch (err) {
-    if (err.response.status === 401) {
+    if (err.response.status === 401 || err.response.status === 403) {
       const quoteRequestDomain = yield select(selectQuoteRequestDomain());
       saveState('quoteRequest', {
         quoteRequest: {
@@ -47,9 +47,6 @@ export function* sendQuoteRequest() {
         },
       });
       yield call(redirectToAuth);
-    } else if (err.response.status === 403) {
-      yield put(logout(WRONG_ACCOUNT_TYPE, true));
-      yield call(sendQuoteRequest);
     } else {
       yield put(quoteRequestNotSaved(err));
     }

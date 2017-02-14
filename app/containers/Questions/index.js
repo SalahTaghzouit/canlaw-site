@@ -49,9 +49,9 @@ export class Questions extends React.PureComponent {
     }
   }
 
-  onAnswered(questionName, answer, question) {
+  onAnswered(questionName, answer, question, index) {
     this.validate(question, answer);
-    this.props.onAnswered(questionName, answer);
+    this.props.onAnswered(questionName, answer, index);
   }
 
   handleProps(props) {
@@ -137,14 +137,14 @@ export class Questions extends React.PureComponent {
 
     return (
       <div>
-        {this.props.areQuestionsTranslated && !isEmpty(this.props.questions) && this.questions.map((question) => (
+        {this.props.areQuestionsTranslated && !isEmpty(this.props.questions) && this.questions.map((question, index) => (
           <Row key={question.name}>
             <Column>
               <QuestionControl
                 type={question.type}
                 required
                 value={this.props.answers[this.trans(question.name)]}
-                onChange={this.onAnswered}
+                onChange={(questionName, answer, originalQuestion) => this.onAnswered(questionName, answer, originalQuestion, index)}
                 label={this.trans(question.name)}
                 question={question}
                 placeholder=""
@@ -163,7 +163,7 @@ export class Questions extends React.PureComponent {
               type={'text'}
               required
               value={this.props.answers[this.props.intl.formatMessage(messages.others)]}
-              onChange={(question, answer) => this.props.onAnswered(question, answer)}
+              onChange={(question, answer) => this.props.onAnswered(question, answer, this.questions.length)}
               label={this.props.intl.formatMessage(messages.others)}
               placeholder=""
             />

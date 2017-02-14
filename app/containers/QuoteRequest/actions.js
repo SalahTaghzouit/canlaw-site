@@ -73,13 +73,15 @@ export function setCategory(category) {
  *
  * @param question
  * @param answer
+ * @param order
  * @returns {{type, question: *, answer: *}}
  */
-export function setAnswer(question, answer) {
+export function setAnswer(question, answer, order) {
   return {
     type: SET_ANSWER,
     question,
     answer,
+    order,
   };
 }
 

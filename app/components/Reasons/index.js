@@ -70,7 +70,6 @@ function Reasons() {
         </Row>
       </SectionContent>
     </GrayArea>
-
   );
 }
 

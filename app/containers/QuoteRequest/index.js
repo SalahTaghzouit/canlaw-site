@@ -291,7 +291,7 @@ function mapDispatchToProps(dispatch) {
   return {
     fetchCategory: (category) => dispatch(fetchCategory(category)),
     setCategory: (category) => dispatch(push(`/quote-request/${category.id}`)),
-    setAnswer: (question, answer) => dispatch(setAnswer(question, answer)),
+    setAnswer: (question, answer, order) => dispatch(setAnswer(question, answer, order)),
     sendRequest: () => dispatch(sendQuoteRequest()),
     clearAnswers: () => dispatch(clearAnswers()),
     setPlace: (location) => dispatch(setLocation(location)),
