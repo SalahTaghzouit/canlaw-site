@@ -106,8 +106,9 @@ export class Questions extends React.PureComponent {
       if (rule.indexOf('required_if') !== -1) {
         const field = rule.substring(rule.indexOf(':') + 1, rule.indexOf(','));
         const value = rule.substring(rule.indexOf(',') + 1);
+        const answer = props.answers[this.trans(field, props)] || {};
 
-        return props.answers[this.trans(field, props)] === this.trans(value, props);
+        return answer.answer === this.trans(value, props);
       }
     }
 
