@@ -6,7 +6,6 @@ const Wrapper = styled.div`
   padding-bottom: 150px;
   padding-top: 70px;
   background: url(${header}) no-repeat;
-  background-position: bottom;
   background-size: cover;
   color: #FFF;
 `;
