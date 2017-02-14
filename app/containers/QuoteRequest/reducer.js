@@ -65,7 +65,7 @@ function quoteRequestReducer(state = initialState, action) {
         pristine: false,
         answers: {
           ...state.answers,
-          [action.question]: action.answer,
+          [action.question]: { answer: action.answer, order: action.order },
         },
       };
     }

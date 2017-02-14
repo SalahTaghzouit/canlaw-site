@@ -30,7 +30,7 @@ class QuestionControl extends React.PureComponent {
   }
 
   componentWillMount() {
-    if (!this.props.value) {
+    if (!this.value) {
       this.props.onChange(this.props.label, '', this.props.question);
     }
 
@@ -38,6 +38,12 @@ class QuestionControl extends React.PureComponent {
       ...this.state,
       options: this.props.options,
     });
+
+    this.value = this.props.value ? this.props.value.answer : this.props.value;
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.value = nextProps.value ? nextProps.value.answer : nextProps.value;
   }
 
   hasOther() {
@@ -137,7 +143,7 @@ class QuestionControl extends React.PureComponent {
           required={this.props.required}
           disabled={this.props.disabled}
           title={this.props.title || this.props.label}
-          value={this.props.value || ''}
+          value={this.value || ''}
           onChange={(evt) => this.props.onChange(this.props.label, evt.target.value, this.props.question)}
         />
       );
@@ -152,7 +158,7 @@ class QuestionControl extends React.PureComponent {
           required={this.props.required}
           disabled={this.props.disabled}
           title={this.props.title || this.props.label}
-          value={this.props.value || ''}
+          value={this.value || ''}
           name={this.props.label}
           multi={many}
           openOnFocus
@@ -164,7 +170,7 @@ class QuestionControl extends React.PureComponent {
         />
       );
     } else if (this.props.type === 'date') {
-      const date = moment(this.props.value).isValid() ? moment(this.props.value) : null;
+      const date = moment(this.value).isValid() ? moment(this.value) : null;
       component = (
         <SingleDatePicker
           inputClassName={this.hasErrorsAndShouldShowThem() ? 'Section-control-danger' : ''}

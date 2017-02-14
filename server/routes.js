@@ -36,12 +36,14 @@ module.exports = (router) => {
 
     const redirectToAuth = `${env.appUrl}/auth`;
 
+    const force = req.query.forceLogin === '1';
+
     if (req.query.type === 'register') {
-      return res.redirect(`${env.registerUrl}?role=client&redirect=${redirectToAuth}`);
+      return res.redirect(`${env.registerUrl}?role=client${force ? '&force=1' : ''}&redirect=${redirectToAuth}`);
     }
 
-    if (req.query.forceLogin === '1') {
-      return res.redirect(`${env.loginUrl}?role=client&force=1&redirect=${redirectToAuth}`);
+    if (force) {
+      return res.redirect(`${env.loginUrl}?force=1&redirect=${redirectToAuth}`);
     }
 
     const query = querystring.stringify({
