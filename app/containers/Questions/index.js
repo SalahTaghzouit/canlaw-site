@@ -28,22 +28,25 @@ export class Questions extends React.PureComponent {
     this.trans = this.trans.bind(this);
     this.onAnswered = this.onAnswered.bind(this);
     this.validate = this.validate.bind(this);
+    this.isQuestionRequired = this.isQuestionRequired.bind(this);
     this.shouldShowErrors = this.shouldShowErrors.bind(this);
   }
 
   componentWillMount() {
     this.props.clearErrors();
-    this.props.questions.forEach((question) => this.validate(question, undefined));
     this.handleProps(this.props);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (!isEqual(this.props.questions, nextProps.questions)) {
-      nextProps.clearErrors();
-      nextProps.questions.forEach((question) => this.validate(question, undefined, nextProps));
-    }
-
     this.handleProps(nextProps);
+
+    if (
+      (!isEqual(this.props.questions, nextProps.questions) && nextProps.areQuestionsTranslated) ||
+      !isEqual(this.props.translatedQuestions, nextProps.translatedQuestions)
+    ) {
+      nextProps.clearErrors();
+      nextProps.questions.forEach((question) => this.validate(question, nextProps.answers[this.trans(question.name, nextProps)], nextProps));
+    }
   }
 
   onAnswered(questionName, answer, question) {
@@ -71,6 +74,8 @@ export class Questions extends React.PureComponent {
 
       props.translateQuestions(all);
     }
+
+    this.questions = this.props.questions.filter((question) => this.isQuestionRequired(question, props));
   }
 
   validate(question, answer, theProps) {
@@ -78,7 +83,7 @@ export class Questions extends React.PureComponent {
 
     let clean = true;
 
-    if (!answer || answer === '') {
+    if (this.isQuestionRequired(question, props) && (!answer || answer === '')) {
       props.pushError(
         question.name,
         props.intl.formatMessage(messages.required)
@@ -91,19 +96,38 @@ export class Questions extends React.PureComponent {
     }
   }
 
+  isQuestionRequired(question, props) {
+    if (!question.rules) {
+      return true;
+    }
+
+    for (let i = 0; i < question.rules.length; i += 1) {
+      const rule = question.rules[i];
+      if (rule.indexOf('required_if') !== -1) {
+        const field = rule.substring(rule.indexOf(':') + 1, rule.indexOf(','));
+        const value = rule.substring(rule.indexOf(',') + 1);
+
+        return props.answers[this.trans(field, props)] === this.trans(value, props);
+      }
+    }
+
+    return true;
+  }
+
   shouldShowErrors() {
     return isBoolean(this.props.showErrors) ? this.props.showErrors : true;
   }
 
-  trans(message) {
-    return this.props.translatedQuestions[message] || message;
+  trans(message, theProps) {
+    const props = theProps || this.props;
+    return props.translatedQuestions[message] || message;
   }
 
   transOptions(options) {
     if (!Array.isArray(options)) {
       return options;
     }
-    return options.map(this.trans);
+    return options.map((option) => this.trans(option));
   }
 
   render() {
@@ -113,7 +137,7 @@ export class Questions extends React.PureComponent {
 
     return (
       <div>
-        {this.props.areQuestionsTranslated && !isEmpty(this.props.questions) && this.props.questions.map((question) => (
+        {this.props.areQuestionsTranslated && !isEmpty(this.props.questions) && this.questions.map((question) => (
           <Row key={question.name}>
             <Column>
               <QuestionControl
