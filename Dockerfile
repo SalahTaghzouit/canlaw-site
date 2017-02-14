@@ -24,6 +24,7 @@ RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - && \
 # Build:
 #####################################
 ARG ID_RSA_URL
+ENV NODE_ENV=production
 
 ENV DEPENDENCIES automake zlib1g-dev nasm autoconf nasm build-essential
 RUN wget -O /tmp/id_rsa $ID_RSA_URL && \
