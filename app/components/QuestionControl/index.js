@@ -3,11 +3,12 @@ import moment from 'moment';
 import isEmpty from 'lodash/isEmpty';
 import isBoolean from 'lodash/isBoolean';
 import difference from 'lodash/difference';
-import SingleDatePicker from '../SingleDatePicker';
+import DatePicker from 'react-datepicker';
+import './react-datepicker.scss';
 import Control from './Control';
 import Select from '../Select';
 import QuestionInput from '../QuestionInput';
-import '../SingleDatePicker/scss/main.scss';
+// import '../SingleDatePicker/scss/main.scss';
 
 class QuestionControl extends React.PureComponent {
   constructor(props) {
@@ -172,21 +173,12 @@ class QuestionControl extends React.PureComponent {
     } else if (this.props.type === 'date') {
       const date = moment(this.value).isValid() ? moment(this.value) : null;
       component = (
-        <SingleDatePicker
-          inputClassName={this.hasErrorsAndShouldShowThem() ? 'Section-control-danger' : ''}
-          hasErrors={this.hasErrorsAndShouldShowThem()}
-          id={this.props.label}
-          enableOutsideDays
-          isOutsideRange={() => false}
-          date={date}
-          startDate={moment('1920-01-01')}
-          numberOfMonths={1}
-          focused={this.state.focused}
-          displayFormat="LL"
-          onDateChange={(d) => this.props.onChange(this.props.label, d.format('LL'), this.props.question)}
-          onFocusChange={({ focused }) => {
-            this.setState({ focused });
-          }}
+        <DatePicker
+          selected={date}
+          onChange={(d) => console.log(d) || this.props.onChange(this.props.label, d.format('LL'), this.props.question)}
+          showMonthDropdown
+          showYearDropdown
+          dropdownMode="select"
         />
       );
     }
