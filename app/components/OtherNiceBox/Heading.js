@@ -2,14 +2,16 @@ import styled from 'styled-components';
 
 const Heading = styled.h2`
   font-size: 16px;
+  display: block;
+  width: 100%;
   word-spacing: 3px;
   padding: 0;
   letter-spacing: 1px;
   margin: 0;
-  margin-left: 30px;
   text-transform: uppercase;
   font-weight: 700;
-  float: left;
+  text-align: center;
+  margin-top: 20px;
 `;
 
 export default Heading;

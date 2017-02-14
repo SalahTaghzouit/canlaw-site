@@ -14,7 +14,8 @@ import Container from 'canlaw-components/components/Container';
 import CategorySearchHeader from '../../components/CategorySearchHeader';
 import { startQuoteRequest } from './actions';
 import HowItWorks from '../../components/HowItWorks';
-// import ThreeCharacteristics from '../../components/ThreeCharacteristics';
+import ThreeCharacteristics from '../../components/ThreeCharacteristics';
+import Reasons from '../../components/Reasons';
 // import Testimonials from '../../components/Testimonials';
 // import Awards from '../../components/Awards';
 
@@ -39,7 +40,9 @@ class HomePage extends React.PureComponent { // eslint-disable-line react/prefer
 
           <HowItWorks />
 
-          {/* <ThreeCharacteristics />*/}
+          <ThreeCharacteristics />
+
+          <Reasons />
 
           {/* <Testimonials />*/}
 
