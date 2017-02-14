@@ -96,6 +96,7 @@ module.exports = (router) => {
     }).then((response) => {
       res.status(response.status).json(response.data);
     }).catch((error) => {
+      console.log(error);
       const status = error.response ? error.response.status : 500;
       const data = error.response ? error.response.data : { error: 'unknown_error' };
       res.status(status).json(data);
