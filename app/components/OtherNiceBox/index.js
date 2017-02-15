@@ -7,8 +7,9 @@ import { Row } from 'hedron';
 import Heading from './Heading';
 import I from './I';
 import Wrapper from './Wrapper';
+import Content from './Content';
 
-function OtherNiceBox({ type, heading }) {
+function OtherNiceBox({ type, heading, content }) {
   return (
     <Wrapper>
       <Row>
@@ -16,6 +17,9 @@ function OtherNiceBox({ type, heading }) {
       </Row>
       <Row justify-content="center">
         <Heading>{heading}</Heading>
+        <Content>
+          {content}
+        </Content>
       </Row>
     </Wrapper>
   );
@@ -24,6 +28,10 @@ function OtherNiceBox({ type, heading }) {
 OtherNiceBox.propTypes = {
   type: React.PropTypes.string.isRequired,
   heading: React.PropTypes.oneOfType([
+    React.PropTypes.string.isRequired,
+    React.PropTypes.node.isRequired,
+  ]).isRequired,
+  content: React.PropTypes.oneOfType([
     React.PropTypes.string.isRequired,
     React.PropTypes.node.isRequired,
   ]).isRequired,

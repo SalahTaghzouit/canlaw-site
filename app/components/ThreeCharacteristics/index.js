@@ -14,8 +14,9 @@ import NiceBox from '../NiceBox';
 
 function ThreeCharacteristics() {
   return (
-    <SectionContent>
-      <WhiteArea>
+    <WhiteArea>
+      <SectionContent>
+
         <AreaHeader>
           <FormattedMessage {...messages.header} />
         </AreaHeader>
@@ -44,8 +45,9 @@ function ThreeCharacteristics() {
             />
           </Column>
         </Row>
-      </WhiteArea>
-    </SectionContent>
+
+      </SectionContent>
+    </WhiteArea>
   );
 }
 

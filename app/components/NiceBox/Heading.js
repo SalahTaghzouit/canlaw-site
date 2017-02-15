@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 const Heading = styled.h2`
-  font-size: 16px;
-  word-spacing: 3px;
+  font-size: 15px;
+  word-spacing: 1px;
   padding: 0;
-  letter-spacing: 1px;
+  letter-spacing: 0;
   margin: 0;
   margin-left: 30px;
   text-transform: uppercase;
