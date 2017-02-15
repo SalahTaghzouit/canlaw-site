@@ -6,70 +6,86 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { Column, Row } from 'hedron';
 import SectionContent from 'canlaw-components/components/SectionContent';
-import GrayArea from '../GrayArea';
+import WhiteArea from '../WhiteArea';
 import messages from './messages';
 import AreaHeader from '../AreaHeader';
 import OtherNiceBox from '../OtherNiceBox';
+import Heading from './Heading';
 
 function Reasons() {
   return (
-    <GrayArea>
+    <WhiteArea>
       <SectionContent>
         <AreaHeader>
           <FormattedMessage {...messages.header} />
         </AreaHeader>
         <Row>
-          <Column md={4}>
-            <OtherNiceBox
-              type="map-o"
-              heading={<FormattedMessage {...messages.near} />}
-              content={<span />}
-            />
+          <Column md={6}>
+            <Heading>
+              <FormattedMessage {...messages.client} />
+            </Heading>
+
+            <Row>
+              <Column fluid>
+                <OtherNiceBox
+                  type="map-o"
+                  heading={<FormattedMessage {...messages.near} />}
+                  content={<FormattedMessage {...messages.nearExplain} />}
+                />
+              </Column>
+
+              <Column fluid>
+                <OtherNiceBox
+                  type="clock-o"
+                  heading={<FormattedMessage {...messages.saveTime} />}
+                  content={<FormattedMessage {...messages.saveTimeExplain} />}
+                />
+              </Column>
+
+              <Column fluid>
+                <OtherNiceBox
+                  type="envelope-o"
+                  heading={<FormattedMessage {...messages.message} />}
+                  content={<FormattedMessage {...messages.messageExplain} />}
+                />
+              </Column>
+            </Row>
           </Column>
 
-          <Column md={4}>
-            <OtherNiceBox
-              type="clock-o"
-              heading={<FormattedMessage {...messages.saveTime} />}
-              content={<span />}
-            />
-          </Column>
+          <Column md={6}>
+            <Heading>
+              <FormattedMessage {...messages.lawyer} />
+            </Heading>
 
-          <Column md={4}>
-            <OtherNiceBox
-              type="envelope-o"
-              heading={<FormattedMessage {...messages.message} />}
-              content={<span />}
-            />
-          </Column>
-        </Row>
-        <Row>
-          <Column md={4}>
-            <OtherNiceBox
-              type="binoculars"
-              heading={<FormattedMessage {...messages.findYou} />}
-              content={<span />}
-            />
-          </Column>
+            <Row>
+              <Column fluid>
+                <OtherNiceBox
+                  type="binoculars"
+                  heading={<FormattedMessage {...messages.findYou} />}
+                  content={<FormattedMessage {...messages.findYouExplain} />}
+                />
+              </Column>
 
-          <Column md={4}>
-            <OtherNiceBox
-              type="check"
-              heading={<FormattedMessage {...messages.serve} />}
-              content={<span />}
-            />
-          </Column>
+              <Column fluid>
+                <OtherNiceBox
+                  type="check"
+                  heading={<FormattedMessage {...messages.serve} />}
+                  content={<FormattedMessage {...messages.serveExplain} />}
+                />
+              </Column>
 
-          <Column md={4}>
-            <OtherNiceBox
-              type="users"
-              heading={<FormattedMessage {...messages.establish} />}
-              content={<span />}
-            />
+              <Column fluid>
+                <OtherNiceBox
+                  type="users"
+                  heading={<FormattedMessage {...messages.grow} />}
+                  content={<FormattedMessage {...messages.growExplain} />}
+                />
+              </Column>
+            </Row>
           </Column>
         </Row>
       </SectionContent>
-    </GrayArea>
+    </WhiteArea>
   );
 }
 

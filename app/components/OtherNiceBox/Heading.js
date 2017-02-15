@@ -11,7 +11,7 @@ const Heading = styled.h2`
   text-transform: uppercase;
   font-weight: 700;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 0;
 `;
 
 export default Heading;
