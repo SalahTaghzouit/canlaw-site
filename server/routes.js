@@ -81,6 +81,7 @@ module.exports = (router) => {
       const query = querystring.stringify({
         redirect,
         error,
+        force: 1,
       });
       res.redirect(`${env.authUrl}?${query}`);
     });
