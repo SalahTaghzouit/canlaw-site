@@ -13,6 +13,7 @@ const app = express();
 const router = express.Router(); // eslint-disable-line new-cap
 
 // Session
+app.set('trust proxy', 'loopback, linklocal, uniquelocal');
 setupSession(app);
 
 // Prefix
