@@ -28,7 +28,7 @@ export default defineMessages({
   },
   saveTime: {
     id: 'canlaw.site.components.Reasons.saveTime',
-    defaultMessage: 'Save time getting quotes.',
+    defaultMessage: 'Save time getting quotes',
   },
   saveTimeExplain: {
     id: 'canlaw.site.components.Reasons.saveTimeExplain',
@@ -36,7 +36,7 @@ export default defineMessages({
   },
   message: {
     id: 'canlaw.site.components.Reasons.message',
-    defaultMessage: 'Chat with your lawyer.',
+    defaultMessage: 'Chat with your lawyer',
   },
   messageExplain: {
     id: 'canlaw.site.components.Reasons.messageExplain',
@@ -51,8 +51,8 @@ export default defineMessages({
     defaultMessage: 'Get instant online presence and focus on what you love best: Law!',
   },
   serve: {
-    id: 'canlaw.site.components.Reasons.message',
-    defaultMessage: 'Serve client needs.',
+    id: 'canlaw.site.components.Reasons.serve',
+    defaultMessage: 'Serve client needs',
   },
   serveExplain: {
     id: 'canlaw.site.components.Reasons.serveExplain',
@@ -60,7 +60,7 @@ export default defineMessages({
   },
   grow: {
     id: 'canlaw.site.components.Reasons.grow',
-    defaultMessage: 'Grow your clientele.',
+    defaultMessage: 'Grow your clientele',
   },
   growExplain: {
     id: 'canlaw.site.components.Reasons.growExplain',
