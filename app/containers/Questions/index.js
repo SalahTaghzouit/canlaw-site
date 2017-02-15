@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import isBoolean from 'lodash/isBoolean';
+import findIndex from 'lodash/findIndex';
 import { connect } from 'react-redux';
 import { injectIntl } from 'react-intl';
 import isEqual from 'lodash/isEqual';
@@ -30,6 +31,7 @@ export class Questions extends React.PureComponent {
     this.validate = this.validate.bind(this);
     this.isQuestionRequired = this.isQuestionRequired.bind(this);
     this.shouldShowErrors = this.shouldShowErrors.bind(this);
+    this.getIndex = this.getIndex.bind(this);
   }
 
   componentWillMount() {
@@ -45,13 +47,19 @@ export class Questions extends React.PureComponent {
       !isEqual(this.props.translatedQuestions, nextProps.translatedQuestions)
     ) {
       nextProps.clearErrors();
-      nextProps.questions.forEach((question) => this.validate(question, nextProps.answers[this.trans(question.name, nextProps)], nextProps));
+      nextProps.questions.forEach((question) => this.validate(question,
+        nextProps.answers[this.trans(question.name, nextProps)],
+        nextProps));
     }
   }
 
   onAnswered(questionName, answer, question, index) {
     this.validate(question, answer);
     this.props.onAnswered(questionName, answer, index);
+  }
+
+  getIndex(question) {
+    return findIndex(this.props.questions, question);
   }
 
   handleProps(props) {
@@ -138,14 +146,17 @@ export class Questions extends React.PureComponent {
 
     return (
       <div>
-        {this.props.areQuestionsTranslated && !isEmpty(this.props.questions) && this.questions.map((question, index) => (
+        {this.props.areQuestionsTranslated && !isEmpty(this.props.questions) && this.questions.map((question) => (
           <Row key={question.name}>
             <Column>
               <QuestionControl
                 type={question.type}
                 required
                 value={this.props.answers[this.trans(question.name)]}
-                onChange={(questionName, answer, originalQuestion) => this.onAnswered(questionName, answer, originalQuestion, index)}
+                onChange={(questionName, answer, originalQuestion) => this.onAnswered(questionName,
+                  answer,
+                  originalQuestion,
+                  this.getIndex(question))}
                 label={this.trans(question.name)}
                 question={question}
                 placeholder=""
@@ -164,7 +175,7 @@ export class Questions extends React.PureComponent {
               type={'text'}
               required
               value={this.props.answers[this.props.intl.formatMessage(messages.others)]}
-              onChange={(question, answer) => this.props.onAnswered(question, answer, this.questions.length)}
+              onChange={(question, answer) => this.props.onAnswered(question, answer, this.props.questions.length)}
               label={this.props.intl.formatMessage(messages.others)}
               placeholder=""
             />
