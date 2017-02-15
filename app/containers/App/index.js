@@ -32,7 +32,7 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
     return (
       <Theme>
         <Helmet
-          title="Canlaw"
+          title="CanLaw"
           meta={[
             { name: 'description', content: 'Find lawyers and get quotes in Malaysia, quick and easy.' },
           ]}
