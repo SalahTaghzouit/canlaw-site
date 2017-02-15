@@ -17,7 +17,7 @@ module.exports = (app) => {
     secret: env.cookieSecret,
     resave: false,
     saveUninitialized: false,
-    name: 'canlaw_lawyer',
+    name: 'canlaw_site',
     cookie: {
       domain: env.cookieDomain,
       path: env.cookiePath || '/',
