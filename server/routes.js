@@ -82,7 +82,7 @@ module.exports = (router) => {
         redirect,
         error,
       });
-      res.redirect(`${env.authUrl}/auth?${query}`);
+      res.redirect(`${env.authUrl}?${query}`);
     });
   });
 
