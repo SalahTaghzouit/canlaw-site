@@ -18,7 +18,7 @@ import App from 'containers/App';
 // Import Language Provider
 import LanguageProvider from 'containers/LanguageProvider';
 import UserProvider from 'canlaw-components/containers/UserProvider';
-import 'file-loader?name=[name].[ext]!./favicon.ico';
+import 'file-loader?name=[name].[ext]!canlaw-components/resources/favicon.ico'; // eslint-disable-line
 import '!file-loader?name=[name].[ext]!./manifest.json';
 import 'canlaw-components/global-styles';
 // Env
