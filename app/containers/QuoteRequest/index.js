@@ -268,7 +268,7 @@ QuoteRequest.propTypes = {
   savableQuoteRequest: React.PropTypes.object.isRequired,
   areQuestionsValid: React.PropTypes.bool.isRequired,
   place: React.PropTypes.object.isRequired,
-  questions: React.PropTypes.object.isRequired,
+  questions: React.PropTypes.array.isRequired,
 };
 
 const mapStateToProps = createStructuredSelector({
