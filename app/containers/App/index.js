@@ -34,7 +34,7 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
         <Helmet
           title="CanLaw - Find Lawyers in Malaysia"
           meta={[
-            { name: 'description', content: 'Find lawyers and get quotes in Malaysia, quick and easy.' },
+            { name: 'description', content: "Looking for a lawyer in Malaysia but you don't know where to begin? Are you a lawyer keen on being discovered by new clients? Try #CanLaw!" },
           ]}
         />
 
