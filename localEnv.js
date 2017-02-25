@@ -31,4 +31,6 @@ module.exports = {
   algoliaAppId: process.env.ALGOLIA_APP_ID,
   algoliaApiKey: process.env.ALGOLIA_API_KEY,
   googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
+  crispWebsiteId: process.env.CRISP_WEBSITE_ID,
+  gaCode: process.env.GA_CODE,
 };
