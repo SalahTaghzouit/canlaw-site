@@ -1,8 +1,10 @@
 // Important modules this config uses
 const path = require('path');
+const fs = require('fs');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const OfflinePlugin = require('offline-plugin');
+const cheerio = require('cheerio');
 const env = require('../../localEnv');
 
 const publicPath = env.cdnUrl;
@@ -11,8 +13,6 @@ module.exports = require('./webpack.base.babel')({
   // In production, we skip all hot-reloading stuff
   entry: [
     path.join(process.cwd(), 'app/app.js'),
-    path.join(process.cwd(), 'app/ga.js'),
-
   ],
 
   // Utilize long-term caching by adding content hashes (not compilation hashes) to compiled assets
@@ -31,7 +31,7 @@ module.exports = require('./webpack.base.babel')({
 
     // Minify and optimize the index.html
     new HtmlWebpackPlugin({
-      template: 'app/index.html',
+      templateContent: templateContent(), // eslint-disable-line no-use-before-define
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -69,3 +69,25 @@ module.exports = require('./webpack.base.babel')({
     }),
   ],
 });
+
+/**
+ * We dynamically generate the HTML content in development so that the different
+ * DLL Javascript files are loaded in script tags and available to our application.
+ */
+function templateContent() {
+  const html = fs.readFileSync(
+    path.resolve(process.cwd(), 'app/index.html')
+  ).toString();
+
+  const doc = cheerio(html);
+  const body = doc.find('body');
+
+  body.append(`<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    ga('create', '${process.env.GA_CODE}', 'auto'); ga('send', 'pageview');</script>`);
+
+  body.append(`<script type="text/javascript">$crisp=[];CRISP_WEBSITE_ID="${process.env.CRISP_WEBSITE_ID}";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.im/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>`);
+
+
+  return doc.toString();
+}
+
