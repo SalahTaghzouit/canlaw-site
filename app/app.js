@@ -22,7 +22,7 @@ import 'file-loader?name=[name].[ext]!canlaw-components/resources/favicon.ico';
 import '!file-loader?name=[name].[ext]!./manifest.json';
 import 'canlaw-components/global-styles';
 // Env
-import env from './utils/env';
+import env from 'canlaw-components/utils/env';
 import configureStore from './store';
 // Import i18n messages
 import { translationMessages } from './i18n';
@@ -113,6 +113,9 @@ if (!window.Intl) {
 } else {
   render(translationMessages);
 }
+
+// Last thing to add
+require('crisp-chat')(env.crispWebsiteId);
 
 // Install ServiceWorker and AppCache in the end since
 // it's not most important operation and if main code fails,
