@@ -15,7 +15,7 @@ function OtherNiceBox({ type, heading, content }) {
       <Row>
         <I className={`fa fa-${type}`} />
       </Row>
-      <Row justify-content="center">
+      <Row justifyContent="center">
         <Heading>{heading}</Heading>
         <Content>
           {content}
