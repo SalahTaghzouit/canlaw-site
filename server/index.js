@@ -12,8 +12,6 @@ const ngrok = (isDev && env.enableTunnel) || argv.tunnel ? require('ngrok') : fa
 const app = express();
 const router = express.Router(); // eslint-disable-line new-cap
 
-app.use(express.compress());
-
 // Session
 app.set('trust proxy', 'loopback, linklocal, uniquelocal');
 setupSession(app);
