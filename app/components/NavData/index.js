@@ -11,16 +11,25 @@ import Nav from 'canlaw-components/components/Navigation/Nav';
 import messages from './messages';
 
 function NavData({ blogUrl, dashboardUrl, loginUrl, registerUrl, isAuthenticated }) {
+  const allowDefault = (e) => {
+    e.allowDefault = true; // eslint-disable-line no-param-reassign
+  };
+
   return (
     <div>
       <Nav className="navbar-nav">
-        <NavItem href={blogUrl} componentClass={A} eventKey={1}>
+        <NavItem
+          onSelect={allowDefault}
+          href={blogUrl}
+          componentClass={A}
+          eventKey={200}
+        >
           <FormattedMessage {...messages.community} />
         </NavItem>
       </Nav>
       <Nav className="navbar-nav" pullRight>
         {isAuthenticated &&
-        <NavItem href={dashboardUrl} componentClass={A} eventKey={2}>
+        <NavItem onSelect={allowDefault} href={dashboardUrl} componentClass={A} eventKey={201}>
           <FormattedMessage {...messages.openDashboard} />
         </NavItem>
         }
@@ -32,13 +41,13 @@ function NavData({ blogUrl, dashboardUrl, loginUrl, registerUrl, isAuthenticated
         }
 
         {!isAuthenticated &&
-        <NavItem href={loginUrl} componentClass={A} eventKey={3}>
+        <NavItem onSelect={allowDefault} href={loginUrl} componentClass={A} eventKey={203}>
           <FormattedMessage {...messages.login} />
         </NavItem>
         }
 
         {!isAuthenticated &&
-        <NavItem href={registerUrl} componentClass={A} eventKey={4}>
+        <NavItem onSelect={allowDefault} href={registerUrl} componentClass={A} eventKey={204}>
           <FormattedMessage {...messages.openAccount} />
         </NavItem>
         }
