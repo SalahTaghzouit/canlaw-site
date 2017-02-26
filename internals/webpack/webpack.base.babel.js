@@ -94,6 +94,7 @@ module.exports = (options) => ({
         algoliaAppId: JSON.stringify(`${env.algoliaAppId}`),
         algoliaApiKey: JSON.stringify(`${env.algoliaApiKey}`),
         mapsApiKey: JSON.stringify(`${env.googleMapsApiKey}`),
+        googleMetaTag: JSON.stringify(`${env.googleMetaTag}`),
       },
     }),
     new webpack.NamedModulesPlugin(),

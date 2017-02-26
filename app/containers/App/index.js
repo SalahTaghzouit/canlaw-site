@@ -18,12 +18,13 @@ import Navigation from 'canlaw-components/components/Navigation';
 import { makeSelectIsAuthenticated } from 'canlaw-components/containers/UserProvider/selectors';
 import NavData from '../../components/NavData';
 import {
-  makeSelectLoading,
+  makeSelectAppUrl,
   makeSelectBlogUrl,
   makeSelectDashboardUrl,
+  makeSelectGoogleMetaTag,
+  makeSelectLoading,
   makeSelectLoginUrl,
   makeSelectRegisterUrl,
-  makeSelectAppUrl,
 } from './selectors';
 
 export class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -34,7 +35,11 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
         <Helmet
           title="CanLaw - Find Lawyers in Malaysia"
           meta={[
-            { name: 'description', content: "Looking for a lawyer in Malaysia but you don't know where to begin? Are you a lawyer keen on being discovered by new clients? Try #CanLaw!" },
+            {
+              name: 'description',
+              content: "Looking for a lawyer in Malaysia but you don't know where to begin? Are you a lawyer keen on being discovered by new clients? Try #CanLaw!",
+            },
+            { name: 'google-site-verification', content: this.props.googleMeta },
           ]}
         />
 
@@ -74,6 +79,7 @@ App.propTypes = {
   registerUrl: React.PropTypes.string,
   isAuthenticated: React.PropTypes.bool.isRequired,
   appUrl: React.PropTypes.string.isRequired,
+  googleMeta: React.PropTypes.string,
 };
 
 const mapStateToProps = createStructuredSelector({
@@ -84,6 +90,7 @@ const mapStateToProps = createStructuredSelector({
   registerUrl: makeSelectRegisterUrl(),
   isAuthenticated: makeSelectIsAuthenticated(),
   appUrl: makeSelectAppUrl(),
+  googleMeta: makeSelectGoogleMetaTag(),
 });
 
 // Wrap the component to inject dispatch and state into it
