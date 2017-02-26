@@ -11,8 +11,26 @@ import Nav from 'canlaw-components/components/Navigation/Nav';
 import messages from './messages';
 
 function NavData({ blogUrl, dashboardUrl, loginUrl, registerUrl, isAuthenticated }) {
-  const allowDefault = (e) => {
-    e.allowDefault = true; // eslint-disable-line no-param-reassign
+  // TODO: Ugly hack because of the very bad react-bootstrap component. We should get rid of it asap
+  const allowDefault = (eventKey) => {
+    let location;
+    switch (eventKey) {
+      case 200:
+        location = blogUrl;
+        break;
+      case 201:
+        location = dashboardUrl;
+        break;
+      case 203:
+        location = loginUrl;
+        break;
+      case 204:
+        location = registerUrl;
+        break;
+      default:
+        location = '';
+    }
+    window.location.href = location;
   };
 
   return (
