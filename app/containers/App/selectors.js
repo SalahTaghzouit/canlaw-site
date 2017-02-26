@@ -65,11 +65,6 @@ const makeSelectRegisterUrl = () => createSelector(
   (envState) => `${envState.registerUrl}?role=lawyer`
 );
 
-const makeSelectGoogleMetaTag = () => createSelector(
-  makeSelectEnv(),
-  (envState) => envState.googleMetaTag
-);
-
 export {
   makeSelectGlobal,
   makeSelectLocationState,
@@ -81,5 +76,4 @@ export {
   makeSelectMapsApiKey,
   makeSelectAppUrl,
   makeSelectWebsiteUrl,
-  makeSelectGoogleMetaTag,
 };
