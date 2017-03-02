@@ -83,7 +83,6 @@ function templateContent() {
   const body = doc.find('body');
 
   body.append(generateGa(env.gaCode));
-  body.append(generateGa(env.gaInvestorCode));
 
   body.append('<script type="text/javascript">$crisp=[];(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.im/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>');
 
