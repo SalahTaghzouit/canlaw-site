@@ -43,11 +43,11 @@ export default defineMessages({
     defaultMessage: 'Message lawyers to find out more before engaging one.',
   },
   findYou: {
-    id: 'canlaw.site.components.Reasons.message',
+    id: 'canlaw.site.components.Reasons.findYou',
     defaultMessage: 'Be found online',
   },
   findYouExplain: {
-    id: 'canlaw.site.components.Reasons.message',
+    id: 'canlaw.site.components.Reasons.findYouExplain',
     defaultMessage: 'Get instant online presence and focus on what you love best: Law!',
   },
   serve: {

@@ -31,7 +31,7 @@ export default defineMessages({
     defaultMessage: '3. Book an appointment',
   },
   bookExplanation: {
-    id: 'canlaw.site.components.HowItWorks.book',
+    id: 'canlaw.site.components.HowItWorks.bookExplanation',
     defaultMessage: 'Schedule a meet-up with your lawyer of choice.',
   },
 });

@@ -119,6 +119,14 @@ export default function createRoutes(store) {
         },
       ],
     }, {
+      path: '/about',
+      name: 'aboutUs',
+      getComponent(location, cb) {
+        System.import('components/AboutUs')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
