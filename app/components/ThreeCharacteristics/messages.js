@@ -23,7 +23,7 @@ export default defineMessages({
     defaultMessage: 'Hassle Free',
   },
   hassleExplanation: {
-    id: 'canlaw.site.components.ThreeCharacteristics.hassle',
+    id: 'canlaw.site.components.ThreeCharacteristics.hassleExplanation',
     defaultMessage: 'Save time by getting multiple quotations from relevant lawyers through our platform',
   },
   unique: {
