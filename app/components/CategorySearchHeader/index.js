@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import { Provider } from 'react-algoliasearch-helper';
+import { FormattedMessage } from 'react-intl';
 import algoliasearch from 'algoliasearch';
 import algoliasearchHelper from 'algoliasearch-helper';
 import TypeWriter from 'react-typewriter';
@@ -17,6 +18,8 @@ import './style.scss';
 import Wrapper from './Wrapper';
 import SearchColumn from './SearchColumn';
 import SearchWrapper from './SearchWrapper';
+import SearchHint from './SearchHint';
+import messages from './messages';
 
 const client = algoliasearch(env.algoliaAppId, env.algoliaApiKey);
 const helper = algoliasearchHelper(client, env.algoliaCategoryIndex, {
@@ -197,17 +200,24 @@ class CategorySearch extends React.PureComponent {
             >
 
               <SearchColumn>
-                {this.state.typeWriterIsRunning && <TypeWriter
-                  ref={(ref) => (this.typeWriter = ref)}
-                  maxDelay={this.state.maxDelay}
-                  minDelay={this.state.minDelay}
-                  onTypingEnd={this.nextTyping}
-                  typing={this.state.typingDirection}
-                >
-                  <TypewriterEffect>
-                    {this.props.exampleQuestions[this.state.currentExampleIndex]}
-                  </TypewriterEffect>
-                </TypeWriter>}
+                {this.state.typeWriterIsRunning && <div>
+
+                  <SearchHint>
+                    <FormattedMessage {...messages.startTyping} />
+                  </SearchHint>
+
+                  <TypeWriter
+                    ref={(ref) => (this.typeWriter = ref)}
+                    maxDelay={this.state.maxDelay}
+                    minDelay={this.state.minDelay}
+                    onTypingEnd={this.nextTyping}
+                    typing={this.state.typingDirection}
+                  >
+                    <TypewriterEffect>
+                      {this.props.exampleQuestions[this.state.currentExampleIndex]}
+                    </TypewriterEffect>
+                  </TypeWriter>
+                </div>}
 
                 {!this.state.typeWriterIsRunning &&
                 <SearchBox

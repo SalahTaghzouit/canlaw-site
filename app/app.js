@@ -16,7 +16,7 @@ import FontFaceObserver from 'fontfaceobserver';
 import App from 'containers/App';
 // Import selector for `syncHistoryWithStore`
 // Import Language Provider
-import LanguageProvider from 'containers/LanguageProvider';
+import LanguageProvider from 'canlaw-components/containers/LanguageProvider';
 import UserProvider from 'canlaw-components/containers/UserProvider';
 import 'file-loader?name=[name].[ext]!canlaw-components/resources/favicon.ico';
 import '!file-loader?name=[name].[ext]!./manifest.json';
