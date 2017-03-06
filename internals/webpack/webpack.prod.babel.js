@@ -31,7 +31,7 @@ module.exports = require('./webpack.base.babel')({
 
     // Minify and optimize the index.html
     new HtmlWebpackPlugin({
-      templateContent: templateContent(), // eslint-disable-line no-use-before-define
+      templateContent: templateContent(),
       minify: {
         removeComments: true,
         collapseWhitespace: true,
