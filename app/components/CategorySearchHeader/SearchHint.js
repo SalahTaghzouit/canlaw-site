@@ -5,6 +5,8 @@ const SearchHint = styled.div`
   text-align: left;
   self-justify: left;
   color: ${(props) => props.theme.lightGray};
+  
+  
   @media all and (max-width: 768px) {
     width: 100%;
     float: none;
