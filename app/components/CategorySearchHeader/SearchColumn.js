@@ -8,8 +8,9 @@ const SearchColumn = styled(Column)`
   background: #FFF;
   color: #000;
   border-radius: 5px;
-  border: 2px solid ${(props) => props.theme.primary};
   text-align: center;
+  font-family: 'Raleway', sans-serif;
+  font-weight: 400;
 `;
 
 export default SearchColumn;
