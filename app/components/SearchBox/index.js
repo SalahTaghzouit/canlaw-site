@@ -12,13 +12,16 @@ class SearchBox extends React.PureComponent {
     this.onChangeInput = this.onChangeInput.bind(this);
   }
 
-  onChangeInput(e) {
-    this.props.onChange(e.target.value);
-    if (e.target.value.length > 1) {
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.value.length > 1) {
       this.props.helper
-        .setQuery(e.target.value)
+        .setQuery(nextProps.value)
         .search();
     }
+  }
+
+  onChangeInput(e) {
+    this.props.onChange(e.target.value);
   }
 
   render() {
