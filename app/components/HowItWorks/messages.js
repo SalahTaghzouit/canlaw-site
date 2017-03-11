@@ -8,7 +8,7 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'canlaw.site.components.HowItWorks.header',
-    defaultMessage: 'How it works',
+    defaultMessage: 'How CanLaw works',
   },
   answer: {
     id: 'canlaw.site.components.HowItWorks.answer',
@@ -28,7 +28,7 @@ export default defineMessages({
   },
   book: {
     id: 'canlaw.site.components.HowItWorks.book',
-    defaultMessage: '3. Book an appointment',
+    defaultMessage: '3. Book an appointment with a lawyer',
   },
   bookExplanation: {
     id: 'canlaw.site.components.HowItWorks.bookExplanation',

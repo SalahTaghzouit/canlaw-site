@@ -1,19 +1,30 @@
 /*
  * QuoteRequest
  */
-import React from 'react';
-import isEmpty from 'lodash/isEmpty';
-import get from 'lodash/get';
-import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import Helmet from 'react-helmet';
-import { push } from 'react-router-redux';
 import Button from 'canlaw-components/components/Button';
 import Loader from 'canlaw-components/components/Loader';
 import { addNotification } from 'canlaw-components/containers/Notification/actions';
-import smoothScroll from 'canlaw-components/utils/smoothscroll';
-import { createStructuredSelector } from 'reselect';
 import { makeSelectIsAuthenticated } from 'canlaw-components/containers/UserProvider/selectors';
+import smoothScroll from 'canlaw-components/utils/smoothscroll';
+import get from 'lodash/get';
+import isEmpty from 'lodash/isEmpty';
+import React from 'react';
+import Helmet from 'react-helmet';
+import { FormattedMessage } from 'react-intl';
+import { connect } from 'react-redux';
+import { push } from 'react-router-redux';
+import { createStructuredSelector } from 'reselect';
+import CategorySearchHeader from '../../components/CategorySearchHeader';
+import HowItWorks from '../../components/HowItWorks';
+import QuoteRequestLocation from '../../components/QuoteRequestLocation';
+import { makeSelectMapsApiKey } from '../App/selectors';
+import Questions from '../Questions';
+import { makeSelectAreQuestionsValid } from '../Questions/selectors';
+import { clearAnswers, fetchCategory, sendQuoteRequest, setAnswer, setLocation } from './actions';
+import messages from './messages';
+import NarrowContainer from './NarrowContainer';
+import QuestionsHeading from './QuestionsHeading';
+import QuestionsTalk from './QuestionsTalk';
 import {
   makeSelectAnswers,
   makeSelectAreQuestionsPristine,
@@ -24,16 +35,6 @@ import {
   makeSelectQuestions,
   makeSelectSavableQuoteRequest,
 } from './selectors';
-import { makeSelectAreQuestionsValid } from '../Questions/selectors';
-import { clearAnswers, fetchCategory, sendQuoteRequest, setAnswer, setLocation } from './actions';
-import { makeSelectMapsApiKey } from '../App/selectors';
-import CategorySearchHeader from '../../components/CategorySearchHeader';
-import Questions from '../Questions';
-import NarrowContainer from './NarrowContainer';
-import messages from './messages';
-import QuoteRequestLocation from '../../components/QuoteRequestLocation';
-import QuestionsHeading from './QuestionsHeading';
-import QuestionsTalk from './QuestionsTalk';
 
 export class QuoteRequest extends React.PureComponent {
 
@@ -64,9 +65,9 @@ export class QuoteRequest extends React.PureComponent {
     }
   }
 
-  componentDidMount() {
-    // smoothScroll(document.body, this.questionsForm.offsetTop - 70, 400);
-  }
+  // componentDidMount() {
+  //   smoothScroll(document.body, this.anchor.offsetTop - 70, 400);
+  // }
 
   componentWillReceiveProps(nextProps) {
     if (!nextProps.isFetchingCategory && nextProps.categorySlug) {
@@ -108,8 +109,8 @@ export class QuoteRequest extends React.PureComponent {
 
   componentDidUpdate(prevProps) {
     // Scroll to component if we had a new category
-    if (prevProps.category.id !== this.props.category.id && this.questionsForm) {
-      smoothScroll(document.body, this.questionsForm.offsetTop - 70, 400);
+    if (prevProps.category.id !== this.props.category.id && this.anchor) {
+      smoothScroll(document.body, this.anchor.offsetTop - 70, 400);
     }
   }
 
@@ -200,6 +201,10 @@ export class QuoteRequest extends React.PureComponent {
           category={this.props.category}
           onChoseCategory={this.handleCategoryWasChosen}
         />
+
+        <div ref={(ref) => (this.anchor = ref)}>
+          <HowItWorks />
+        </div>
 
         <div ref={(ref) => (this.questionsForm = ref)}>
           {this.props.category.questions &&

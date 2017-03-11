@@ -1,25 +1,20 @@
 /**
  * CategorySearch
  */
-import React from 'react';
-import { Provider } from 'react-algoliasearch-helper';
-import { FormattedMessage } from 'react-intl';
 import algoliasearch from 'algoliasearch';
 import algoliasearchHelper from 'algoliasearch-helper';
-import TypeWriter from 'react-typewriter';
-import isEmpty from 'lodash/isEmpty';
-import stripTags from 'striptags';
 import env from 'canlaw-components/utils/env';
-import SearchBox from '../../components/SearchBox';
+import React from 'react';
+import { Provider } from 'react-algoliasearch-helper';
+import stripTags from 'striptags';
 import Header from '../../components/Header';
-import TypewriterEffect from '../../components/TypewriterEffect';
 import Hits from '../Hits';
-import './style.scss';
-import Wrapper from './Wrapper';
+import SearchBox from '../SearchBox';
+import Hints from './Hints';
 import SearchColumn from './SearchColumn';
 import SearchWrapper from './SearchWrapper';
-import SearchHint from './SearchHint';
-import messages from './messages';
+import './style.scss';
+import Wrapper from './Wrapper';
 
 const client = algoliasearch(env.algoliaAppId, env.algoliaApiKey);
 const helper = algoliasearchHelper(client, env.algoliaCategoryIndex, {
@@ -33,7 +28,7 @@ class CategorySearch extends React.PureComponent {
     super(props);
     this.state = {
       currentExampleIndex: 0,
-      typeWriterIsRunning: !isEmpty(props.exampleQuestions),
+      typeWriterIsRunning: false,
       typingDirection: 1,
       showHits: false,
       searchFocused: false,
@@ -49,11 +44,13 @@ class CategorySearch extends React.PureComponent {
     this.onChangeSearchBox = this.onChangeSearchBox.bind(this);
     this.blurredSearch = this.blurredSearch.bind(this);
     this.keyPressed = this.keyPressed.bind(this);
+    this.handleEscape = this.handleEscape.bind(this);
   }
 
   componentDidMount() {
     window.document.addEventListener('click', this.blurredSearch);
     window.document.addEventListener('keypress', this.keyPressed);
+    window.document.addEventListener('keydown', this.handleEscape);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -63,7 +60,6 @@ class CategorySearch extends React.PureComponent {
 
     if (this.props.category || this.props.category.id !== nextProps.category.id) {
       this.setState({
-        ...this.state,
         showHits: false,
         typeWriterIsRunning: false,
         category: nextProps.category.human,
@@ -75,18 +71,18 @@ class CategorySearch extends React.PureComponent {
   componentWillUnmount() {
     window.document.removeEventListener('click', this.blurredSearch);
     window.document.removeEventListener('keypress', this.keyPressed);
+    window.document.removeEventListener('keypress', this.handleEscape);
   }
 
   onChangeSearchBox(text) {
     this.setState({
-      ...this.state,
       showHits: true,
       searchFocused: true,
       category: text || '',
     });
 
     if (this.props.onChange) {
-      this.props.onChange();
+      this.props.onChange(text);
     }
   }
 
@@ -95,7 +91,6 @@ class CategorySearch extends React.PureComponent {
     const category = stripTags(hit.human); // eslint-disable-line no-underscore-dangle
 
     this.setState({
-      ...this.state,
       showHits: false,
       category,
     });
@@ -107,6 +102,16 @@ class CategorySearch extends React.PureComponent {
     return this.state.category || '';
   }
 
+  handleEscape(evt) {
+    if (evt.keyCode === 27) {
+      this.setState({
+        searchFocused: false,
+        showHits: false,
+        category: '',
+      });
+    }
+  }
+
   keyPressed(evt) {
     const inputValue = evt.which;
     // allow letters and whitespaces only.
@@ -116,8 +121,7 @@ class CategorySearch extends React.PureComponent {
     }
 
     this.setState({
-      ...this.state,
-      searchFocused: false,
+      searchFocused: true,
       typeWriterIsRunning: false,
       // category: evt.key,
     });
@@ -128,8 +132,8 @@ class CategorySearch extends React.PureComponent {
   blurredSearch(evt) {
     if (this.area && !this.area.contains(evt.target)) {
       this.setState({
-        ...this.state,
         searchFocused: false,
+        showHits: false,
       });
     }
   }
@@ -137,14 +141,12 @@ class CategorySearch extends React.PureComponent {
   nextTyping() {
     if (this.state.typingDirection === 1) {
       this.setState({
-        ...this.state,
         maxDelay: 40,
         minDelay: 5,
       });
       setTimeout(this.erase, 1000);
     } else {
       this.setState({
-        ...this.state,
         maxDelay: 100,
         minDelay: 50,
       });
@@ -158,7 +160,6 @@ class CategorySearch extends React.PureComponent {
       0;
 
     this.setState({
-      ...this.state,
       typingDirection: 1,
       currentExampleIndex,
     });
@@ -166,7 +167,6 @@ class CategorySearch extends React.PureComponent {
 
   erase() {
     this.setState({
-      ...this.state,
       typingDirection: -1,
     });
   }
@@ -176,7 +176,7 @@ class CategorySearch extends React.PureComponent {
       objectID: 'others',
       id: 'others',
       name: 'others',
-      human: "I can't find what I'm looking for",
+      human: 'I can\'t find what I\'m looking for',
       term: 'Others',
       _highlightResult: {
         term: {
@@ -193,42 +193,20 @@ class CategorySearch extends React.PureComponent {
             <Wrapper
               onClick={() => {
                 this.setState({
-                  ...this.state,
                   typeWriterIsRunning: false,
                 });
               }}
             >
 
               <SearchColumn>
-                {this.state.typeWriterIsRunning && <div>
-
-                  <SearchHint>
-                    <FormattedMessage {...messages.startTyping} />
-                  </SearchHint>
-
-                  <TypeWriter
-                    ref={(ref) => (this.typeWriter = ref)}
-                    maxDelay={this.state.maxDelay}
-                    minDelay={this.state.minDelay}
-                    onTypingEnd={this.nextTyping}
-                    typing={this.state.typingDirection}
-                  >
-                    <TypewriterEffect>
-                      {this.props.exampleQuestions[this.state.currentExampleIndex]}
-                    </TypewriterEffect>
-                  </TypeWriter>
-                </div>}
-
-                {!this.state.typeWriterIsRunning &&
                 <SearchBox
                   id="typewriter"
                   onFocus={() => this.setState({
-                    ...this.state,
                     searchFocused: true,
                   })}
                   value={this.getSearchBoxValue()}
                   onChange={this.onChangeSearchBox}
-                />}
+                />
 
                 {!this.state.typeWriterIsRunning && this.state.showHits && this.state.searchFocused &&
                 <Hits
@@ -239,6 +217,10 @@ class CategorySearch extends React.PureComponent {
                 />}
               </SearchColumn>
 
+              <Hints
+                exampleQuestions={this.props.exampleQuestions}
+                onClickExample={this.onChangeSearchBox}
+              />
 
             </Wrapper>
           </SearchWrapper>
@@ -253,7 +235,7 @@ CategorySearch.propTypes = {
   onChoseCategory: React.PropTypes.func, // eslint-disable-line react/no-unused-prop-types
   onChange: React.PropTypes.func,
   category: React.PropTypes.object,
-  exampleQuestions: React.PropTypes.arrayOf(React.PropTypes.string),
+  exampleQuestions: React.PropTypes.arrayOf(React.PropTypes.node).isRequired,
 };
 
 export default CategorySearch;

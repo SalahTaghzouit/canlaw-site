@@ -10,7 +10,7 @@ import { FormattedMessage } from 'react-intl';
 import { Column, Row } from 'hedron';
 import SectionContent from 'canlaw-components/components/SectionContent';
 import messages from './messages';
-import GrayArea from '../GrayArea';
+import GrayArea from './GrayArea';
 import AreaHeader from '../AreaHeader';
 import NiceBox from '../NiceBox';
 
