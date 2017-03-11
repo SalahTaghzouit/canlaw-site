@@ -1,4 +1,5 @@
 import { createSelector } from 'reselect';
+import get from 'lodash/get';
 
 /**
  * Direct selector to the quoteRequest state domain
@@ -65,7 +66,7 @@ const makeSelectLocation = () => createSelector(
 
 const makeSelectQuestions = () => createSelector(
   selectQuoteRequestDomain(),
-  (quoteRequestDomain) => quoteRequestDomain.category.questions
+  (quoteRequestDomain) => get(quoteRequestDomain, 'category.questions') || [],
 );
 
 /**
