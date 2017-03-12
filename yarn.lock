@@ -1499,9 +1499,9 @@ caniuse-db@^1.0.30000346, caniuse-db@^1.0.30000617, caniuse-db@^1.0.30000618:
   version "1.0.30000620"
   resolved "https://registry.yarnpkg.com/caniuse-db/-/caniuse-db-1.0.30000620.tgz#88b27b951966c5b0d127c4448169b92a1339e453"
 
-"canlaw-components@git+ssh://git@github.com/redgenie/canlaw-react-shared-components.git#1.2.0":
-  version "1.2.0"
-  resolved "git+ssh://git@github.com/redgenie/canlaw-react-shared-components.git#0945d9893fcfb236282a724fd44c0f17a6529ea4"
+"canlaw-components@git+ssh://git@github.com/redgenie/canlaw-react-shared-components.git#1.2.2":
+  version "1.2.2"
+  resolved "git+ssh://git@github.com/redgenie/canlaw-react-shared-components.git#ac631dec07013a8d983c0de96259ee11b162d571"
   dependencies:
     bootstrap-sass "^3.3.7"
     cookie-storage "^2.0.2"
