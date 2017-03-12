@@ -9,18 +9,6 @@ const Wrapper = styled(Row)`
   text-align: left;
   justify-content: center;
   font-weight: 600;
-  
-  // &:before {
-  //   content: "";
-  //   position: absolute;
-  //   width: 50%;
-  //   height: 4px;
-  //   border-radius: 1px;
-  //   bottom: 0px;
-  //   left: 25%;
-  //   background-color: ${(props) => props.theme.searchUnderlineColor};
-  //   transition: all 0.2s ease-in-out 0s;
-  // }
 `;
 
 export default Wrapper;

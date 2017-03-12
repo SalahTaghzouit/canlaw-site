@@ -4,17 +4,21 @@
 import algoliasearch from 'algoliasearch';
 import algoliasearchHelper from 'algoliasearch-helper';
 import env from 'canlaw-components/utils/env';
+import { Column } from 'hedron';
 import React from 'react';
 import { Provider } from 'react-algoliasearch-helper';
 import stripTags from 'striptags';
 import Header from '../../components/Header';
 import Hits from '../Hits';
 import SearchBox from '../SearchBox';
+import Hint from './Hint';
 import Hints from './Hints';
+import I from './I';
 import SearchColumn from './SearchColumn';
 import SearchWrapper from './SearchWrapper';
 import './style.scss';
 import Wrapper from './Wrapper';
+import SearchRow from './SearchRow';
 
 const client = algoliasearch(env.algoliaAppId, env.algoliaApiKey);
 const helper = algoliasearchHelper(client, env.algoliaCategoryIndex, {
@@ -43,13 +47,11 @@ class CategorySearch extends React.PureComponent {
     this.onChoseCategory = this.onChoseCategory.bind(this);
     this.onChangeSearchBox = this.onChangeSearchBox.bind(this);
     this.blurredSearch = this.blurredSearch.bind(this);
-    this.keyPressed = this.keyPressed.bind(this);
     this.handleEscape = this.handleEscape.bind(this);
   }
 
   componentDidMount() {
     window.document.addEventListener('click', this.blurredSearch);
-    window.document.addEventListener('keypress', this.keyPressed);
     window.document.addEventListener('keydown', this.handleEscape);
   }
 
@@ -70,8 +72,7 @@ class CategorySearch extends React.PureComponent {
 
   componentWillUnmount() {
     window.document.removeEventListener('click', this.blurredSearch);
-    window.document.removeEventListener('keypress', this.keyPressed);
-    window.document.removeEventListener('keypress', this.handleEscape);
+    window.document.removeEventListener('keydown', this.handleEscape);
   }
 
   onChangeSearchBox(text) {
@@ -112,23 +113,6 @@ class CategorySearch extends React.PureComponent {
     }
   }
 
-  keyPressed(evt) {
-    const inputValue = evt.which;
-    // allow letters and whitespaces only.
-    if (!(inputValue >= 65 && inputValue <= 120) && (inputValue !== 32 && inputValue !== 0)) {
-      event.preventDefault();
-      return;
-    }
-
-    this.setState({
-      searchFocused: true,
-      typeWriterIsRunning: false,
-      // category: evt.key,
-    });
-
-    window.document.removeEventListener('keypress', this.keyPressed);
-  }
-
   blurredSearch(evt) {
     if (this.area && !this.area.contains(evt.target)) {
       this.setState({
@@ -136,6 +120,10 @@ class CategorySearch extends React.PureComponent {
         showHits: false,
       });
     }
+  }
+
+  shouldShowHits() {
+    return !this.state.typeWriterIsRunning && this.state.showHits && this.state.searchFocused;
   }
 
   nextTyping() {
@@ -199,16 +187,23 @@ class CategorySearch extends React.PureComponent {
             >
 
               <SearchColumn>
-                <SearchBox
-                  id="typewriter"
-                  onFocus={() => this.setState({
-                    searchFocused: true,
-                  })}
-                  value={this.getSearchBoxValue()}
-                  onChange={this.onChangeSearchBox}
-                />
 
-                {!this.state.typeWriterIsRunning && this.state.showHits && this.state.searchFocused &&
+                <SearchRow>
+                  <Column fluid xs={10} md={11}>
+                    <SearchBox
+                      id="typewriter"
+                      onFocus={() => this.setState({
+                        searchFocused: true,
+                      })}
+                      value={this.getSearchBoxValue()}
+                      onChange={this.onChangeSearchBox}
+                    /></Column>
+                  <Column fluid xs={2} md={1}>
+                    <Hint><I className="fa fa-search" /></Hint>
+                  </Column>
+                </SearchRow>
+
+                {this.shouldShowHits() &&
                 <Hits
                   noResults={this.state.category.length < 2}
                   othersCategory={othersCategory}

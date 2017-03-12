@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   background: url(${header}) no-repeat;
   background-size: cover;
   background-position-y: 40%;
+  background-position-x: 40%;
   color: #FFF;
 `;
 
