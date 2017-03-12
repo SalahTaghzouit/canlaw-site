@@ -2,13 +2,13 @@ import styled from 'styled-components';
 
 const Ul = styled.ul`
   position: absolute;
-  top: 75px;
   border-radius: 3px;
-  left: 30%;
   min-width: 50%;
   list-style: none;
   padding: 10px;
   background: #FFF;
+  margin: 0;
+  top: 60px;
   
   ${(props) => props.visible ? `
     visibility: visible; /* shows sub-menu */
