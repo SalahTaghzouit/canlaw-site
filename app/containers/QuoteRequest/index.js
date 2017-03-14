@@ -173,6 +173,7 @@ export class QuoteRequest extends React.PureComponent {
   render() {
     const maps = !this.state.mapsLoaded ?
       [{ // eslint-disable-line indent
+        dataCfasync: 'false',
         src: `https://maps.googleapis.com/maps/api/js?key=${this.props.mapsApiKey}&libraries=places`,
         type: 'text/javascript',
       }] :
