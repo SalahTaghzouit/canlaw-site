@@ -2,14 +2,16 @@
  * Testimonials
  */
 
+import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
 import { Column, Row } from 'hedron';
 import React from 'react';
 import { Parallax } from 'react-parallax';
 import Slider from 'react-slick';
-import 'slick-carousel/slick/slick-theme.css';
-import 'slick-carousel/slick/slick.css';
 import Testimonial from '../Testimonial';
 import A from './A';
+import CustomNextArrow from './CustomNextArrow';
+import CustomPrevArrow from './CustomPrevArrow';
 import bg from './testimonials.jpg';
 
 function Testimonials() {
@@ -19,6 +21,8 @@ function Testimonials() {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
+    prevArrow: <CustomPrevArrow />,
+    nextArrow: <CustomNextArrow />,
   };
 
   return (
