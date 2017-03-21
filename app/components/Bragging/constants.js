@@ -3,4 +3,4 @@
  */
 
 
-export const BRAG_IMG_HEIGHT = 70;
+export const BRAG_IMG_HEIGHT = 60;

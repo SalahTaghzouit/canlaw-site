@@ -28,8 +28,8 @@ function AsFeaturedOn() {
             images={[
               {
                 src: alp,
-                url: 'http://lmgtfy.com/?q=alp',
-                alt: 'ALP',
+                url: 'https://asialawportal.com/2017/03/15/how-legal-startup-canlaw-is-helping-the-malaysian-public-find-lawyers/',
+                alt: 'Asia Law Portal',
               },
             ]}
           />
@@ -40,8 +40,8 @@ function AsFeaturedOn() {
             images={[
               {
                 src: officeparrots,
-                url: 'http://lmgtfy.com/?q=officeparrots',
-                alt: 'officeparrots',
+                url: 'http://www.officeparrots.com/single-post/2016/11/07/CanLaw---A-New-Way-to-Find-Hire-a-Lawyer',
+                alt: 'Office Parrots',
               },
             ]}
           />
@@ -54,8 +54,8 @@ function AsFeaturedOn() {
             images={[
               {
                 src: timeout,
-                url: 'http://lmgtfy.com/?q=timeout',
-                alt: 'timeout',
+                url: 'https://www.timeout.com/kuala-lumpur/things-to-do/best-apps-and-services-to-make-your-life-easier',
+                alt: 'TimeOut Kuala Lumpur',
               },
             ]}
           />
@@ -66,8 +66,8 @@ function AsFeaturedOn() {
             images={[
               {
                 src: tso,
-                url: 'http://lmgtfy.com/?q=thestaronline',
-                alt: 'the star online',
+                url: 'http://www.thestar.com.my/news/nation/2017/03/17/canlaw-hopes-to-make-it-easier-for-clients-to-find-lawyers/',
+                alt: 'The Star Online',
               },
             ]}
           />
