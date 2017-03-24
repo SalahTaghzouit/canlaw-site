@@ -25,7 +25,7 @@ function Awards() {
               images={[
                 {
                   src: 'https://s3-ap-southeast-1.amazonaws.com/warehouse.canlaw.asia/assets/awards/Bac-Logo.jpg',
-                  url: 'http://www.bac.edu.my',
+                  url: 'http://bit.ly/2niU7ks',
                   alt: 'BAC University',
                 },
               ]}
