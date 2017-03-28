@@ -135,6 +135,14 @@ export default function createRoutes(store) {
           .catch(errorLoading);
       },
     }, {
+      path: '/lawyers',
+      name: 'growYourPractice',
+      getComponent(location, cb) {
+        System.import('components/GrowYourPractice')
+          .then(loadModule(cb))
+          .catch(errorLoading);
+      },
+    }, {
       path: '*',
       name: 'notfound',
       getComponent(nextState, cb) {
