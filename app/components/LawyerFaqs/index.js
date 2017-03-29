@@ -15,34 +15,32 @@ import messages from './messages';
 
 function LawyerFaqs() {
   return (
-    <div>
+    <GreyArea>
       <AreaHeader>
         <FormattedMessage {...messages.header} />
       </AreaHeader>
-      <GreyArea>
-        <OtherNiceBox
-          heading={<FormattedMessage {...messages.faqq1} />}
-          content={<FormattedMessage {...messages.faqa1} />}
-        />
-        <OtherNiceBox
-          heading={<FormattedMessage {...messages.faqq2} />}
-          content={<FormattedMessage {...messages.faqa2} />}
-        />
-        <OtherNiceBox
-          heading={<FormattedMessage {...messages.faqq3} />}
-          content={<FormattedMessage {...messages.faqa3} />}
-        />
-        <OtherNiceBox
-          heading={<FormattedMessage {...messages.faqq4} />}
-          content={<FormattedMessage {...messages.faqa4} />}
-        />
-        <OtherNiceBox
-          heading={<FormattedMessage {...messages.faqq5} />}
-          content={<FormattedMessage {...messages.faqa5} />}
-        />
-        <LawyerSignUpButton />
-      </GreyArea>
-    </div>
+      <OtherNiceBox
+        heading={<FormattedMessage {...messages.faqq1} />}
+        content={<FormattedMessage {...messages.faqa1} />}
+      />
+      <OtherNiceBox
+        heading={<FormattedMessage {...messages.faqq2} />}
+        content={<FormattedMessage {...messages.faqa2} />}
+      />
+      <OtherNiceBox
+        heading={<FormattedMessage {...messages.faqq3} />}
+        content={<FormattedMessage {...messages.faqa3} />}
+      />
+      <OtherNiceBox
+        heading={<FormattedMessage {...messages.faqq4} />}
+        content={<FormattedMessage {...messages.faqa4} />}
+      />
+      <OtherNiceBox
+        heading={<FormattedMessage {...messages.faqq5} />}
+        content={<FormattedMessage {...messages.faqa5} />}
+      />
+      <LawyerSignUpButton />
+    </GreyArea>
   );
 }
 
