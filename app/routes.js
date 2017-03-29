@@ -138,7 +138,7 @@ export default function createRoutes(store) {
       path: '/lawyers',
       name: 'growYourPractice',
       getComponent(location, cb) {
-        System.import('components/GrowYourPractice')
+        System.import('containers/GrowYourPractice')
           .then(loadModule(cb))
           .catch(errorLoading);
       },

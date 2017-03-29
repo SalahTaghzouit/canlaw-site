@@ -1,3 +1,9 @@
+import Container from 'canlaw-components/components/Container';
+import Footer from 'canlaw-components/components/Footer';
+import Loader from 'canlaw-components/components/Loader';
+import Navigation from 'canlaw-components/components/Navigation';
+import Theme from 'canlaw-components/components/Theme';
+import { makeSelectIsAuthenticated } from 'canlaw-components/containers/UserProvider/selectors';
 /**
  *
  * App.react.js
@@ -8,14 +14,8 @@
  */
 import React from 'react';
 import Helmet from 'react-helmet';
-import { createStructuredSelector } from 'reselect';
 import { connect } from 'react-redux';
-import Theme from 'canlaw-components/components/Theme';
-import Footer from 'canlaw-components/components/Footer';
-import Loader from 'canlaw-components/components/Loader';
-import Container from 'canlaw-components/components/Container';
-import Navigation from 'canlaw-components/components/Navigation';
-import { makeSelectIsAuthenticated } from 'canlaw-components/containers/UserProvider/selectors';
+import { createStructuredSelector } from 'reselect';
 import NavData from '../../components/NavData';
 import {
   makeSelectAppUrl,
@@ -23,7 +23,6 @@ import {
   makeSelectDashboardUrl,
   makeSelectLoading,
   makeSelectLoginUrl,
-  makeSelectRegisterUrl,
 } from './selectors';
 
 export class App extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -36,7 +35,7 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
           meta={[
             {
               name: 'description',
-              content: "Looking for a lawyer in Malaysia but you don't know where to begin? Are you a lawyer keen on being discovered by new clients? Try #CanLaw!",
+              content: 'Looking for a lawyer in Malaysia but you don\'t know where to begin? Are you a lawyer keen on being discovered by new clients? Try #CanLaw!',
             },
           ]}
         />
@@ -49,7 +48,7 @@ export class App extends React.PureComponent { // eslint-disable-line react/pref
             blogUrl={this.props.blogUrl}
             dashboardUrl={this.props.dashboardUrl}
             loginUrl={this.props.loginUrl}
-            registerUrl={this.props.registerUrl}
+            registerUrl={`${this.props.appUrl}/lawyers`}
           />
         </Navigation>
 
@@ -74,7 +73,6 @@ App.propTypes = {
   blogUrl: React.PropTypes.string,
   dashboardUrl: React.PropTypes.string,
   loginUrl: React.PropTypes.string,
-  registerUrl: React.PropTypes.string,
   isAuthenticated: React.PropTypes.bool.isRequired,
   appUrl: React.PropTypes.string.isRequired,
 };
@@ -84,7 +82,6 @@ const mapStateToProps = createStructuredSelector({
   blogUrl: makeSelectBlogUrl(),
   dashboardUrl: makeSelectDashboardUrl(),
   loginUrl: makeSelectLoginUrl(),
-  registerUrl: makeSelectRegisterUrl(),
   isAuthenticated: makeSelectIsAuthenticated(),
   appUrl: makeSelectAppUrl(),
 });
