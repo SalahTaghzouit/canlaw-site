@@ -4,9 +4,9 @@
  *
  */
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
+import { FormattedMessage, injectIntl } from 'react-intl';
 import A from './A';
-import banner from './assets/banner.png';
+import banner from './banner.jpg';
 import Button from './Button';
 import ContainerDiv from './ContainerDiv';
 import H2 from './H2';
@@ -14,26 +14,29 @@ import Header from './Header';
 import Img from './Img';
 import messages from './messages';
 
-function LawyerBanner() {
+function LawyerBanner({ registerUrl, blogUrl }) {
   return (
     <ContainerDiv>
-      <Img src={banner} alt="banner" />
+      <Img src={banner} alt={this.props.intl.formatMessage(messages.growAlt)} />
       <Header>
         <FormattedMessage {...messages.grow} />
       </Header>
-      <Button href={'https://auth.canlaw.asia/register?role=lawyer'}>
+      <Button href={registerUrl}>
         SIGN UP AS A LAWYER
       </Button>
       <H2>
         <FormattedMessage {...messages.nocharge} />
       </H2>
-      <A href={'https://canlaw.asia/blog/pressing-questions-canlaw/'}>
+      <A href={`${blogUrl}/pressing-questions-canlaw/`}>
         <FormattedMessage {...messages.readmore} />
       </A>
     </ContainerDiv>
   );
 }
 
-LawyerBanner.propTypes = {};
+LawyerBanner.propTypes = {
+  registerUrl: React.PropTypes.string.isRequired,
+  blogUrl: React.PropTypes.string.isRequired,
+};
 
-export default LawyerBanner;
+export default injectIntl(LawyerBanner);

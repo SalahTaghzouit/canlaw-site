@@ -14,6 +14,10 @@ export default defineMessages({
     id: 'canlaw.site.components.LawyerBanner.grow',
     defaultMessage: 'Grow Your Law Practice. Expand Your Network.',
   },
+  growAlt: {
+    id: 'canlaw.site.components.LawyerBanner.grow',
+    defaultMessage: 'Grow your business with Canlaw',
+  },
   nocharge: {
     id: 'canlaw.site.components.LawyerBanner.nocharge',
     defaultMessage: 'No charge. No commission. No fee-splitting. No touting.',
