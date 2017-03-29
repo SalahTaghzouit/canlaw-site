@@ -84,7 +84,7 @@ function templateContent() {
 
   body.append(generateGa(env.gaCode));
 
-  body.append('<script type="text/javascript">$crisp=[];(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.im/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>');
+  body.append(`<script type="text/javascript">$crisp=[];CRISP_WEBSITE_ID="${env.crispWebsiteId}";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.im/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>`);
 
   return doc.toString();
 }
