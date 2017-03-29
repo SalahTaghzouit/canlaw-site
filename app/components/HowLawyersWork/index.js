@@ -10,11 +10,11 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import AreaHeader from '../AreaHeader';
 import NiceBox from '../NiceBox';
+import A from './A';
 import GrayArea from './GrayArea';
 import messages from './messages';
-import A from './A';
 
-function HowLawyersWork() {
+function HowLawyersWork({ registerUrl }) {
   return (
     <GrayArea>
       <SectionContent>
@@ -26,7 +26,7 @@ function HowLawyersWork() {
             <NiceBox
               type="list"
               heading={<FormattedMessage {...messages.signup} />}
-              content={<div><A href={'https://auth.canlaw.asia/register?role=lawyer'}>
+              content={<div><A href={`${registerUrl}`}>
                 <FormattedMessage {...messages.clickhere} />
               </A>
                 <FormattedMessage {...messages.signuphere} /></div>}
@@ -54,6 +54,8 @@ function HowLawyersWork() {
   );
 }
 
-HowLawyersWork.propTypes = {};
+HowLawyersWork.propTypes = {
+  registerUrl: React.PropTypes.string.isRequired,
+};
 
 export default HowLawyersWork;

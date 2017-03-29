@@ -12,7 +12,6 @@ const Button = styled(BaseButton)`
   padding: 10px 15px;
   border: none;
   height: auto;
-  width: 25%;
   border-radius: 3px;
     
   &:hover {
