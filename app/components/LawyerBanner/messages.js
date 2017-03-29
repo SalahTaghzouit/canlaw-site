@@ -26,4 +26,8 @@ export default defineMessages({
     id: 'canlaw.site.components.LawyerBanner.readmore',
     defaultMessage: 'Find Out More',
   },
+  signUpLawyer: {
+    id: 'canlaw.site.components.LawyerBanner.signUpLawyer',
+    defaultMessage: 'Sign up as a lawyer',
+  },
 });

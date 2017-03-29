@@ -22,7 +22,7 @@ function LawyerBanner({ registerUrl, blogUrl }) {
         <FormattedMessage {...messages.grow} />
       </Header>
       <Button href={registerUrl}>
-        SIGN UP AS A LAWYER
+        <FormattedMessage {...messages.signUpLawyer} />
       </Button>
       <H2>
         <FormattedMessage {...messages.nocharge} />

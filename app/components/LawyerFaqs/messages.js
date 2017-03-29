@@ -50,4 +50,8 @@ export default defineMessages({
     id: 'canlaw.site.components.LawyerFaqs.faqa5',
     defaultMessage: 'Through our 40+ customized forms, we try to provide you with sufficient information to give reasonably accurate quotations. Nevertheless, users are informed in the process that fees quoted may vary depending on discovery of new facts and that the fees are only indicative and not binding.',
   },
+  signUpLawyer: {
+    id: 'canlaw.site.components.LawyerBanner.signUpLawyer',
+    defaultMessage: 'Sign up as a lawyer',
+  },
 });
