@@ -6,6 +6,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 import HowLawyersWork from '../../components/HowLawyersWork';
 import LawyerBanner from '../../components/LawyerBanner';
 import LaywerFaqs from '../../components/LawyerFaqs';
@@ -31,7 +32,7 @@ GrowYourPractice.propTypes = {
   registerUrl: React.PropTypes.string.isRequired,
 };
 
-const mapStateToProps = () => ({
+const mapStateToProps = () => createStructuredSelector({
   blogUrl: makeSelectBlogUrl(),
   registerUrl: makeSelectRegisterUrl(),
 });
