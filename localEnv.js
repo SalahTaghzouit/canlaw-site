@@ -33,5 +33,6 @@ module.exports = {
   googleMapsApiKey: process.env.GOOGLE_MAPS_API_KEY,
   crispWebsiteId: process.env.CRISP_WEBSITE_ID,
   gaCode: process.env.GA_CODE,
+  fbCode: process.env.FB_PIXEL_CODE,
   gaInvestorCode: process.env.GA_INVESTOR_CODE,
 };
