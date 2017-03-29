@@ -14,10 +14,10 @@ import Header from './Header';
 import Img from './Img';
 import messages from './messages';
 
-function LawyerBanner({ registerUrl, blogUrl }) {
+function LawyerBanner({ registerUrl, blogUrl, intl }) {
   return (
     <ContainerDiv>
-      <Img src={banner} alt={this.props.intl.formatMessage(messages.growAlt)} />
+      <Img src={banner} alt={intl.formatMessage(messages.growAlt)} />
       <Header>
         <FormattedMessage {...messages.grow} />
       </Header>
@@ -37,6 +37,7 @@ function LawyerBanner({ registerUrl, blogUrl }) {
 LawyerBanner.propTypes = {
   registerUrl: React.PropTypes.string.isRequired,
   blogUrl: React.PropTypes.string.isRequired,
+  intl: React.PropTypes.object.isRequired,
 };
 
 export default injectIntl(LawyerBanner);
