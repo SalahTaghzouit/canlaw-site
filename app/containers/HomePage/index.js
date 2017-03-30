@@ -6,6 +6,7 @@ import smoothScroll from 'canlaw-components/utils/smoothscroll';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
+import AsFeaturedOn from '../../components/AsFeaturedOn';
 import Awards from '../../components/Awards';
 import CategorySearchHeader from '../../components/CategorySearchHeader';
 import HowItWorks from '../../components/HowItWorks';
@@ -53,7 +54,7 @@ class HomePage extends React.PureComponent {
           <Testimonials />
 
           <Awards />
-
+          <AsFeaturedOn />
           <Button onClick={this.scrollToSearch}>
             <FormattedMessage {...messages.start} />
           </Button>
