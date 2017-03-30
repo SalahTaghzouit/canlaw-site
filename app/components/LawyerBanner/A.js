@@ -3,11 +3,12 @@
  */
 
 import styled from 'styled-components';
-import BaseButton from 'canlaw-components/components/Button';
+import BaseA from 'canlaw-components/components/A';
 
 
-const A = styled(BaseButton)`
-  background: ${(props) => props.theme.accent};
+const A = styled(BaseA)`
+  display: inline-block; 
+  margin-top: 30px;
   border: none;
   height: auto;
   border-radius: 3px;

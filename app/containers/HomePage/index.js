@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import AsFeaturedOn from '../../components/AsFeaturedOn';
 import Awards from '../../components/Awards';
 import CategorySearchHeader from '../../components/CategorySearchHeader';
+import GrayArea from '../../components/GrayArea';
 import HowItWorks from '../../components/HowItWorks';
 import Reasons from '../../components/Reasons';
 import Testimonials from '../../components/Testimonials';
@@ -47,17 +48,19 @@ class HomePage extends React.PureComponent {
 
           <HowItWorks />
 
-          {/* <ThreeCharacteristics />*/}
-
           <Reasons />
 
           <Testimonials />
 
           <Awards />
+
           <AsFeaturedOn />
-          <Button onClick={this.scrollToSearch}>
-            <FormattedMessage {...messages.start} />
-          </Button>
+
+          <GrayArea>
+            <Button onClick={this.scrollToSearch}>
+              <FormattedMessage {...messages.start} />
+            </Button>
+          </GrayArea>
 
         </Container>
       </div>
