@@ -1,11 +1,12 @@
 import styled from 'styled-components';
 import BaseButton from 'canlaw-components/components/Button';
 
-const Button = styled(BaseButton)`
+
+const CTA = styled(BaseButton)`
   background: ${(props) => props.theme.accent};
-  font-size: 18px;
+  font-size: 1.3em;
   font-weight: 400;
-  padding: 10px 15px;
+  padding: 7px 13px;
   border: none;
   height: auto;
   border-radius: 3px;
@@ -15,4 +16,4 @@ const Button = styled(BaseButton)`
   }
 `;
 
-export default Button;
+export default CTA;
