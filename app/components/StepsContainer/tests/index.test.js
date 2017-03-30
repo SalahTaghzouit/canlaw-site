@@ -1,9 +1,9 @@
 // import React from 'react';
 // import { shallow } from 'enzyme';
 
-// import LawyerSignUpButton from '../index';
+// import StepsContainer from '../index';
 
-describe('<LawyerSignUpButton />', () => {
+describe('<StepsContainer />', () => {
   it('Expect to have unit tests specified', () => {
     expect(true).toEqual(false);
   });

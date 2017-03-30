@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 import HowLawyersWork from '../../components/HowLawyersWork';
 import LawyerBanner from '../../components/LawyerBanner';
-import LaywerFaqs from '../../components/LawyerFaqs';
+import LawyerFaqs from '../../components/LawyerFaqs';
 import { makeSelectBlogUrl, makeSelectRegisterUrl } from '../App/selectors';
 
 class GrowYourPractice extends React.PureComponent {  // eslint-disable-line react/prefer-stateless-function
@@ -20,8 +20,12 @@ class GrowYourPractice extends React.PureComponent {  // eslint-disable-line rea
           blogUrl={this.props.blogUrl}
           registerUrl={this.props.registerUrl}
         />
-        <HowLawyersWork />
-        <LaywerFaqs />
+        <HowLawyersWork
+          registerUrl={this.props.registerUrl}
+        />
+        <LawyerFaqs
+          registerUrl={this.props.registerUrl}
+        />
       </div>
     );
   }
