@@ -78,6 +78,7 @@ module.exports = (options) => ({
       'process.env': {
         NODE_ENV: JSON.stringify(env.nodeEnv),
       },
+      'window.CRISP_WEBSITE_ID': JSON.stringify(`${env.crispWebsiteId}`),
       // react environment variables
       'window.env': {
         appUrl: JSON.stringify(`${env.appUrl}`),

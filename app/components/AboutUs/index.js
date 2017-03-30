@@ -2,24 +2,21 @@
  * AboutUs
  */
 
-import Container from 'canlaw-components/components/Container';
 import React from 'react';
-import CoreValues from '../CoreValues';
-import Introduction from '../Introduction';
-import MeetTheTeam from '../MeetTheTeam';
-import MissionAndVision from '../MissionAndVision';
-import Gphoto from './group_photo2.jpg';
-import Img from './Img';
+import Container from 'canlaw-components/components/Container';
+import TheUglyImage from '../TheUglyImage';
 
 function AboutUs() {
   return (
     <div>
       <Container>
-        <Img src={Gphoto} alt="CanLaw group photo" />
-        <MissionAndVision />
-        <Introduction />
-        <MeetTheTeam />
-        <CoreValues />
+        <TheUglyImage />
+
+        {/* <MeetTheTeam />*/}
+
+        {/* <MissionAndVision />*/}
+
+        {/* <CoreValues />*/}
       </Container>
     </div>
   );
