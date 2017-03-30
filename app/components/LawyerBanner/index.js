@@ -6,31 +6,31 @@
 import React from 'react';
 import { FormattedMessage, injectIntl } from 'react-intl';
 import A from './A';
-import banner from './banner.jpg';
 import Button from './Button';
 import ContainerDiv from './ContainerDiv';
 import H2 from './H2';
 import Header from './Header';
-import Img from './Img';
 import messages from './messages';
+import Div from './Div';
 
 function LawyerBanner({ registerUrl, blogUrl, intl }) {
   return (
-    <ContainerDiv>
-      <Img src={banner} alt={intl.formatMessage(messages.growAlt)} />
-      <Header>
-        <FormattedMessage {...messages.grow} />
-      </Header>
-      <Button href={registerUrl}>
-        <FormattedMessage {...messages.signUpLawyer} />
-      </Button>
+    <Div>
+      <ContainerDiv alt={intl.formatMessage(messages.growAlt)}>
+        <Header>
+          <FormattedMessage {...messages.grow} />
+        </Header>
+        <Button href={registerUrl}>
+          <FormattedMessage {...messages.signUpLawyer} />
+        </Button>
+      </ContainerDiv>
       <H2>
         <FormattedMessage {...messages.nocharge} />
       </H2>
       <A href={`${blogUrl}/pressing-questions-canlaw/`}>
         <FormattedMessage {...messages.readmore} />
       </A>
-    </ContainerDiv>
+    </Div>
   );
 }
 
