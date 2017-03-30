@@ -9,6 +9,7 @@ const Button = styled(BaseButton)`
   border: none;
   height: auto;
   border-radius: 3px;
+  margin-bottom: 30px;
   
   &:hover {
     background: ${(props) => props.theme.accentLighter};
