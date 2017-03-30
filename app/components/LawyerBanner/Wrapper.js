@@ -3,8 +3,8 @@
  */
 import styled from 'styled-components';
 
-const ContainerDiv = styled.div`
-    margin-bottom: 2%
+const Wrapper = styled.div`
+  padding-bottom: 20px;
 `;
 
-export default ContainerDiv;
+export default Wrapper;

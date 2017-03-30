@@ -1,22 +1,18 @@
 import styled from 'styled-components';
 import BaseButton from 'canlaw-components/components/Button';
 
-const Button = styled(BaseButton)`
-  position: absolute;
-  top: 52%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+const CTA = styled(BaseButton)`
   background: ${(props) => props.theme.accent};
-  font-size: 18px;
+  font-size: 1.3em;
   font-weight: 400;
-  padding: 10px 15px;
+  padding: 7px 13px;
   border: none;
   height: auto;
   border-radius: 3px;
-    
+  
   &:hover {
     background: ${(props) => props.theme.accentLighter};
   }
 `;
 
-export default Button;
+export default CTA;
