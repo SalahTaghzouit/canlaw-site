@@ -35,7 +35,6 @@ Bragging.propTypes = {
     React.PropTypes.shape({
       src: React.PropTypes.string.isRequired,
       url: React.PropTypes.string.isRequired,
-      alt: React.PropTypes.string.isRequired,
     }).isRequired,
   ).isRequired,
   title: React.PropTypes.node.isRequired,
