@@ -7,10 +7,6 @@ const Header = styled(AreaHeader)`
   font-weight: bold;
   font-size: 36px;
   color: white;
-  position: absolute;
-  top: 30%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 `;
 
 export default Header;
