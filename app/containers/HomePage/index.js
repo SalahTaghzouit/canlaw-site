@@ -12,6 +12,7 @@ import CategorySearchHeader from '../../components/CategorySearchHeader';
 import HowItWorks from '../../components/HowItWorks';
 import Reasons from '../../components/Reasons';
 import Testimonials from '../../components/Testimonials';
+import GrayArea from '../../components/GrayArea';
 import { startQuoteRequest } from './actions';
 import Button from './Button';
 import messages from './messages';
@@ -54,10 +55,14 @@ class HomePage extends React.PureComponent {
           <Testimonials />
 
           <Awards />
+
           <AsFeaturedOn />
-          <Button onClick={this.scrollToSearch}>
-            <FormattedMessage {...messages.start} />
-          </Button>
+
+          <GrayArea>
+            <Button onClick={this.scrollToSearch}>
+              <FormattedMessage {...messages.start} />
+            </Button>
+          </GrayArea>
 
         </Container>
       </div>
