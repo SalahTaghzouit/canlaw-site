@@ -1501,6 +1501,7 @@ caniuse-db@^1.0.30000346, caniuse-db@^1.0.30000617, caniuse-db@^1.0.30000618:
 
 "canlaw-components@git+ssh://git@github.com/redgenie/canlaw-react-shared-components.git#1.2.3":
   version "1.2.3"
+  resolved "git+ssh://git@github.com/redgenie/canlaw-react-shared-components.git#567d8137fdfcd44d413f6fcb1c48b9dcd5a8b91c"
   dependencies:
     bootstrap-sass "^3.3.7"
     cookie-storage "^2.0.2"
