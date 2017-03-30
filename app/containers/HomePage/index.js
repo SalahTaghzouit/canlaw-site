@@ -9,10 +9,10 @@ import { connect } from 'react-redux';
 import AsFeaturedOn from '../../components/AsFeaturedOn';
 import Awards from '../../components/Awards';
 import CategorySearchHeader from '../../components/CategorySearchHeader';
+import GrayArea from '../../components/GrayArea';
 import HowItWorks from '../../components/HowItWorks';
 import Reasons from '../../components/Reasons';
 import Testimonials from '../../components/Testimonials';
-import GrayArea from '../../components/GrayArea';
 import { startQuoteRequest } from './actions';
 import Button from './Button';
 import messages from './messages';
@@ -47,8 +47,6 @@ class HomePage extends React.PureComponent {
         <Container>
 
           <HowItWorks />
-
-          {/* <ThreeCharacteristics />*/}
 
           <Reasons />
 
