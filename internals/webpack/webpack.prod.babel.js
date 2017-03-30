@@ -83,8 +83,8 @@ function templateContent() {
   const body = doc.find('body');
 
   body.append(generateGa(env.gaCode));
-
-  body.append('<script type="text/javascript">$crisp=[];(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.im/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>');
+  body.append(generateFBa(env.fbCode));
+  body.append(generateCrisp(env.crispWebsiteId));
 
   return doc.toString();
 }
@@ -92,4 +92,12 @@ function templateContent() {
 function generateGa(code) {
   return `<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
     ga('create', '${code}', 'auto'); ga('send', 'pageview');</script>`;
+}
+
+function generateFBa(code) {
+  return `<script>window.fbAsyncInit = function() {FB.init({appId : '${code}',xfbml : true,version : 'v2.8'});FB.AppEvents.logPageView();};(function(d, s, id){var js, fjs = d.getElementsByTagName(s)[0];if (d.getElementById(id)) {return;}js = d.createElement(s); js.id = id;js.src = "//connect.facebook.net/en_US/sdk.js";fjs.parentNode.insertBefore(js, fjs);}(document, 'script', 'facebook-jssdk'));</script>`;
+}
+
+function generateCrisp(code) {
+  return `<script type="text/javascript">$crisp=[];CRISP_WEBSITE_ID="${code}";(function(){d=document;s=d.createElement("script");s.src="https://client.crisp.im/l.js";s.async=1;d.getElementsByTagName("head")[0].appendChild(s);})();</script>`;
 }

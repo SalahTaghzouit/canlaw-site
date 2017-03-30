@@ -18,9 +18,22 @@ function Awards() {
         <AreaHeader>
           <FormattedMessage {...messages.header} />
         </AreaHeader>
-
         <Row>
-          <Column md={4}>
+          <Column md={12}>
+            <Bragging
+              title={<FormattedMessage {...messages.bac} />}
+              images={[
+                {
+                  src: 'https://s3-ap-southeast-1.amazonaws.com/warehouse.canlaw.asia/assets/awards/Bac-Logo.jpg',
+                  url: 'http://bit.ly/2niU7ks',
+                  alt: 'BAC University',
+                },
+              ]}
+            />
+          </Column>
+        </Row>
+        <Row>
+          <Column md={6}>
             <Bragging
               title={<FormattedMessage {...messages.cradle} />}
               images={[
@@ -32,7 +45,7 @@ function Awards() {
               ]}
             />
           </Column>
-          <Column md={4}>
+          <Column md={6}>
             <Bragging
               title={<FormattedMessage {...messages.maxis} />}
               images={[
@@ -44,7 +57,9 @@ function Awards() {
               ]}
             />
           </Column>
-          <Column md={4}>
+        </Row>
+        <Row>
+          <Column md={12}>
             <Bragging
               title={<FormattedMessage {...messages.nbos} />}
               images={[
@@ -66,42 +81,6 @@ function Awards() {
                   src: 'https://s3-ap-southeast-1.amazonaws.com/warehouse.canlaw.asia/assets/awards/BrainChild-Logo.jpg',
                   url: 'http://codearmy.com/project-brainchild',
                   alt: 'BrainChild',
-                },
-                {
-                  src: 'https://s3-ap-southeast-1.amazonaws.com/warehouse.canlaw.asia/assets/awards/CodeArmy-Logo.jpg',
-                  url: 'http://codearmy.com',
-                  alt: 'CodeArmy',
-                },
-                {
-                  src: 'https://s3-ap-southeast-1.amazonaws.com/warehouse.canlaw.asia/assets/awards/Lean-Logo.jpg',
-                  url: 'https://www.leanstartupmachine.com',
-                  alt: 'Lean Startup Machine',
-                },
-              ]}
-            />
-          </Column>
-        </Row>
-        <Row>
-          <Column md={6}>
-            <Bragging
-              title={<FormattedMessage {...messages.knowledge} />}
-              images={[
-                {
-                  src: 'https://s3-ap-southeast-1.amazonaws.com/warehouse.canlaw.asia/assets/awards/BioMed-Logo.jpg',
-                  url: 'http://biomedkl.wixsite.com/home',
-                  alt: 'BioMed KL',
-                },
-              ]}
-            />
-          </Column>
-          <Column md={6}>
-            <Bragging
-              title={<FormattedMessage {...messages.bac} />}
-              images={[
-                {
-                  src: 'https://s3-ap-southeast-1.amazonaws.com/warehouse.canlaw.asia/assets/awards/Bac-Logo.jpg',
-                  url: 'http://www.bac.edu.my',
-                  alt: 'BAC University',
                 },
               ]}
             />
