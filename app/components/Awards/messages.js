@@ -8,23 +8,23 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   header: {
     id: 'canlaw.site.components.Awards.header',
-    defaultMessage: 'OUR JOURNEY SO FAR',
+    defaultMessage: 'Can we brag a bit?',
   },
   cradle: {
     id: 'canlaw.site.components.Awards.cradle',
-    defaultMessage: "Cradle's CIP Catalyst grant recipient (Nov 2016)",
+    defaultMessage: "Cradle's CIP Catalyst grant recipient",
   },
   maxis: {
     id: 'canlaw.site.components.Awards.maxis',
-    defaultMessage: 'Winner of Maxis Inspire Challenge (Nov 2016)',
+    defaultMessage: 'Winner of Maxis Inspire Challenge 2016',
   },
   nbos: {
     id: 'canlaw.site.components.Awards.nbos',
-    defaultMessage: 'Finalist of NBOS Competition (For-profit) (Oct 2016)',
+    defaultMessage: 'Finalist of NBOS Competition (For-profit) 2016',
   },
   kazanah: {
     id: 'canlaw.site.components.Awards.kazanah',
-    defaultMessage: 'A Khazanah project Brainchild Startup (May 2016)',
+    defaultMessage: 'A Khazanah project Brainchild Startup',
   },
   knowledge: {
     id: 'canlaw.site.components.Awards.knowledge',
@@ -32,6 +32,6 @@ export default defineMessages({
   },
   bac: {
     id: 'canlaw.site.components.Awards.bac',
-    defaultMessage: 'A BAC Affiliate Company (Jan 2017)',
+    defaultMessage: 'BAC Affiliate Company',
   },
 });

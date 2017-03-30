@@ -5,7 +5,6 @@
  */
 
 import { Column, Row } from 'hedron';
-import LazyLoad from 'react-lazyload';
 import React from 'react';
 import Img from './Img';
 import P from './P';
@@ -14,7 +13,6 @@ import What from './What';
 import Who from './Who';
 import Wrapper from './Wrapper';
 import WhoWrapper from './WhoWrapper';
-import { HEAD_IMG_HEIGHT } from './constants';
 
 function Testimonial({ who, head, says, what }) {
   return (
@@ -26,9 +24,7 @@ function Testimonial({ who, head, says, what }) {
       </Row>
 
       <WhoWrapper>
-        <LazyLoad height={HEAD_IMG_HEIGHT} offset={100}>
-          <Img alt={who} src={head} />
-        </LazyLoad>
+        <Img alt={who} src={head} />
         <P>
           <Who>{who}</Who>
           <br />
