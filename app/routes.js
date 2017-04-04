@@ -127,14 +127,6 @@ export default function createRoutes(store) {
           .catch(errorLoading);
       },
     }, {
-      path: '/about-us',
-      name: 'aboutUs',
-      getComponent(location, cb) {
-        System.import('components/AboutUs')
-          .then(loadModule(cb))
-          .catch(errorLoading);
-      },
-    }, {
       path: '/lawyers',
       name: 'growYourPractice',
       getComponent(location, cb) {

@@ -15,8 +15,6 @@ import Jofan from './assets/jofan.jpg';
 import Mamta from './assets/mamta.jpg';
 import Pauline from './assets/pauline.jpg';
 import SoonYi from './assets/soonyi.jpg';
-import Ashlyn from './assets/ashlyn.jpg';
-import Joanne from './assets/joanne.jpg';
 import GrayArea from './GrayArea';
 import Img from './Img';
 import messages from './messages';
@@ -69,20 +67,10 @@ function MeetTheTeam() {
         </Column>
       </Row>
       <Row alignItems="middle">
-        <Column md="4">
+        <Column mdShift="4" md="4">
           <Img src={Pauline} alt="Pauline" />
           <p>Pauline Ting<br />
             Chief Storyteller</p>
-        </Column>
-        <Column md="4">
-          <Img src={Ashlyn} alt="Ashlyn" />
-          <p>Ashlyn<br />
-            Chief Everything Officer</p>
-        </Column>
-        <Column md="4">
-          <Img src={Joanne} alt="Joanne" />
-          <p>Joanne<br />
-            Engine-er</p>
         </Column>
       </Row>
     </GrayArea>

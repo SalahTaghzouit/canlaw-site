@@ -22,4 +22,8 @@ export default defineMessages({
     id: 'canlaw.site.components.NavData.login',
     defaultMessage: 'Login',
   },
+  aboutUs: {
+    id: 'canlaw.site.components.NavData.aboutUs',
+    defaultMessage: 'Meet the team',
+  },
 });
