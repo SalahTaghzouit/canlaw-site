@@ -177,6 +177,9 @@
     ]
   },
   "jest": {
+    "transformIgnorePatterns": [
+      "node_modules/(?!canlaw-components)/"
+    ],
     "collectCoverageFrom": [
       "app/**/*.{js,jsx}",
       "!app/**/*.test.{js,jsx}",
