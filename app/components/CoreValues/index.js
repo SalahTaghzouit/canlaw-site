@@ -7,7 +7,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import AreaHeader from '../AreaHeader';
-import OtherNiceBox from '../OtherNiceBox';
+import StepsContainer from '../StepsContainer';
 import messages from './messages';
 import PaddedDiv from './PaddedDiv';
 
@@ -17,43 +17,35 @@ function CoreValues() {
       <AreaHeader>
         <FormattedMessage {...messages.header} />
       </AreaHeader>
-      <OtherNiceBox
-        type="ship"
+      <StepsContainer
         heading={<FormattedMessage {...messages.ship} />}
         content={<FormattedMessage {...messages.problems} />}
       />
-      <OtherNiceBox
-        type="book"
+      <StepsContainer
         heading={<FormattedMessage {...messages.knowledge} />}
         content={<FormattedMessage {...messages.passion} />}
       />
-      <OtherNiceBox
-        type="smile-o"
+      <StepsContainer
         heading={<FormattedMessage {...messages.smile} />}
         content={<FormattedMessage {...messages.benice} />}
       />
-      <OtherNiceBox
-        type="pencil"
+      <StepsContainer
         heading={<FormattedMessage {...messages.pencil} />}
         content={<FormattedMessage {...messages.moon} />}
       />
-      <OtherNiceBox
-        type="life-ring"
+      <StepsContainer
         heading={<FormattedMessage {...messages.life} />}
         content={<FormattedMessage {...messages.team} />}
       />
-      <OtherNiceBox
-        type="car"
+      <StepsContainer
         heading={<FormattedMessage {...messages.tesla} />}
         content={<FormattedMessage {...messages.proactivity} />}
       />
-      <OtherNiceBox
-        type="superpowers"
+      <StepsContainer
         heading={<FormattedMessage {...messages.transparency} />}
         content={<FormattedMessage {...messages.trust} />}
       />
-      <OtherNiceBox
-        type="gavel"
+      <StepsContainer
         heading={<FormattedMessage {...messages.champion} />}
         content={<FormattedMessage {...messages.justice} />}
       />
