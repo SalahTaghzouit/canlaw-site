@@ -1,13 +1,14 @@
 /**
  * NavData contains the navigation menu items
  */
-import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import NavItem from 'canlaw-components/components/Navigation/NavItem';
-import LogoutButton from 'canlaw-components/containers/LogoutButton';
-import Navbar from 'react-bootstrap/lib/Navbar';
 import A from 'canlaw-components/components/Navigation/A';
 import Nav from 'canlaw-components/components/Navigation/Nav';
+import NavItem from 'canlaw-components/components/Navigation/NavItem';
+import LogoutButton from 'canlaw-components/containers/LogoutButton';
+import React from 'react';
+import Navbar from 'react-bootstrap/lib/Navbar';
+import { FormattedMessage } from 'react-intl';
+import LinkContainer from 'react-router-bootstrap/lib/LinkContainer';
 import messages from './messages';
 
 function NavData({ blogUrl, dashboardUrl, loginUrl, registerUrl, isAuthenticated }) {
@@ -44,6 +45,14 @@ function NavData({ blogUrl, dashboardUrl, loginUrl, registerUrl, isAuthenticated
         >
           <FormattedMessage {...messages.community} />
         </NavItem>
+        <LinkContainer to="/about">
+          <NavItem
+            componentClass={A}
+            eventKey={333}
+          >
+            <FormattedMessage {...messages.aboutUs} />
+          </NavItem>
+        </LinkContainer>
       </Nav>
       <Nav className="navbar-nav" pullRight>
         {isAuthenticated &&
