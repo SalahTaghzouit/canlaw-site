@@ -15,6 +15,7 @@ import Jofan from './assets/jofan.jpg';
 import Mamta from './assets/mamta.jpg';
 import Pauline from './assets/pauline.jpg';
 import SoonYi from './assets/soonyi.jpg';
+import Julius from './assets/julius.jpg';
 import GrayArea from './GrayArea';
 import Img from './Img';
 import messages from './messages';
@@ -67,10 +68,15 @@ function MeetTheTeam() {
         </Column>
       </Row>
       <Row alignItems="middle">
-        <Column mdShift="4" md="4">
+        <Column mdShift="2" md="4">
           <Img src={Pauline} alt="Pauline" />
           <p>Pauline Ting<br />
             Chief Storyteller</p>
+        </Column>
+        <Column md="4">
+          <Img src={Julius} alt="Julius" />
+          <p>Julius Ting<br />
+            Tech Voodoo Jr.</p>
         </Column>
       </Row>
     </GrayArea>
