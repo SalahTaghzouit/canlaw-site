@@ -6,7 +6,6 @@ import {
   PUSH_ERROR,
 } from './constants';
 
-
 export function loadQuestionsTranslations(questions) {
   return {
     type: LOAD_QUESTIONS_TRANSLATIONS,
