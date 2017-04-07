@@ -114,11 +114,9 @@ function Lawyer() {
             <Li>
               <strong>Not a referral service and no profit sharing</strong>
               : CanLaw is not a lawyer referral service. CanLaw does not share profit
-              or split legal fees with the participating lawyers. CanLaw charges the
-              participating lawyers a fixed subscription fee in exchange for use of
-              the Services. This fee is separate and distinct from all legal fees.
-              The user is responsible for paying legal fees to the participating
-              lawyer for the services provided.
+              or split legal fees with the participating lawyers. The user is
+              responsible for paying legal fees to the participating lawyer for the
+              services provided.
             </Li>
             <Li>
               <strong>No guarantee of availability of participating lawyer</strong>
@@ -204,87 +202,6 @@ function Lawyer() {
               investigation. You release and hold us harmless from any and all claims
               and causes of action arising out of or resulting from any unauthorised
               use of your account.
-            </Li>
-          </Ol>
-        </Li>
-        <Li>
-          <strong>SUBSCRIPTION </strong>
-          <Ol>
-            <Li>
-              <strong>Optional subscription plans</strong>
-              : CanLaw offers several optional subscription plans for participating
-              lawyers. By selecting a subscription plan, you agree to pay CanLaw the
-              subscription fees indicated for that plan.
-            </Li>
-            <Li>
-              <strong>Subscription start date</strong>
-              : Your subscription plan starts on the date on which you submit
-              payment. The monthly subscription plan&apos;s cycle is one month in
-              duration, and will automatically be renewed every month without prior
-              notice to you. If you subscribe to a yearly plan, your plan will
-              automatically be renewed every year without prior notice to you.
-              Payments for subscription plan will be charged on the day your
-              subscription plan goes into effect and will cover the use of that plan
-              for the period indicated. For example, if your monthly subscription
-              plan starts on January 15, your subscription plan will automatically be
-              renewed on February 15. Thereafter, you agree that monthly/yearly
-              payments will continue to be charged on a recurring basis until you
-              cancel or downgrade your subscription plan. The amount of the
-              monthly/yearly recurring charge will be the then-current subscription
-              fee applicable to the subscription plan you selected.
-            </Li>
-            <Li>
-              <strong>Your acknowledgment</strong>
-              : You acknowledge that:
-            </Li>
-            <Li>
-              the amount of the recurring charge may increase if the applicable
-              subscription fee increases; and
-            </Li>
-            <Li>
-              subscription fees are not pro-rated or refundable, unless you provide
-              credible evidence to us to prove that you have been wrongly billed or
-              such other circumstances on a &quot;case to case&quot; basis as we may decide in
-              our sole discretion.
-            </Li>
-            <Li>
-              <strong>Promotional offers or discounts:</strong>
-              We may make promotional offers or discounts with different features and
-              different rates to our participating lawyers from time to time in our
-              sole discretion and you agree that such promotional offers or
-              discounts, unless also made available to you, shall have no bearing on
-              your use of the Services or the monthly/yearly subscription fee applied
-              to you.
-            </Li>
-            <Li>
-              <strong>Payment method fails or account is past due</strong>
-              : If your payment method fails or your account is past due, CanLaw
-              reserves the right to either suspend or terminate your subscription
-              plan. Any such suspension or termination will result in the
-              cancellation of any promotional programs applicable to your
-              subscription plan.
-            </Li>
-            <Li>
-              <strong>Subscription plan downgrade and upgrade:</strong>
-              You may downgrade or upgrade your subscription plan at any time:
-            </Li>
-            <Li>
-              if you downgrade your subscription plan, your subscription will end on
-              the last day of your current billing cycle and will not be renewed.
-              Following any downgrade, you will still continue to have access to the
-              Services until the end of your current billing cycle;
-            </Li>
-            <Li>
-              to reactivate your subscription plan, you will just need to upgrade
-              your subscription plan. Your new subscription plan will start
-              immediately and you will be charged accordingly.
-            </Li>
-            <Li>
-              <strong>Dispute regarding payment</strong>
-              : You agree to submit any disputes regarding any charge to your account
-              in writing to CanLaw within sixty (60) days of such charge, otherwise
-              such dispute will be waived and such charge will be final and not
-              subject to challenge.
             </Li>
           </Ol>
         </Li>
@@ -623,8 +540,7 @@ function Lawyer() {
               independent contractors, service providers and consultants, for any
               claim arising out of or relating in any manner to the access and/or use
               (or inability to access and/or use) of the Platforms and/or Services,
-              is limited to RM100 (if you are a monthly paid subscriber) or RM1,000
-              (if you are a yearly paid subscriber).
+              is limited to RM100.
             </Li>
           </Ol>
         </Li>

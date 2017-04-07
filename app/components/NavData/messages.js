@@ -16,7 +16,7 @@ export default defineMessages({
   },
   openAccount: {
     id: 'canlaw.site.components.NavData.openAccount',
-    defaultMessage: 'Lawyer Sign Up',
+    defaultMessage: 'I am a Lawyer!',
   },
   login: {
     id: 'canlaw.site.components.NavData.login',
