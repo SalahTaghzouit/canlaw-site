@@ -112,9 +112,7 @@ function User() {
             <Li>
               <strong>Not a referral service and no profit sharing</strong>
               : CanLaw is not a lawyer referral service. CanLaw does not share profit
-              or split legal fees with the participating lawyers. CanLaw charges the
-              participating lawyers a fixed subscription fee in exchange for use of
-              the Services. This fee is separate and distinct from all legal fees.
+              or split legal fees with the participating lawyers.
               You are responsible for paying legal fees to the participating lawyer
               for the services provided.
             </Li>
