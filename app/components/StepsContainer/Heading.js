@@ -10,7 +10,7 @@ const Heading = styled.h2`
   margin: 0;
   text-transform: uppercase;
   font-weight: 700;
-  text-align: left;
+  text-align: center;
   margin-top: 0;
 `;
 

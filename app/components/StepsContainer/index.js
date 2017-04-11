@@ -4,16 +4,18 @@
  *
  */
 
-import React from 'react';
 import { Row } from 'hedron';
-import Heading from './Heading';
-import Wrapper from './Wrapper';
+import React from 'react';
 import Content from './Content';
+import Heading from './Heading';
+import I from './I';
+import Wrapper from './Wrapper';
 
-function StepsContainer({ heading, content }) {
+function StepsContainer({ heading, content, type }) {
   return (
     <Wrapper>
       <Row justifyContent="center">
+        <I className={`fa fa-${type}`} />
         <Heading>{heading}</Heading>
         <Content>
           {content}
@@ -24,6 +26,7 @@ function StepsContainer({ heading, content }) {
 }
 
 StepsContainer.propTypes = {
+  type: React.PropTypes.string.isRequired,
   heading: React.PropTypes.oneOfType([
     React.PropTypes.string.isRequired,
     React.PropTypes.node.isRequired,
