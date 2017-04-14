@@ -12,7 +12,7 @@ export default defineMessages({
   },
   ship: {
     id: 'canlaw.site.components.CoreValues.message',
-    defaultMessage: '1. It’s Our Ship',
+    defaultMessage: 'It’s Our Ship',
   },
   problems: {
     id: 'canlaw.site.components.CoreValues.core',
@@ -20,7 +20,7 @@ export default defineMessages({
   },
   knowledge: {
     id: 'canlaw.site.components.CoreValues.knowledge',
-    defaultMessage: '2. Hunger For Knowledge',
+    defaultMessage: 'Hunger For Knowledge',
   },
   passion: {
     id: 'canlaw.site.components.CoreValues.passion',
@@ -28,7 +28,7 @@ export default defineMessages({
   },
   smile: {
     id: 'canlaw.site.components.CoreValues.smile',
-    defaultMessage: '3. Be Nice',
+    defaultMessage: 'Be Nice',
   },
   benice: {
     id: 'canlaw.site.components.CoreValues.benice',
@@ -36,7 +36,7 @@ export default defineMessages({
   },
   pencil: {
     id: 'canlaw.site.components.CoreValues.pencil',
-    defaultMessage: '4. Use A Pencil, Comrade!',
+    defaultMessage: 'Use A Pencil, Comrade!',
   },
   moon: {
     id: 'canlaw.site.components.CoreValues.moon',
@@ -44,7 +44,7 @@ export default defineMessages({
   },
   life: {
     id: 'canlaw.site.components.CoreValues.life',
-    defaultMessage: '5. Swim, Aladin, Swim!',
+    defaultMessage: 'Swim, Aladin, Swim!',
   },
   team: {
     id: 'canlaw.site.components.CoreValues.team',
@@ -52,7 +52,7 @@ export default defineMessages({
   },
   tesla: {
     id: 'canlaw.site.components.CoreValues.tesla',
-    defaultMessage: '6. Tesla, Baby!',
+    defaultMessage: 'Tesla, Baby!',
   },
   proactivity: {
     id: 'canlaw.site.components.CoreValues.proactivity',
@@ -60,7 +60,7 @@ export default defineMessages({
   },
   transparency: {
     id: 'canlaw.site.components.CoreValues.transparency',
-    defaultMessage: '7. Fuzzy Is The New Transparency',
+    defaultMessage: 'Fuzzy Is The New Transparency',
   },
   trust: {
     id: 'canlaw.site.components.CoreValues.trust',
@@ -68,7 +68,7 @@ export default defineMessages({
   },
   champion: {
     id: 'canlaw.site.components.CoreValues.champion',
-    defaultMessage: '8. Champion The Cause',
+    defaultMessage: 'Champion The Cause',
   },
   justice: {
     id: 'canlaw.site.components.CoreValues.justice',

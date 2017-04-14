@@ -1,6 +1,6 @@
 /**
  *
- * StepsContainer
+ * FaqsContainer
  *
  */
 
@@ -8,14 +8,12 @@ import { Row } from 'hedron';
 import React from 'react';
 import Content from './Content';
 import Heading from './Heading';
-import I from './I';
 import Wrapper from './Wrapper';
 
-function StepsContainer({ heading, content, type }) {
+function FaqsContainer({ heading, content }) {
   return (
     <Wrapper>
       <Row justifyContent="center">
-        <I className={`fa fa-${type}`} />
         <Heading>{heading}</Heading>
         <Content>
           {content}
@@ -25,8 +23,7 @@ function StepsContainer({ heading, content, type }) {
   );
 }
 
-StepsContainer.propTypes = {
-  type: React.PropTypes.string.isRequired,
+FaqsContainer.propTypes = {
   heading: React.PropTypes.oneOfType([
     React.PropTypes.string.isRequired,
     React.PropTypes.node.isRequired,
@@ -37,4 +34,4 @@ StepsContainer.propTypes = {
   ]).isRequired,
 };
 
-export default StepsContainer;
+export default FaqsContainer;
