@@ -7,7 +7,7 @@
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import AreaHeader from '../AreaHeader';
-import StepsContainer from '../StepsContainer';
+import FaqsContainer from '../FaqsContainer';
 import WhiteArea from '../WhiteArea';
 import Button from './Button';
 import messages from './messages';
@@ -20,23 +20,23 @@ function LawyerFaqs({ registerUrl }) {
         <AreaHeader>
           <FormattedMessage {...messages.header} />
         </AreaHeader>
-        <StepsContainer
+        <FaqsContainer
           heading={<FormattedMessage {...messages.faqq1} />}
           content={<FormattedMessage {...messages.faqa1} />}
         />
-        <StepsContainer
+        <FaqsContainer
           heading={<FormattedMessage {...messages.faqq2} />}
           content={<FormattedMessage {...messages.faqa2} />}
         />
-        <StepsContainer
+        <FaqsContainer
           heading={<FormattedMessage {...messages.faqq3} />}
           content={<FormattedMessage {...messages.faqa3} />}
         />
-        <StepsContainer
+        <FaqsContainer
           heading={<FormattedMessage {...messages.faqq4} />}
           content={<FormattedMessage {...messages.faqa4} />}
         />
-        <StepsContainer
+        <FaqsContainer
           heading={<FormattedMessage {...messages.faqq5} />}
           content={<FormattedMessage {...messages.faqa5} />}
         />

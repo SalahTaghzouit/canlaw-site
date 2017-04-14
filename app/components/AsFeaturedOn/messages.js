@@ -11,19 +11,19 @@ export default defineMessages({
     defaultMessage: 'As Featured On',
   },
   alp: {
-    id: 'canlaw.site.components.AsFeaturedOn.header',
+    id: 'canlaw.site.components.AsFeaturedOn.alp',
     defaultMessage: 'ALP',
   },
   timeout: {
-    id: 'canlaw.site.components.AsFeaturedOn.header',
+    id: 'canlaw.site.components.AsFeaturedOn.timeout',
     defaultMessage: 'Timeout',
   },
   officeparrots: {
-    id: 'canlaw.site.components.AsFeaturedOn.header',
+    id: 'canlaw.site.components.AsFeaturedOn.officeparrots',
     defaultMessage: 'Office Parrots',
   },
   tso: {
-    id: 'canlaw.site.components.AsFeaturedOn.header',
+    id: 'canlaw.site.components.AsFeaturedOn.tso',
     defaultMessage: 'The Star Online',
   },
 });
