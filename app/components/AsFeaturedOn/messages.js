@@ -26,4 +26,8 @@ export default defineMessages({
     id: 'canlaw.site.components.AsFeaturedOn.tso',
     defaultMessage: 'The Star Online',
   },
+  vulcan: {
+    id: 'canlaw.site.components.AsFeaturedOn.vulcan',
+    defaultMessage: 'Vulcan Post',
+  },
 });

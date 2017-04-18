@@ -12,6 +12,7 @@ import alp from './assets/alp.png';
 import officeparrots from './assets/officeparrots.png';
 import timeout from './assets/timeoutkl.png';
 import tso from './assets/tso.png';
+import vulcan from './assets/vulcan.jpg';
 import BragginContainer from './BragginContainer';
 import WhiteArea from '../WhiteArea';
 import messages from './messages';
@@ -60,6 +61,16 @@ function AsFeaturedOn() {
               src: tso,
               url: 'http://www.thestar.com.my/news/nation/2017/03/17/canlaw-hopes-to-make-it-easier-for-clients-to-find-lawyers/',
               alt: 'The Star Online',
+            },
+          ]}
+        />
+        <Bragging
+          title={<FormattedMessage {...messages.vulcan} />}
+          images={[
+            {
+              src: vulcan,
+              url: 'https://vulcanpost.com/608350/canlaw-lawyer-search-malaysia-legal-startup/',
+              alt: 'Vulcan Post',
             },
           ]}
         />
