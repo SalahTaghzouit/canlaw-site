@@ -48,7 +48,9 @@ class HomePage extends React.PureComponent {
 
           <HowItWorks />
 
-          <Reasons />
+          <Reasons
+            onClickFindLawyer={this.scrollToSearch}
+          />
 
           <Testimonials />
 
@@ -70,6 +72,7 @@ class HomePage extends React.PureComponent {
 
 HomePage.propTypes = {
   onClick: React.PropTypes.func,
+
 };
 
 const mapDispatchToProps = (dispatch) => ({
