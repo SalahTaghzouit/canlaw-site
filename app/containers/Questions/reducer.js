@@ -15,7 +15,6 @@ import {
   PUSH_ERROR,
 } from './constants';
 
-
 // The initial state of the App
 const initialState = {
   areQuestionsTranslated: false,
@@ -39,9 +38,7 @@ function homeReducer(state = initialState, action) {
         ...state,
         errors: {
           ...state.errors,
-          [action.name]: Array.isArray(state.errors[action.name]) ?
-            [...state.errors[action.name], action.error] :
-            [action.error],
+          [action.name]: Array.isArray(state.errors[action.name]) ? [...state.errors[action.name], action.error] : [action.error],
         },
       };
     }
@@ -64,6 +61,11 @@ function homeReducer(state = initialState, action) {
         areQuestionsTranslated: false,
         areQuestionsBeingTranslated: true,
         questions: ((questions) => {
+          console.log(questions);
+          if (!Array.isArray(questions)) {
+            throw new Error('Questions is not an array');
+          }
+
           const all = {};
           questions.forEach((question) => {
             all[question] = question;

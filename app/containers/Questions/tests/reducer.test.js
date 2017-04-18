@@ -66,11 +66,8 @@ describe('requestsReducer', () => {
   });
 
   it('LOAD_QUESTIONS_TRANSLATIONS should set areQuestionsTranslated: false, areQuestionsBeingTranslated: true and all', () => {
-    const questions = {
-      question: [{
-        question: 'hello',
-      }],
-    };
+    const questions = ['Hello world', 'Hello two'];
+
     const action = {
       type: LOAD_QUESTIONS_TRANSLATIONS,
       questions,
@@ -79,16 +76,17 @@ describe('requestsReducer', () => {
       ...initialState,
       areQuestionsTranslated: false,
       areQuestionsBeingTranslated: true,
+      questions: {
+        'Hello two': 'Hello two',
+        'Hello world': 'Hello world',
+      },
     };
     expect(homeReducer(initialState, action)).toEqual(expectedState);
   });
 
   it('LOADED_QUESTIONS_TRANSLATIONS should set areQuestionsTranslated: true, areQuestionsBeingTranslated: false', () => {
-    const questions = {
-      question: [{
-        question: 'hello',
-      }],
-    };
+    const questions = ['Hello world', 'Hello two'];
+
     const action = {
       type: LOADED_QUESTIONS_TRANSLATIONS,
       questions,
