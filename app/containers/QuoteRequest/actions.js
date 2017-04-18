@@ -3,16 +3,15 @@
  * QuoteRequest actions
  *
  */
-import { LOGOUT } from 'canlaw-components/containers/UserProvider/constants';
 import {
-  SET_CATEGORY,
-  SET_ANSWER,
-  FETCH_CATEGORY,
-  CLEAR_ANSWERS,
   CACHE_CATEGORY,
   CATEGORY_NOT_FETCHED,
-  SEND_QUOTE_REQUEST,
+  CLEAR_ANSWERS,
+  FETCH_CATEGORY,
   QUOTE_REQUEST_NOT_SAVED,
+  SEND_QUOTE_REQUEST,
+  SET_ANSWER,
+  SET_CATEGORY,
   SET_LOCATION,
 } from './constants';
 
@@ -118,15 +117,6 @@ export function quoteRequestNotSaved(reason) {
     reason,
   };
 }
-
-export function logout(reason, soft) {
-  return {
-    type: LOGOUT,
-    reason,
-    soft,
-  };
-}
-
 
 export function setLocation(location) {
   return {
