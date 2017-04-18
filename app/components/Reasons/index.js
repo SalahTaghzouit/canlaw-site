@@ -2,17 +2,22 @@
  * Reasons
  */
 
+import SectionContent from 'canlaw-components/components/SectionContent';
+import { Column, Row } from 'hedron';
 import React from 'react';
 import { FormattedMessage } from 'react-intl';
-import { Column, Row } from 'hedron';
-import SectionContent from 'canlaw-components/components/SectionContent';
-import WhiteArea from '../WhiteArea';
-import messages from './messages';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
+import { makeSelectAppUrl } from '../../containers/App/selectors';
 import AreaHeader from '../AreaHeader';
 import OtherNiceBox from '../OtherNiceBox';
+import WhiteArea from '../WhiteArea';
+import Button from './Button';
 import Heading from './Heading';
+import messages from './messages';
 
-function Reasons() {
+function Reasons({ registerUrl, onClickFindLawyer }) {
+  const lawyerUrl = `${registerUrl}/lawyers`;
   return (
     <WhiteArea>
       <SectionContent>
@@ -49,6 +54,11 @@ function Reasons() {
                   content={<FormattedMessage {...messages.messageExplain} />}
                 />
               </Column>
+              <Column fluid>
+                <Button onClick={onClickFindLawyer}>
+                  <FormattedMessage {...messages.findLawyerNow} />
+                </Button>
+              </Column>
             </Row>
           </Column>
 
@@ -81,6 +91,11 @@ function Reasons() {
                   content={<FormattedMessage {...messages.growExplain} />}
                 />
               </Column>
+              <Column fluid>
+                <Button href={lawyerUrl}>
+                  <FormattedMessage {...messages.signUpLawyer} />
+                </Button>
+              </Column>
             </Row>
           </Column>
         </Row>
@@ -89,6 +104,12 @@ function Reasons() {
   );
 }
 
-Reasons.propTypes = {};
+Reasons.propTypes = {
+  registerUrl: React.PropTypes.string.isRequired,
+  onClickFindLawyer: React.PropTypes.func.isRequired,
+};
+const mapStateToProps = () => createStructuredSelector({
+  registerUrl: makeSelectAppUrl(),
+});
 
-export default Reasons;
+export default connect(mapStateToProps)(Reasons);
