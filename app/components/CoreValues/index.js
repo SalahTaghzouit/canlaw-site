@@ -19,21 +19,21 @@ function CoreValues() {
         <FormattedMessage {...messages.header} />
       </AreaHeader>
       <Row alignItems="middle">
-        <Column md="4">
+        <Column md={4}>
           <StepsContainer
             type={'ship'}
             heading={<FormattedMessage {...messages.ship} />}
             content={<FormattedMessage {...messages.problems} />}
           />
         </Column>
-        <Column md="4">
+        <Column md={4}>
           <StepsContainer
             type={'book'}
             heading={<FormattedMessage {...messages.knowledge} />}
             content={<FormattedMessage {...messages.passion} />}
           />
         </Column>
-        <Column md="4">
+        <Column md={4}>
           <StepsContainer
             type={'smile-o'}
             heading={<FormattedMessage {...messages.smile} />}
@@ -42,21 +42,21 @@ function CoreValues() {
         </Column>
       </Row>
       <Row alignItems="middle">
-        <Column md="4">
+        <Column md={4}>
           <StepsContainer
             type={'pencil'}
             heading={<FormattedMessage {...messages.pencil} />}
             content={<FormattedMessage {...messages.moon} />}
           />
         </Column>
-        <Column md="4">
+        <Column md={4}>
           <StepsContainer
             type={'life-ring'}
             heading={<FormattedMessage {...messages.life} />}
             content={<FormattedMessage {...messages.team} />}
           />
         </Column>
-        <Column md="4">
+        <Column md={4}>
           <StepsContainer
             type={'car'}
             heading={<FormattedMessage {...messages.tesla} />}
@@ -65,14 +65,14 @@ function CoreValues() {
         </Column>
       </Row>
       <Row alignItems="middle">
-        <Column mdShift="2" md="4">
+        <Column mdShift={2} md={4}>
           <StepsContainer
             type={'superpowers'}
             heading={<FormattedMessage {...messages.transparency} />}
             content={<FormattedMessage {...messages.trust} />}
           />
         </Column>
-        <Column md="4">
+        <Column md={4}>
           <StepsContainer
             type={'gavel'}
             heading={<FormattedMessage {...messages.champion} />}
