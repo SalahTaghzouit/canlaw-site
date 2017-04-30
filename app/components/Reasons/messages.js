@@ -66,4 +66,12 @@ export default defineMessages({
     id: 'canlaw.site.components.Reasons.growExplain',
     defaultMessage: 'Be accessible to new client segments.',
   },
+  signUpLawyer: {
+    id: 'canlaw.site.components.Reasons.signUpLawyer',
+    defaultMessage: 'Sign up as a lawyer',
+  },
+  findLawyerNow: {
+    id: 'canlaw.site.components.Reasons.findLawyerNow',
+    defaultMessage: 'Find a lawyer now',
+  },
 });
